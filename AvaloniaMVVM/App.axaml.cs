@@ -24,23 +24,24 @@ public partial class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         var services = new ServiceCollection();
-        
+      
         // Add services
         services.AddSingleton<ConfigService>();
         services.AddSingleton<MainNavigationService>();
         services.AddSingleton<SourceNavigationService>();
         services.AddSingleton<SourceManagementService>();
-        
+
         // Add VMs
         services.AddSingleton<MainVm>();
         services.AddSingleton<StatusBarVm>();
         services.AddSingleton<AboutVm>();
         services.AddSingleton<AppSettingsVm>();
         services.AddSingleton<DashboardVm>();
-        
+
         services.AddSingleton<SourceConfiguratorVm>();
-        services.AddSingleton<DashboardDesignerVm>();
+        services.AddSingleton<RequestConfiguratorVm>();
         services.AddSingleton<DataDashboardVm>();
+        services.AddSingleton<DashboardDesignerVm>();
         
         var provider = services.BuildServiceProvider();
         

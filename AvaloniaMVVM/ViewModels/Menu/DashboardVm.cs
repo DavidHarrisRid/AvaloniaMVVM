@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using AvaloniaMVVM.Models;
 using AvaloniaMVVM.Services;
+using AvaloniaMVVM.ViewModels.Menu.SourceContent;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -14,6 +15,14 @@ public partial class DashboardVm : BaseVm
 
     public SourceNavigationService SourceNavigationService { get; }
 
+    public SourceConfiguratorVm SourceConfiguratorVm { get; }
+
+    public bool IsRequestWorkspaceVisible => !IsSourceEditorOpen;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsRequestWorkspaceVisible))]
+    private bool _isSourceEditorOpen;
+
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(Requests))]
     [NotifyCanExecuteChangedFor(nameof(CreateRequestCommand))]
@@ -26,16 +35,21 @@ public partial class DashboardVm : BaseVm
 
     public DashboardVm(
         SourceManagementService sourceManagementService,
-        SourceNavigationService sourceNavigationService)
+        SourceNavigationService sourceNavigationService,
+        SourceConfiguratorVm sourceConfiguratorVm)
     {
         _sourceManagementService = sourceManagementService;
         SourceNavigationService = sourceNavigationService;
+        SourceConfiguratorVm = sourceConfiguratorVm;
     }
 
     [RelayCommand]
     private void CreateSource()
     {
         SelectedSource = _sourceManagementService.CreateSource();
+        SelectedRequest = null;
+
+        OpenSourceEditor();
     }
 
     [RelayCommand(CanExecute = nameof(CanCreateRequest))]
@@ -47,6 +61,8 @@ public partial class DashboardVm : BaseVm
         }
 
         SelectedRequest = _sourceManagementService.CreateRequest(SelectedSource);
+
+        OpenRequestWorkspace(SourceNavigationPosition.RequestConfigurator);
     }
 
     private bool CanCreateRequest()
@@ -55,22 +71,90 @@ public partial class DashboardVm : BaseVm
     }
 
     [RelayCommand]
-    private void SelectSource(ApiSourceModel source)
+    private void EditSource(ApiSourceModel source)
     {
         SelectedSource = source;
         SelectedRequest = null;
+
+        OpenSourceEditor();
     }
 
     [RelayCommand]
-    private void SelectRequest(ApiRequestModel request)
+    private void DeleteSource(ApiSourceModel source)
+    {
+        var wasSelectedSource = SelectedSource == source;
+
+        _sourceManagementService.DeleteSource(source);
+
+        if (!wasSelectedSource)
+        {
+            return;
+        }
+
+        SelectedSource = null;
+        SelectedRequest = null;
+
+        if (Sources.Count > 0)
+        {
+            SelectedSource = Sources[0];
+            OpenSourceEditor();
+        }
+        else
+        {
+            OpenSourceEditor();
+        }
+    }
+
+    [RelayCommand]
+    private void EditRequest(ApiRequestModel request)
     {
         SelectedRequest = request;
-        SourceNavigationService.Navigate(SourceNavigationPosition.Configurator);
+
+        OpenRequestWorkspace(SourceNavigationPosition.RequestConfigurator);
+    }
+
+    [RelayCommand]
+    private void DeleteRequest(ApiRequestModel request)
+    {
+        if (SelectedSource is null)
+        {
+            return;
+        }
+
+        var wasSelectedRequest = SelectedRequest == request;
+
+        _sourceManagementService.DeleteRequest(SelectedSource, request);
+
+        if (wasSelectedRequest)
+        {
+            SelectedRequest = null;
+        }
     }
 
     [RelayCommand]
     private void NavigateSourceContent(SourceNavigationPosition position)
     {
+        OpenRequestWorkspace(position);
+    }
+
+    partial void OnSelectedRequestChanged(ApiRequestModel? value)
+    {
+        if (value is null)
+        {
+            return;
+        }
+
+        OpenRequestWorkspace(SourceNavigationPosition.RequestConfigurator);
+    }
+
+    private void OpenSourceEditor()
+    {
+        IsSourceEditorOpen = true;
+    }
+
+    private void OpenRequestWorkspace(SourceNavigationPosition position)
+    {
+        IsSourceEditorOpen = false;
         SourceNavigationService.Navigate(position);
     }
 }

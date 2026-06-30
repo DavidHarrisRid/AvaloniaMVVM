@@ -1,6 +1,6 @@
 ﻿namespace AvaloniaMVVM.ViewModels.Menu.SourceContent;
 
-public class RequestConfiguratorVM
+public class RequestConfiguratorVm : BaseVm
 {
     
 }

@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:AvaloniaMVVM.ViewModels.Menu"
              mc:Ignorable="d"
+             x:Name="Root"
              x:DataType="vm:DashboardVm"
              d:DesignWidth="1200"
              d:DesignHeight="700"
@@ -20,7 +21,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- LEVEL 1 + LEVEL 2: full-height source/request navigation -->
+        <!-- LEVEL 1 + LEVEL 2: source/request navigation -->
         <Border Grid.Column="0"
                 Background="{StaticResource SidebarBackgroundBrush}"
                 Padding="12">
@@ -63,7 +64,6 @@
                                     <Grid ColumnDefinitions="*,Auto"
                                           Margin="0,2">
 
-                                        <!-- No command here. The ListBox SelectedItem does the selection. -->
                                         <TextBlock Grid.Column="0"
                                                    Text="{Binding Name}"
                                                    VerticalAlignment="Center"
@@ -72,7 +72,21 @@
                                         <Button Grid.Column="1"
                                                 Content="⋯"
                                                 Width="32"
-                                                Margin="6,0,0,0"/>
+                                                Margin="6,0,0,0">
+
+                                            <Button.Flyout>
+                                                <MenuFlyout>
+                                                    <MenuItem Header="Edit"
+                                                              Command="{ReflectionBinding DataContext.EditSourceCommand, ElementName=Root}"
+                                                              CommandParameter="{Binding}"/>
+
+                                                    <MenuItem Header="Delete"
+                                                              Command="{ReflectionBinding DataContext.DeleteSourceCommand, ElementName=Root}"
+                                                              CommandParameter="{Binding}"/>
+                                                </MenuFlyout>
+                                            </Button.Flyout>
+
+                                        </Button>
 
                                     </Grid>
                                 </DataTemplate>
@@ -114,13 +128,34 @@
 
                             <ListBox.ItemTemplate>
                                 <DataTemplate x:DataType="models:ApiRequestModel">
+                                    <Grid ColumnDefinitions="*,Auto"
+                                          Margin="0,2">
 
-                                    <!-- No command here. The ListBox SelectedItem does the selection. -->
-                                    <TextBlock Text="{Binding Name}"
-                                               VerticalAlignment="Center"
-                                               Padding="8"
-                                               Margin="0,2"/>
+                                        <TextBlock Grid.Column="0"
+                                                   Text="{Binding Name}"
+                                                   VerticalAlignment="Center"
+                                                   Padding="8"/>
 
+                                        <Button Grid.Column="1"
+                                                Content="⋯"
+                                                Width="32"
+                                                Margin="6,0,0,0">
+
+                                            <Button.Flyout>
+                                                <MenuFlyout>
+                                                    <MenuItem Header="Open"
+                                                              Command="{ReflectionBinding DataContext.EditRequestCommand, ElementName=Root}"
+                                                              CommandParameter="{Binding}"/>
+
+                                                    <MenuItem Header="Delete"
+                                                              Command="{ReflectionBinding DataContext.DeleteRequestCommand, ElementName=Root}"
+                                                              CommandParameter="{Binding}"/>
+                                                </MenuFlyout>
+                                            </Button.Flyout>
+
+                                        </Button>
+
+                                    </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
@@ -131,40 +166,52 @@
             </Grid>
         </Border>
 
-        <!-- LEVEL 3: main dynamic source content -->
-        <Grid Grid.Column="1"
-              RowDefinitions="Auto,*">
+        <!-- LEVEL 3: main content area -->
+        <Grid Grid.Column="1">
 
-            <!-- Top tabs -->
-            <Border Grid.Row="0"
-                    Background="{StaticResource SidebarBackgroundBrush}"
-                    Padding="8">
+            <!-- SOURCE EDITOR MODE -->
+            <Border Padding="16"
+                    IsVisible="{Binding IsSourceEditorOpen}">
 
-                <StackPanel Orientation="Horizontal"
-                            Spacing="8">
-
-                    <Button Content="Config Request"
-                            Command="{Binding NavigateSourceContentCommand}"
-                            CommandParameter="{x:Static models:SourceNavigationPosition.Configurator}"/>
-
-                    <Button Content="Data Dashboard"
-                            Command="{Binding NavigateSourceContentCommand}"
-                            CommandParameter="{x:Static models:SourceNavigationPosition.Dashboard}"/>
-
-                    <Button Content="Dashboard Designer"
-                            Command="{Binding NavigateSourceContentCommand}"
-                            CommandParameter="{x:Static models:SourceNavigationPosition.Designer}"/>
-
-                </StackPanel>
-            </Border>
-
-            <!-- Dynamic content from SourceNavigationService -->
-            <Border Grid.Row="1"
-                    Padding="16">
-
-                <ContentControl Content="{Binding SourceNavigationService.CurrentViewModel}"/>
+                <ContentControl Content="{Binding SourceConfiguratorVm}"/>
 
             </Border>
+
+            <!-- REQUEST WORKSPACE MODE -->
+            <Grid RowDefinitions="Auto,*"
+                  IsVisible="{Binding IsRequestWorkspaceVisible}">
+
+                <!-- Request workspace tabs -->
+                <Border Grid.Row="0"
+                        Background="{StaticResource SidebarBackgroundBrush}"
+                        Padding="8">
+
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="8">
+
+                        <Button Content="Request Config"
+                                Command="{Binding NavigateSourceContentCommand}"
+                                CommandParameter="{x:Static models:SourceNavigationPosition.RequestConfigurator}"/>
+
+                        <Button Content="Data Dashboard"
+                                Command="{Binding NavigateSourceContentCommand}"
+                                CommandParameter="{x:Static models:SourceNavigationPosition.DataDashboard}"/>
+
+                        <Button Content="Dashboard Designer"
+                                Command="{Binding NavigateSourceContentCommand}"
+                                CommandParameter="{x:Static models:SourceNavigationPosition.DashboardDesigner}"/>
+
+                    </StackPanel>
+                </Border>
+
+                <!-- Dynamic request workspace content -->
+                <Border Grid.Row="1"
+                        Padding="16">
+
+                    <ContentControl Content="{Binding SourceNavigationService.CurrentViewModel}"/>
+
+                </Border>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

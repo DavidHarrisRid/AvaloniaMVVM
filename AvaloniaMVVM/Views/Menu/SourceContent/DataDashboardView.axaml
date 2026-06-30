@@ -10,6 +10,7 @@
                    FontSize="24"
                    FontWeight="Bold"/>
 
-        <TextBlock Text="Later this view will show data from the selected request."/>
+        <TextBlock Text="Here we will display data for the selected request."/>
     </StackPanel>
+    
 </UserControl>

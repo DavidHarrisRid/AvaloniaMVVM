@@ -25,6 +25,11 @@ public class SourceManagementService
         return source;
     }
 
+    public void DeleteSource(ApiSourceModel source)
+    {
+        ApiSources.Remove(source);
+    }
+
     public ApiRequestModel CreateRequest(ApiSourceModel source)
     {
         var request = new ApiRequestModel
@@ -40,5 +45,10 @@ public class SourceManagementService
         source.ApiRequests.Add(request);
 
         return request;
+    }
+
+    public void DeleteRequest(ApiSourceModel source, ApiRequestModel request)
+    {
+        source.ApiRequests.Remove(request);
     }
 }
