@@ -29,6 +29,7 @@ public partial class App : Application
         services.AddSingleton<ConfigService>();
         services.AddSingleton<MainNavigationService>();
         services.AddSingleton<SourceNavigationService>();
+        services.AddSingleton<SourceManagementService>();
         
         // Add VMs
         services.AddSingleton<MainVm>();
@@ -37,9 +38,9 @@ public partial class App : Application
         services.AddSingleton<AppSettingsVm>();
         services.AddSingleton<DashboardVm>();
         
+        services.AddSingleton<SourceConfiguratorVm>();
         services.AddSingleton<DashboardDesignerVm>();
         services.AddSingleton<DataDashboardVm>();
-        services.AddSingleton<DashboardVm>();
         
         var provider = services.BuildServiceProvider();
         

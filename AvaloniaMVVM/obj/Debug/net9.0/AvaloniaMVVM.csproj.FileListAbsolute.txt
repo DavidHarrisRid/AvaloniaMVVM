@@ -76,3 +76,4 @@ C:\Users\drid\Desktop\Modul 02\Abgaben\PoC_Projekte\AvaloniaMVVM\AvaloniaMVVM\bi
 C:\Users\drid\Desktop\Modul 02\Abgaben\PoC_Projekte\AvaloniaMVVM\AvaloniaMVVM\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\drid\Desktop\Modul 02\Abgaben\PoC_Projekte\AvaloniaMVVM\AvaloniaMVVM\bin\Debug\net9.0\Material.Icons.dll
 C:\Users\drid\Desktop\Modul 02\Abgaben\PoC_Projekte\AvaloniaMVVM\AvaloniaMVVM\bin\Debug\net9.0\Material.Icons.Avalonia.dll
+C:\Users\drid\Desktop\Modul 02\Abgaben\PoC_Projekte\AvaloniaMVVM\AvaloniaMVVM\obj\Debug\net9.0\AvaloniaMVVM.sourcelink.json

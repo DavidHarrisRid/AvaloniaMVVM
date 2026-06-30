@@ -4,11 +4,11 @@ namespace AvaloniaMVVM.Models;
 
 public class JsonEntryModel
 {
-    public int? JsonEntryId { get; private set; }
-    public int? ApiRequest { get; private set; }
-    public DateTime? FetchedAt { get; private set; }
-    public int? StatusCode { get; private set; }
-    public bool? IsSuccess { get; private set; }
-    public string? RawResponse { get; private set; }
-    public string? ErrorMessage { get; private set; }
+    public int? JsonEntryId { get; set; }
+    public int? ApiRequest { get; set; }
+    public DateTime? FetchedAt { get; set; }
+    public int? StatusCode { get; set; }
+    public bool? IsSuccess { get; set; }
+    public string? RawResponse { get; set; }
+    public string? ErrorMessage { get; set; }
 }

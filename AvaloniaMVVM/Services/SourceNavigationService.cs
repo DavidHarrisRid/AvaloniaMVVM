@@ -16,12 +16,15 @@ public partial class SourceNavigationService : ObservableObject
     private readonly DataDashboardVm _dataDashboardVm;
     private readonly DashboardDesignerVm _dashboardDesignerVm;
 
-    public SourceNavigationService(SourceConfiguratorVm sourceConfiguratorVm, DataDashboardVm dataDashboardVm, DashboardDesignerVm dashboardDesignerVm, object currentViewModel)
+    public SourceNavigationService(
+        SourceConfiguratorVm sourceConfiguratorVm,
+        DataDashboardVm dataDashboardVm,
+        DashboardDesignerVm dashboardDesignerVm)
     {
         _sourceConfiguratorVm = sourceConfiguratorVm;
         _dataDashboardVm = dataDashboardVm;
         _dashboardDesignerVm = dashboardDesignerVm;
-        
+
         Navigate(SourceNavigationPosition.Configurator);
     }
     

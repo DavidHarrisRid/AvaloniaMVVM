@@ -1,57 +1,128 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:models="clr-namespace:AvaloniaMVVM.Models"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:AvaloniaMVVM.ViewModels.Menu"
+             mc:Ignorable="d"
+             x:DataType="vm:DashboardVm"
+             d:DesignWidth="1000"
+             d:DesignHeight="600"
              x:Class="AvaloniaMVVM.Views.Menu.DashboardView">
-    
-        
-    <Grid>
-        <!-- Two columns: Sidebar + Content -->
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20*" MinWidth="150" MaxWidth="200"/>
-            <ColumnDefinition Width="80*"/>
-        </Grid.ColumnDefinitions>
-        
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-      
-        <!-- Side Bar -->
-        <Border
-            Grid.Column="0"
-            Grid.Row="0"
-            Grid.RowSpan="2"
-            Background="{StaticResource SidebarBackgroundBrush}"
-            Padding="10">
-            
-            <StackPanel Spacing="12">
-                
-                
-            </StackPanel>
-            
-        </Border>
-        
-        <Border
-            Grid.Column="1"
-            Grid.Row="0"
-            Background="{StaticResource SidebarBackgroundBrush}"
-            Padding="10">
-            
-            <StackPanel Spacing="12" Orientation="Horizontal">
-                <Button HorizontalAlignment="Stretch"
-                        Classes="sidebar"
-                        Classes.selected="{Binding IsDashboardSelected}"
-                        Content="{DynamicResource DashboardTitle}"
-                        Command="{Binding NavigateCommand}"
-                        CommandParameter="{x:Static models:NavigationPosition.Dashboard}" />
 
-                
-            </StackPanel>
-            
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="280"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Level 1 + Level 2 sidebar -->
+        <Border Grid.Column="0"
+                Background="{StaticResource SidebarBackgroundBrush}"
+                Padding="12">
+
+            <Grid RowDefinitions="Auto,*,Auto,*" RowSpacing="12">
+
+                <!-- Sources header -->
+                <DockPanel Grid.Row="0">
+                    <TextBlock Text="Sources"
+                               FontWeight="Bold"
+                               VerticalAlignment="Center"
+                               DockPanel.Dock="Left"/>
+
+                    <Button Content="+ Source"
+                            HorizontalAlignment="Right"
+                            Command="{Binding CreateSourceCommand}"
+                            DockPanel.Dock="Right"/>
+                </DockPanel>
+
+                <!-- Level 1: source list -->
+                <ListBox Grid.Row="1"
+                         ItemsSource="{Binding Sources}"
+                         SelectedItem="{Binding SelectedSource}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Button Grid.Column="0"
+                                        HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Left"
+                                        Content="{Binding Name}"
+                                        Command="{Binding }"
+                                        CommandParameter="{Binding}"/>
+
+                                <Button Grid.Column="1"
+                                        Content="⋯"
+                                        Margin="6,0,0,0"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <!-- Requests header -->
+                <DockPanel Grid.Row="2">
+                    <TextBlock Text="Requests"
+                               FontWeight="Bold"
+                               VerticalAlignment="Center"
+                               DockPanel.Dock="Left"/>
+
+                    <Button Content="+ Request"
+                            HorizontalAlignment="Right"
+                            Command="{Binding CreateRequestCommand}"
+                            DockPanel.Dock="Right"/>
+                </DockPanel>
+
+                <!-- Level 2: request list for selected source -->
+                <ListBox Grid.Row="3"
+                         ItemsSource="{Binding Requests}"
+                         SelectedItem="{Binding SelectedRequest}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Button HorizontalAlignment="Stretch"
+                                    HorizontalContentAlignment="Left"
+                                    Content="{Binding Name}"
+                                    Command="{Binding }"
+                                    CommandParameter="{Binding}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </Grid>
         </Border>
-        
+
+        <!-- Level 3 main content -->
+        <Grid Grid.Column="1"
+              RowDefinitions="Auto,*">
+
+            <!-- Source content tabs -->
+            <Border Grid.Row="0"
+                    Background="{StaticResource SidebarBackgroundBrush}"
+                    Padding="8">
+
+                <StackPanel Orientation="Horizontal"
+                            Spacing="8">
+
+                    <Button Content="Config Request"
+                            Command="{Binding NavigateSourceContentCommand}"
+                            CommandParameter="{x:Static models:SourceNavigationPosition.Configurator}"/>
+
+                    <Button Content="Data Dashboard"
+                            Command="{Binding NavigateSourceContentCommand}"
+                            CommandParameter="{x:Static models:SourceNavigationPosition.Dashboard}"/>
+
+                    <Button Content="Dashboard Designer"
+                            Command="{Binding NavigateSourceContentCommand}"
+                            CommandParameter="{x:Static models:SourceNavigationPosition.Designer}"/>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Dynamic content from SourceNavigationService -->
+            <Border Grid.Row="1"
+                    Padding="16">
+
+                <ContentControl Content="{Binding SourceNavigationService.CurrentViewModel}"/>
+
+            </Border>
+        </Grid>
     </Grid>
-    
 </UserControl>

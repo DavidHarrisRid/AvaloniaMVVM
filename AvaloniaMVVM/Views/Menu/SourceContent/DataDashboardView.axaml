@@ -4,5 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AvaloniaMVVM.Views.Menu.SourceContent.DataDashboardView">
-    Welcome to Avalonia!
+    
+    <StackPanel Spacing="12">
+        <TextBlock Text="Data Dashboard"
+                   FontSize="24"
+                   FontWeight="Bold"/>
+
+        <TextBlock Text="Later this view will show data from the selected request."/>
+    </StackPanel>
 </UserControl>
