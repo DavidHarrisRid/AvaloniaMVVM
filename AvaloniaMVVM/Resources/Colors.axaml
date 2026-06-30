@@ -1,0 +1,79 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Styles.Resources>
+
+        <!-- REQUIRED wrapper -->
+        <ResourceDictionary>
+
+            <!-- Theme dictionaries -->
+            <ResourceDictionary.ThemeDictionaries>
+
+                <!-- LIGHT THEME -->
+                <ResourceDictionary x:Key="Light">
+
+                    <Color x:Key="AppBackgroundColor">#FFFFFF</Color>
+                    <Color x:Key="SidebarBackgroundColor">#CCCCCC</Color>
+                    <Color x:Key="AccentColor">#4CAF50</Color>
+
+                    <Color x:Key="TextPrimaryColor">#000000</Color>
+                    <Color x:Key="TextSecondaryColor">#555555</Color>
+
+                    <Color x:Key="SidebarButtonHoverColor">#D02F90</Color>
+                    <Color x:Key="SidebarButtonPressedColor">#E02F90</Color>
+
+                </ResourceDictionary>
+
+                <!-- DARK THEME -->
+                <ResourceDictionary x:Key="Dark">
+
+                    <Color x:Key="AppBackgroundColor">#1E1E1E</Color>
+                    <Color x:Key="SidebarBackgroundColor">#555555</Color>
+                    <Color x:Key="AccentColor">#1060C0</Color>
+
+                    <Color x:Key="TextPrimaryColor">#FFFFFF</Color>
+                    <Color x:Key="TextSecondaryColor">#CCCCCC</Color>
+
+                    <Color x:Key="SidebarButtonHoverColor">#D02F90</Color>
+                    <Color x:Key="SidebarButtonPressedColor">#E02F90</Color>
+
+                </ResourceDictionary>
+
+            </ResourceDictionary.ThemeDictionaries>
+
+            <!-- Brushes (shared across themes, resolved dynamically) -->
+            <SolidColorBrush x:Key="AppBackgroundBrush"
+                             Color="{DynamicResource AppBackgroundColor}" />
+
+            <SolidColorBrush x:Key="SidebarBackgroundBrush"
+                             Color="{DynamicResource SidebarBackgroundColor}" />
+
+            <SolidColorBrush x:Key="AccentBrush"
+                             Color="{DynamicResource AccentColor}" />
+
+            <SolidColorBrush x:Key="TextPrimaryBrush"
+                             Color="{DynamicResource TextPrimaryColor}" />
+
+            <SolidColorBrush x:Key="TextSecondaryBrush"
+                             Color="{DynamicResource TextSecondaryColor}" />
+
+            <SolidColorBrush x:Key="SidebarButtonHoverBrush"
+                             Color="{DynamicResource SidebarButtonHoverColor}" />
+
+            <SolidColorBrush x:Key="SidebarButtonPressedBrush"
+                             Color="{DynamicResource SidebarButtonPressedColor}" />
+            
+            <SolidColorBrush x:Key="SidebarButtonSelectedBrush"
+                             Color="{DynamicResource AccentColor}" />
+
+        </ResourceDictionary>
+
+    </Styles.Resources>
+
+    <!-- Global window background -->
+    <Style Selector="Window">
+        <Setter Property="Background"
+                Value="{DynamicResource AppBackgroundBrush}" />
+    </Style>
+
+</Styles>

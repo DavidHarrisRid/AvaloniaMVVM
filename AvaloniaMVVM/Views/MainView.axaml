@@ -1,0 +1,98 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:icons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        xmlns:vm="using:AvaloniaMVVM.ViewModels"
+        xmlns:models="using:AvaloniaMVVM.Models"
+        x:Class="AvaloniaMVVM.Views.MainView"
+        x:DataType="vm:MainVm"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="AvaloniaMVVM">
+    
+    <Grid>
+        <!-- Two columns: Sidebar + Content -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15*" MinWidth="90" MaxWidth="90"/>
+            <ColumnDefinition Width="85*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+      
+        <!-- Side Bar -->
+        <Border
+            Grid.Row="0" 
+            Grid.Column="0"
+            Background="{StaticResource SidebarBackgroundBrush}"
+            Padding="10">
+            
+            <StackPanel Spacing="12">
+                
+                <Button HorizontalAlignment="Stretch"
+                        Classes="sidebar"
+                        Classes.selected="{Binding IsDashboardSelected}"
+                        ToolTip.Tip="{StaticResource DashboardTitle}"
+                        Command="{Binding Navigate}"
+                        CommandParameter="{x:Static models:MainNavigationPosition.Dashboard}">
+                    
+                    <icons:MaterialIcon Kind="Home"
+                                        Width="36"
+                                        Height="36"
+                                        VerticalAlignment="Center"/>
+                </Button>
+                
+                <Button HorizontalAlignment="Stretch"
+                        Classes="sidebar"
+                        Classes.selected="{Binding IsAppSettingsSelected}"
+                        ToolTip.Tip="{StaticResource AppSettingsTitle}"
+                        Command="{Binding Navigate}"
+                        CommandParameter="{x:Static models:MainNavigationPosition.AppSettings}">
+                    
+                    <icons:MaterialIcon Kind="Settings"
+                                        Width="36"
+                                        Height="36"
+                                        VerticalAlignment="Center"/>
+                </Button>
+
+                <Button HorizontalAlignment="Stretch"
+                        Classes="sidebar"
+                        Classes.selected="{Binding IsAboutSelected}"
+                        ToolTip.Tip="{StaticResource AboutTitle}"
+                        Command="{Binding Navigate}"
+                        CommandParameter="{x:Static models:MainNavigationPosition.About}">
+                  
+                    <icons:MaterialIcon Kind="About"
+                                        Width="36"
+                                        Height="36"
+                                        VerticalAlignment="Center"/>
+                    
+                </Button>
+                
+            </StackPanel>
+            
+        </Border>
+        
+        <!-- Main Content-->
+        <Border Grid.Row="0"
+                Grid.Column="1"
+                Background="{StaticResource AppBackgroundBrush}">
+            
+            <!-- Page host-->
+            <ScrollViewer
+                VerticalScrollBarVisibility="Auto"
+                HorizontalScrollBarVisibility="Disabled">
+                <ContentControl Content="{Binding NavigationService.CurrentViewModel}"></ContentControl>
+            </ScrollViewer>
+            
+        </Border>
+        
+        
+        <!-- Status Bar -->
+        <ContentControl Grid.Row="1" Grid.Column="1" Content="{Binding StatusBarVm}"/>
+        
+    </Grid>
+</Window>

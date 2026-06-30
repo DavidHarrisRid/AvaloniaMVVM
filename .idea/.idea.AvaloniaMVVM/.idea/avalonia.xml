@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="AvaloniaMVVM/App.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Resources/ButtonStyles.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Resources/Colors.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Resources/SidebarButtonStyles.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Resources/Strings.en.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Views/DashboardView.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Views/MainView.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Views/MainWindow.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Views/Menu/AboutView.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Views/Menu/AppSettingsView.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Views/Menu/DashboardView.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Views/Menu/SourceContent/DashboardDesignerView.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Views/Menu/SourceContent/DashboardView.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Views/Menu/SourceContent/DataDashboardView.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Views/Menu/SourceContent/RequestConfiguratorView.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Views/Menu/SourceContent/SourceConfiguratorView.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Views/Menu/SourceContentView.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Views/MenuLayer/AboutView.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Views/MenuLayer/AppSettingsView.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Views/MenuLayer/SourceContentLayer/DashboardDesignerView.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Views/MenuLayer/SourceContentLayer/DataDashboardView.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Views/MenuLayer/SourceContentLayer/SourceConfiguratorView.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Views/MenuLayer/SourceContentView.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+        <entry key="AvaloniaMVVM/Views/StatusBarView.axaml" value="AvaloniaMVVM/AvaloniaMVVM.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

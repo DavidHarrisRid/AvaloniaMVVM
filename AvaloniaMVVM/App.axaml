@@ -1,0 +1,70 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:views="using:AvaloniaMVVM.Views"
+             xmlns:viewsMenu="clr-namespace:AvaloniaMVVM.Views.Menu"
+             xmlns:viewsSourceContent="clr-namespace:AvaloniaMVVM.Views.Menu.SourceContent"
+             xmlns:viewModels="clr-namespace:AvaloniaMVVM.ViewModels"
+             xmlns:viewModelsMenu="clr-namespace:AvaloniaMVVM.ViewModels.Menu"
+             xmlns:viewModelsSourceContent="clr-namespace:AvaloniaMVVM.ViewModels.Menu.SourceContent"
+             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             x:Class="AvaloniaMVVM.App"
+             xmlns:local="using:AvaloniaMVVM"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.DataTemplates>
+        <!-- ViewModels -->
+        <DataTemplate DataType="viewModels:StatusBarVm">
+            <views:StatusBarView></views:StatusBarView>
+        </DataTemplate>
+        
+        <!-- MenuVMs -->
+        <DataTemplate DataType="viewModelsMenu:AboutVm">
+            <viewsMenu:AboutView></viewsMenu:AboutView>
+        </DataTemplate>
+        
+        <DataTemplate DataType="viewModelsMenu:AppSettingsVm">
+            <viewsMenu:AppSettingsView></viewsMenu:AppSettingsView>
+        </DataTemplate>
+        
+        <DataTemplate DataType="viewModelsMenu:DashboardVm">
+            <viewsMenu:DashboardView></viewsMenu:DashboardView>
+        </DataTemplate>
+        
+        <!-- SourceContentVMs -->
+        <DataTemplate DataType="viewModelsSourceContent:DashboardDesignerVm">
+            <viewsSourceContent:DashboardDesignerView></viewsSourceContent:DashboardDesignerView>
+        </DataTemplate>
+        
+        <DataTemplate DataType="viewModelsSourceContent:DataDashboardVm">
+            <viewsSourceContent:DataDashboardView></viewsSourceContent:DataDashboardView>
+        </DataTemplate>
+        
+        <DataTemplate DataType="viewModelsSourceContent:SourceConfiguratorVm">
+            <viewsSourceContent:SourceConfiguratorView></viewsSourceContent:SourceConfiguratorView>
+        </DataTemplate>
+        
+    </Application.DataTemplates>
+             
+             <Application.Resources>
+                 <ResourceDictionary>
+
+                     <ResourceDictionary.MergedDictionaries>
+                         <ResourceInclude
+                             Source="avares://AvaloniaMVVM/Resources/Strings.en.axaml" />
+                     </ResourceDictionary.MergedDictionaries>
+
+                 </ResourceDictionary>
+             </Application.Resources>
+  
+    <Application.Styles>
+        <FluentTheme />
+        
+            <materialIcons:MaterialIconStyles />
+        
+            <!-- Neutral styles -->
+            <StyleInclude Source="Resources/Colors.axaml"/>
+            <StyleInclude Source="Resources/SidebarButtonStyles.axaml"/>
+            <StyleInclude Source="Resources/ButtonStyles.axaml"/>
+    </Application.Styles>
+</Application>

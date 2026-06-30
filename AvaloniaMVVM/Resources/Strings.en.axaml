@@ -1,0 +1,42 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Add Resources Here -->
+    <x:String x:Key="AppTitle">My Application</x:String>
+    
+    <x:String x:Key="DashboardTitle">Dashboard</x:String>
+    <x:String x:Key="DashboardSubTitle">This is the main page.</x:String>
+    
+    <x:String x:Key="AppSettingsTitle">Settings</x:String>
+    <x:String x:Key="AppSettingsSubTitle">This is the configuration page.</x:String>
+    <x:String x:Key="AppSettingsApiUrlLabel">API URL</x:String>
+    
+    <x:String x:Key="AboutTitle">About</x:String>
+    <x:String x:Key="AboutSubTitle">Legal Information</x:String>
+    
+    <x:String x:Key="LogoutButton">Logout</x:String>
+    
+    <x:String x:Key="AboutLegalInfo">
+        This application was designed and developed by David Harris Rid.
+
+        It is intended as a personal and professional software project, created to explore modern application architecture, 
+        user interface design, and scalable software patterns.
+
+        All content, functionality, and design decisions reflect the author’s independent work and technical vision.
+
+        © 2026 David Harris Rid. All rights reserved.
+
+        This software is provided “as is”, without warranty of any kind. The author assumes no responsibility for any damages 
+        or data loss resulting from the use of this application.
+
+        If you have questions, feedback, or legal inquiries regarding this application, please contact:
+
+        Email: david.rid4@gmail.com
+    </x:String>
+
+    <x:String x:Key="AboutVersionInfo">
+        Version: 1.0.0.0
+        Build date: 2026.06.29
+        License: Free Version (Non-Commercial)
+    </x:String>
+    
+</ResourceDictionary>

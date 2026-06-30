@@ -1,0 +1,34 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:AvaloniaMVVM.ViewModels.Menu"
+             x:DataType="vm:AppSettingsVm"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaMVVM.Views.Menu.AppSettingsView">
+    
+    <StackPanel Spacing="12" Margin="20">
+        <TextBlock
+            Text="{DynamicResource SettingsTitle}"
+            FontSize="24"
+            FontWeight="Bold" />
+
+        <Border Padding="5"></Border>
+        
+        <TextBlock
+            Text="{DynamicResource SettingsSubTitle}" />
+        
+        <Border Padding="5"></Border>
+        
+        <Label Content="{DynamicResource AppSettingsApiUrlLabel}"></Label>
+        <TextBox Text="{Binding ApiUrl, Mode=TwoWay}"></TextBox>
+        
+        <!-- MVVM on prop changed proof -->
+        <Label Content="{Binding ApiUrl, Mode=TwoWay}"></Label>
+        
+        <Border Padding="5"></Border>
+        
+        
+    </StackPanel>
+    
+</UserControl>
