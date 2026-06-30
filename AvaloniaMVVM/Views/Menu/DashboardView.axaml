@@ -6,94 +6,136 @@
              xmlns:vm="clr-namespace:AvaloniaMVVM.ViewModels.Menu"
              mc:Ignorable="d"
              x:DataType="vm:DashboardVm"
-             d:DesignWidth="1000"
-             d:DesignHeight="600"
+             d:DesignWidth="1200"
+             d:DesignHeight="700"
              x:Class="AvaloniaMVVM.Views.Menu.DashboardView">
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="280"/>
+            <!-- Left navigation area: Sources + Requests next to each other -->
+            <ColumnDefinition Width="520"
+                              MinWidth="420"/>
+
+            <!-- Main dynamic content area -->
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Level 1 + Level 2 sidebar -->
+        <!-- LEVEL 1 + LEVEL 2: full-height source/request navigation -->
         <Border Grid.Column="0"
                 Background="{StaticResource SidebarBackgroundBrush}"
                 Padding="12">
 
-            <Grid RowDefinitions="Auto,*,Auto,*" RowSpacing="12">
+            <Grid ColumnDefinitions="*,*"
+                  ColumnSpacing="12">
 
-                <!-- Sources header -->
-                <DockPanel Grid.Row="0">
-                    <TextBlock Text="Sources"
-                               FontWeight="Bold"
-                               VerticalAlignment="Center"
-                               DockPanel.Dock="Left"/>
+                <!-- LEVEL 1: Sources -->
+                <Border Grid.Column="0"
+                        Padding="8"
+                        Background="#14000000"
+                        CornerRadius="8">
 
-                    <Button Content="+ Source"
-                            HorizontalAlignment="Right"
-                            Command="{Binding CreateSourceCommand}"
-                            DockPanel.Dock="Right"/>
-                </DockPanel>
+                    <Grid RowDefinitions="Auto,*"
+                          RowSpacing="10">
 
-                <!-- Level 1: source list -->
-                <ListBox Grid.Row="1"
-                         ItemsSource="{Binding Sources}"
-                         SelectedItem="{Binding SelectedSource}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid ColumnDefinitions="*,Auto">
-                                <Button Grid.Column="0"
-                                        HorizontalAlignment="Stretch"
-                                        HorizontalContentAlignment="Left"
-                                        Content="{Binding Name}"
-                                        Command="{Binding }"
-                                        CommandParameter="{Binding}"/>
+                        <!-- Sources header -->
+                        <DockPanel Grid.Row="0">
+                            <TextBlock Text="Sources"
+                                       FontWeight="Bold"
+                                       FontSize="16"
+                                       VerticalAlignment="Center"
+                                       DockPanel.Dock="Left"/>
 
-                                <Button Grid.Column="1"
-                                        Content="⋯"
-                                        Margin="6,0,0,0"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                            <Button Content="+"
+                                    Width="32"
+                                    Height="32"
+                                    HorizontalAlignment="Right"
+                                    Command="{Binding CreateSourceCommand}"
+                                    DockPanel.Dock="Right"/>
+                        </DockPanel>
 
-                <!-- Requests header -->
-                <DockPanel Grid.Row="2">
-                    <TextBlock Text="Requests"
-                               FontWeight="Bold"
-                               VerticalAlignment="Center"
-                               DockPanel.Dock="Left"/>
+                        <!-- Source list -->
+                        <ListBox Grid.Row="1"
+                                 ItemsSource="{Binding Sources}"
+                                 SelectedItem="{Binding SelectedSource}">
 
-                    <Button Content="+ Request"
-                            HorizontalAlignment="Right"
-                            Command="{Binding CreateRequestCommand}"
-                            DockPanel.Dock="Right"/>
-                </DockPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate x:DataType="models:ApiSourceModel">
+                                    <Grid ColumnDefinitions="*,Auto"
+                                          Margin="0,2">
 
-                <!-- Level 2: request list for selected source -->
-                <ListBox Grid.Row="3"
-                         ItemsSource="{Binding Requests}"
-                         SelectedItem="{Binding SelectedRequest}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Button HorizontalAlignment="Stretch"
-                                    HorizontalContentAlignment="Left"
-                                    Content="{Binding Name}"
-                                    Command="{Binding }"
-                                    CommandParameter="{Binding}"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                                        <!-- No command here. The ListBox SelectedItem does the selection. -->
+                                        <TextBlock Grid.Column="0"
+                                                   Text="{Binding Name}"
+                                                   VerticalAlignment="Center"
+                                                   Padding="8"/>
+
+                                        <Button Grid.Column="1"
+                                                Content="⋯"
+                                                Width="32"
+                                                Margin="6,0,0,0"/>
+
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                    </Grid>
+                </Border>
+
+                <!-- LEVEL 2: Requests for selected source -->
+                <Border Grid.Column="1"
+                        Padding="8"
+                        Background="#14000000"
+                        CornerRadius="8">
+
+                    <Grid RowDefinitions="Auto,*"
+                          RowSpacing="10">
+
+                        <!-- Requests header -->
+                        <DockPanel Grid.Row="0">
+                            <TextBlock Text="Requests"
+                                       FontWeight="Bold"
+                                       FontSize="16"
+                                       VerticalAlignment="Center"
+                                       DockPanel.Dock="Left"/>
+
+                            <Button Content="+"
+                                    Width="32"
+                                    Height="32"
+                                    HorizontalAlignment="Right"
+                                    Command="{Binding CreateRequestCommand}"
+                                    DockPanel.Dock="Right"/>
+                        </DockPanel>
+
+                        <!-- Request list -->
+                        <ListBox Grid.Row="1"
+                                 ItemsSource="{Binding Requests}"
+                                 SelectedItem="{Binding SelectedRequest}">
+
+                            <ListBox.ItemTemplate>
+                                <DataTemplate x:DataType="models:ApiRequestModel">
+
+                                    <!-- No command here. The ListBox SelectedItem does the selection. -->
+                                    <TextBlock Text="{Binding Name}"
+                                               VerticalAlignment="Center"
+                                               Padding="8"
+                                               Margin="0,2"/>
+
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                    </Grid>
+                </Border>
 
             </Grid>
         </Border>
 
-        <!-- Level 3 main content -->
+        <!-- LEVEL 3: main dynamic source content -->
         <Grid Grid.Column="1"
               RowDefinitions="Auto,*">
 
-            <!-- Source content tabs -->
+            <!-- Top tabs -->
             <Border Grid.Row="0"
                     Background="{StaticResource SidebarBackgroundBrush}"
                     Padding="8">
