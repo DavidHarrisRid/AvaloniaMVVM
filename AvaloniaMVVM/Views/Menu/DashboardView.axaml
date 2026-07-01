@@ -176,23 +176,24 @@
             <!-- SOURCE EDITOR MODE -->
             <Border Padding="16"
                     IsVisible="{Binding IsSourceEditorOpen}">
-
+<ScrollViewer>
                 <ContentControl Content="{Binding SourceConfiguratorVm}"/>
-
+</ScrollViewer>
             </Border>
 
             <!-- REQUEST EDITOR MODE -->
             <Border Padding="16"
                     IsVisible="{Binding IsRequestEditorOpen}">
-
+<ScrollViewer>
                 <ContentControl Content="{Binding RequestConfiguratorVm}"/>
-
+</ScrollViewer>
             </Border>
 
             <!-- REQUEST WORKSPACE MODE -->
             <Grid RowDefinitions="Auto,*"
                   IsVisible="{Binding IsRequestWorkspaceVisible}">
 
+                
                 <!-- Request workspace tabs -->
                 <Border Grid.Row="0"
                         Background="{StaticResource SidebarBackgroundBrush}"
@@ -215,9 +216,9 @@
                 <!-- Dynamic request workspace content -->
                 <Border Grid.Row="1"
                         Padding="16">
-
+<ScrollViewer>
                     <ContentControl Content="{Binding SourceNavigationService.CurrentViewModel}"/>
-
+</ScrollViewer>
                 </Border>
             </Grid>
         </Grid>

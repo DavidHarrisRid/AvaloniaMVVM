@@ -30,6 +30,7 @@ public partial class App : Application
         services.AddSingleton<MainNavigationService>();
         services.AddSingleton<SourceNavigationService>();
         services.AddSingleton<SourceManagementService>();
+        services.AddSingleton<StatusBarService>();
 
         // Add VMs
         services.AddSingleton<MainVm>();
