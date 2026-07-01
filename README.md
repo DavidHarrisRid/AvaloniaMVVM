@@ -116,14 +116,3 @@ The following features are intentionally not implemented in this Proof of Concep
 
 These topics are planned or explored in separate Proofs of Concept within the wider Advanced Specialised Project.
 
-## Relevance for the Major Project
-
-This repository provides a technical foundation for the later Major Project. It verifies that Avalonia, MVVM, Dependency Injection, DataTemplates, and ViewModel-based navigation can be used to structure the frontend of a modular Data Aggregator.
-
-The results of this Proof of Concept can be reused and expanded in the later project phase, where the frontend will be connected to backend services, external data sources, and persisted JSON-based data.
-
-## Status
-
-Prototype / Proof of Concept
-
-This project is intended for learning, architectural preparation, and technical validation.
