@@ -1,42 +1,105 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!-- Add Resources Here -->
-    <x:String x:Key="AppTitle">My Application</x:String>
-    
+
+    <!-- App -->
+    <x:String x:Key="AppTitle">Avalonia MVVM Studio</x:String>
+
+    <!-- Main navigation -->
     <x:String x:Key="DashboardTitle">Dashboard</x:String>
-    <x:String x:Key="DashboardSubTitle">This is the main page.</x:String>
-    
+    <x:String x:Key="DashboardSubTitle">Sources, requests, dashboards and designer workspace.</x:String>
+
     <x:String x:Key="AppSettingsTitle">Settings</x:String>
-    <x:String x:Key="AppSettingsSubTitle">This is the configuration page.</x:String>
+    <x:String x:Key="AppSettingsSubTitle">Application configuration and runtime options.</x:String>
     <x:String x:Key="AppSettingsApiUrlLabel">API URL</x:String>
-    
+    <x:String x:Key="AppSettingsApiUrlPreviewLabel">Current API URL</x:String>
+
     <x:String x:Key="AboutTitle">About</x:String>
-    <x:String x:Key="AboutSubTitle">Legal Information</x:String>
-    
+    <x:String x:Key="AboutSubTitle">Legal information and application details.</x:String>
+
     <x:String x:Key="LogoutButton">Logout</x:String>
-    
+
+    <!-- Shared actions -->
+    <x:String x:Key="CreateAction">Create</x:String>
+    <x:String x:Key="EditAction">Edit</x:String>
+    <x:String x:Key="DeleteAction">Delete</x:String>
+    <x:String x:Key="SaveAction">Save</x:String>
+    <x:String x:Key="MoreActions">⋯</x:String>
+
+    <!-- Dashboard source/request navigation -->
+    <x:String x:Key="SourcesTitle">Sources</x:String>
+    <x:String x:Key="SourcesSubtitle">Top-level source definitions</x:String>
+    <x:String x:Key="CreateSourceAction">New Source</x:String>
+
+    <x:String x:Key="RequestsTitle">Requests</x:String>
+    <x:String x:Key="RequestsSubtitle">Requests for selected source</x:String>
+    <x:String x:Key="CreateRequestAction">New Request</x:String>
+
+    <x:String x:Key="NoSourceBaseUrl">No base URL configured</x:String>
+    <x:String x:Key="NoRequestMethod">No method configured</x:String>
+
+    <!-- Request workspace -->
+    <x:String x:Key="RequestWorkspaceTitle">Request Workspace</x:String>
+    <x:String x:Key="RequestWorkspaceSubtitle">Inspect request data and dashboard presentation.</x:String>
+    <x:String x:Key="DataDashboardTab">Data Dashboard</x:String>
+    <x:String x:Key="DashboardDesignerTab">Dashboard Designer</x:String>
+
+    <!-- Source configurator -->
+    <x:String x:Key="SourceConfiguratorTitle">Source Configuration</x:String>
+    <x:String x:Key="SourceConfiguratorSubtitle">Edit source details and save when ready.</x:String>
+    <x:String x:Key="SourceNameLabel">Name</x:String>
+    <x:String x:Key="SourceBaseUrlLabel">Default Base URL</x:String>
+    <x:String x:Key="SourceDescriptionLabel">Description</x:String>
+    <x:String x:Key="SourceAuthenticationTypeLabel">Authentication Type</x:String>
+    <x:String x:Key="SourceApiKeyLabel">API Key</x:String>
+    <x:String x:Key="SourceDefaultHeaderLabel">Default Header</x:String>
+    <x:String x:Key="SaveSourceAction">Save Source</x:String>
+
+    <!-- Request configurator -->
+    <x:String x:Key="RequestConfiguratorTitle">Request Configuration</x:String>
+    <x:String x:Key="RequestConfiguratorSubtitle">Edit request details and save when ready.</x:String>
+    <x:String x:Key="RequestNameLabel">Name</x:String>
+    <x:String x:Key="RequestEndpointPathLabel">Endpoint Path</x:String>
+    <x:String x:Key="RequestHttpMethodLabel">HTTP Method</x:String>
+    <x:String x:Key="RequestQueryParametersLabel">Query String Parameters</x:String>
+    <x:String x:Key="RequestHeaderLabel">Request Header</x:String>
+    <x:String x:Key="RequestBodyLabel">Request Body</x:String>
+    <x:String x:Key="RequestPollingIntervalLabel">Polling Interval</x:String>
+    <x:String x:Key="RequestIsActiveLabel">Is Active</x:String>
+    <x:String x:Key="SaveRequestAction">Save Request</x:String>
+
+    <!-- Data dashboard -->
+    <x:String x:Key="DataDashboardTitle">Data Dashboard</x:String>
+    <x:String x:Key="DataDashboardSubtitle">Request output preview will appear here.</x:String>
+    <x:String x:Key="DataDashboardPlaceholderTitle">No data preview yet</x:String>
+    <x:String x:Key="DataDashboardPlaceholderText">JSON entry rendering will be implemented in the next step.</x:String>
+
+    <!-- Dashboard designer -->
+    <x:String x:Key="DashboardDesignerTitle">Dashboard Designer</x:String>
+    <x:String x:Key="DashboardDesignerSubtitle">Design request dashboard widgets and layout.</x:String>
+    <x:String x:Key="DashboardDesignerPlaceholderTitle">Designer canvas placeholder</x:String>
+    <x:String x:Key="DashboardDesignerPlaceholderText">Dashboard layout tools will be added later.</x:String>
+
+    <!-- About -->
     <x:String x:Key="AboutLegalInfo">
-        This application was designed and developed by David Harris Rid.
+This application was designed and developed by David Harris Rid.
 
-        It is intended as a personal and professional software project, created to explore modern application architecture, 
-        user interface design, and scalable software patterns.
+It is intended as a personal and professional software project, created to explore modern application architecture, user interface design, and scalable software patterns.
 
-        All content, functionality, and design decisions reflect the author’s independent work and technical vision.
+All content, functionality, and design decisions reflect the author’s independent work and technical vision.
 
-        © 2026 David Harris Rid. All rights reserved.
+© 2026 David Harris Rid. All rights reserved.
 
-        This software is provided “as is”, without warranty of any kind. The author assumes no responsibility for any damages 
-        or data loss resulting from the use of this application.
+This software is provided “as is”, without warranty of any kind. The author assumes no responsibility for any damages or data loss resulting from the use of this application.
 
-        If you have questions, feedback, or legal inquiries regarding this application, please contact:
+If you have questions, feedback, or legal inquiries regarding this application, please contact:
 
-        Email: david.rid4@gmail.com
+Email: david.rid4@gmail.com
     </x:String>
 
     <x:String x:Key="AboutVersionInfo">
-        Version: 1.0.0.0
-        Build date: 2026.06.29
-        License: Free Version (Non-Commercial)
+Version: 1.0.0.0
+Build date: 2026.06.29
+License: Free Version (Non-Commercial)
     </x:String>
-    
+
 </ResourceDictionary>

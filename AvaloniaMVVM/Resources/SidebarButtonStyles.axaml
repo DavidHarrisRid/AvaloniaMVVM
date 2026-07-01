@@ -1,40 +1,68 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Design.PreviewWith>
-        <Border Padding="20">
-            <!-- Add Controls for Previewer Here -->
-        </Border>
-    </Design.PreviewWith>
 
-    <!-- Add Styles Here -->
-    
-    <!-- Base sidebar button -->
     <Style Selector="Button.sidebar">
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        <Setter Property="Padding" Value="12,8"/>
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource TextSecondaryBrush}" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="CornerRadius"
+                Value="6" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="Padding"
+                Value="10" />
+        <Setter Property="Margin"
+                Value="0,2" />
     </Style>
 
-    <!-- Hover -->
-    <!--    Styles must sometimes target /template/ ContentPresenter
-            Default themes are not “broken” — they’re layered-->
-    
     <Style Selector="Button.sidebar:pointerover /template/ ContentPresenter">
         <Setter Property="Background"
-                Value="{StaticResource SidebarButtonHoverBrush}"/>
+                Value="{DynamicResource HoverBrush}" />
     </Style>
 
-    <!-- Pressed -->
     <Style Selector="Button.sidebar:pressed /template/ ContentPresenter">
         <Setter Property="Background"
-                Value="{StaticResource SidebarButtonPressedBrush}"/>
+                Value="{DynamicResource PressedBrush}" />
     </Style>
-    
-    <!-- Selected -->
+
     <Style Selector="Button.sidebar.selected /template/ ContentPresenter">
         <Setter Property="Background"
-                Value="{StaticResource SidebarButtonSelectedBrush}" />
-    </Style>   
+                Value="{DynamicResource SelectedBrush}" />
+    </Style>
+
+    <Style Selector="ListBox.navList">
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="Padding"
+                Value="0" />
+    </Style>
+
+    <Style Selector="ListBoxItem">
+        <Setter Property="Padding"
+                Value="0" />
+        <Setter Property="Margin"
+                Value="0,1" />
+        <Setter Property="CornerRadius"
+                Value="6" />
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Stretch" />
+    </Style>
+
+    <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+        <Setter Property="Background"
+                Value="{DynamicResource HoverBrush}" />
+    </Style>
+
+    <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+        <Setter Property="Background"
+                Value="{DynamicResource SelectedBrush}" />
+    </Style>
+
 </Styles>

@@ -2,15 +2,48 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d"
+             d:DesignWidth="900"
+             d:DesignHeight="600"
              x:Class="AvaloniaMVVM.Views.Menu.SourceContent.DataDashboardView">
-    
-    <StackPanel Spacing="12">
-        <TextBlock Text="Data Dashboard"
-                   FontSize="24"
-                   FontWeight="Bold"/>
 
-        <TextBlock Text="Here we will display data for the selected request."/>
-    </StackPanel>
-    
+    <Grid RowDefinitions="Auto,*"
+          RowSpacing="16">
+
+        <StackPanel Grid.Row="0"
+                    Spacing="4">
+
+            <TextBlock Text="{DynamicResource DataDashboardTitle}"
+                       FontSize="22"
+                       FontWeight="SemiBold"/>
+
+            <TextBlock Text="{DynamicResource DataDashboardSubtitle}"
+                       FontSize="12"
+                       Foreground="{DynamicResource TextMutedBrush}"/>
+        </StackPanel>
+
+        <Border Grid.Row="1"
+                Background="{DynamicResource PanelBrush}"
+                BorderBrush="{DynamicResource PanelBorderBrush}"
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="24">
+
+            <StackPanel Spacing="8"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+
+                <TextBlock Text="{DynamicResource DataDashboardPlaceholderTitle}"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Text="{DynamicResource DataDashboardPlaceholderText}"
+                           FontSize="12"
+                           Foreground="{DynamicResource TextMutedBrush}"
+                           HorizontalAlignment="Center"
+                           TextAlignment="Center"/>
+            </StackPanel>
+        </Border>
+    </Grid>
 </UserControl>

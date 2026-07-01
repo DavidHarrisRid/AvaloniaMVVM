@@ -4,31 +4,62 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:AvaloniaMVVM.ViewModels.Menu"
              x:DataType="vm:AppSettingsVm"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d"
+             d:DesignWidth="900"
+             d:DesignHeight="600"
              x:Class="AvaloniaMVVM.Views.Menu.AppSettingsView">
-    
-    <StackPanel Spacing="12" Margin="20">
-        <TextBlock
-            Text="{DynamicResource SettingsTitle}"
-            FontSize="24"
-            FontWeight="Bold" />
 
-        <Border Padding="5"></Border>
-        
-        <TextBlock
-            Text="{DynamicResource SettingsSubTitle}" />
-        
-        <Border Padding="5"></Border>
-        
-        <Label Content="{DynamicResource AppSettingsApiUrlLabel}"></Label>
-        <TextBox Text="{Binding ApiUrl, Mode=TwoWay}"></TextBox>
-        
-        <!-- MVVM on prop changed proof -->
-        <Label Content="{Binding ApiUrl, Mode=TwoWay}"></Label>
-        
-        <Border Padding="5"></Border>
-        
-        
-    </StackPanel>
-    
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled">
+
+        <Border Padding="20">
+
+            <Border Background="{DynamicResource PanelBrush}"
+                    BorderBrush="{DynamicResource PanelBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Padding="18"
+                    MaxWidth="760">
+
+                <StackPanel Spacing="16">
+
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="{DynamicResource AppSettingsTitle}"
+                                   FontSize="22"
+                                   FontWeight="SemiBold"/>
+
+                        <TextBlock Text="{DynamicResource AppSettingsSubTitle}"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource TextMutedBrush}"/>
+                    </StackPanel>
+
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="{DynamicResource AppSettingsApiUrlLabel}"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+
+                        <TextBox Text="{Binding ApiUrl, Mode=TwoWay}"/>
+                    </StackPanel>
+
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="{DynamicResource AppSettingsApiUrlPreviewLabel}"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+
+                        <Border Background="{DynamicResource PanelAltBrush}"
+                                BorderBrush="{DynamicResource PanelBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="6"
+                                Padding="10">
+
+                            <TextBlock Text="{Binding ApiUrl}"
+                                       Foreground="{DynamicResource TextMutedBrush}"
+                                       TextWrapping="Wrap"/>
+                        </Border>
+                    </StackPanel>
+
+                </StackPanel>
+            </Border>
+        </Border>
+    </ScrollViewer>
 </UserControl>

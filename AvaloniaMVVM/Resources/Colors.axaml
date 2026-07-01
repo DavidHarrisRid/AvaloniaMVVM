@@ -2,54 +2,93 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Styles.Resources>
-
-        <!-- REQUIRED wrapper -->
         <ResourceDictionary>
 
-            <!-- Theme dictionaries -->
             <ResourceDictionary.ThemeDictionaries>
 
                 <!-- LIGHT THEME -->
                 <ResourceDictionary x:Key="Light">
+                    <Color x:Key="AppBackgroundColor">#F4F6FB</Color>
+                    <Color x:Key="MainSidebarColor">#E8ECF5</Color>
+                    <Color x:Key="PanelColor">#FFFFFF</Color>
+                    <Color x:Key="PanelAltColor">#F0F3FA</Color>
+                    <Color x:Key="PanelStrongColor">#E4E9F3</Color>
+                    <Color x:Key="PanelBorderColor">#CCD3DF</Color>
+                    <Color x:Key="InputBackgroundColor">#FFFFFF</Color>
 
-                    <Color x:Key="AppBackgroundColor">#FFFFFF</Color>
-                    <Color x:Key="SidebarBackgroundColor">#CCCCCC</Color>
-                    <Color x:Key="AccentColor">#4CAF50</Color>
+                    <Color x:Key="AccentColor">#3574F0</Color>
+                    <Color x:Key="AccentHoverColor">#2B63D9</Color>
+                    <Color x:Key="AccentSoftColor">#263574F0</Color>
 
-                    <Color x:Key="TextPrimaryColor">#000000</Color>
-                    <Color x:Key="TextSecondaryColor">#555555</Color>
+                    <Color x:Key="TextPrimaryColor">#1F2430</Color>
+                    <Color x:Key="TextSecondaryColor">#596275</Color>
+                    <Color x:Key="TextMutedColor">#7D8797</Color>
 
-                    <Color x:Key="SidebarButtonHoverColor">#D02F90</Color>
-                    <Color x:Key="SidebarButtonPressedColor">#E02F90</Color>
-
+                    <Color x:Key="HoverColor">#E4E9F4</Color>
+                    <Color x:Key="PressedColor">#D7DEEA</Color>
+                    <Color x:Key="SelectedColor">#DCE8FF</Color>
+                    <Color x:Key="DangerColor">#D84D4D</Color>
                 </ResourceDictionary>
 
-                <!-- DARK THEME -->
+                <!-- DARK THEME - JetBrains Rider inspired -->
                 <ResourceDictionary x:Key="Dark">
+                    <Color x:Key="AppBackgroundColor">#1E1F22</Color>
+                    <Color x:Key="MainSidebarColor">#181A1F</Color>
+                    <Color x:Key="PanelColor">#2B2D30</Color>
+                    <Color x:Key="PanelAltColor">#25272B</Color>
+                    <Color x:Key="PanelStrongColor">#313338</Color>
+                    <Color x:Key="PanelBorderColor">#43454A</Color>
+                    <Color x:Key="InputBackgroundColor">#1F2023</Color>
 
-                    <Color x:Key="AppBackgroundColor">#1E1E1E</Color>
-                    <Color x:Key="SidebarBackgroundColor">#555555</Color>
-                    <Color x:Key="AccentColor">#1060C0</Color>
+                    <Color x:Key="AccentColor">#3574F0</Color>
+                    <Color x:Key="AccentHoverColor">#4682FA</Color>
+                    <Color x:Key="AccentSoftColor">#403574F0</Color>
 
-                    <Color x:Key="TextPrimaryColor">#FFFFFF</Color>
-                    <Color x:Key="TextSecondaryColor">#CCCCCC</Color>
+                    <Color x:Key="TextPrimaryColor">#DFE1E5</Color>
+                    <Color x:Key="TextSecondaryColor">#B6BAC3</Color>
+                    <Color x:Key="TextMutedColor">#868A91</Color>
 
-                    <Color x:Key="SidebarButtonHoverColor">#D02F90</Color>
-                    <Color x:Key="SidebarButtonPressedColor">#E02F90</Color>
-
+                    <Color x:Key="HoverColor">#3A3D43</Color>
+                    <Color x:Key="PressedColor">#454951</Color>
+                    <Color x:Key="SelectedColor">#304A7D</Color>
+                    <Color x:Key="DangerColor">#FF5F57</Color>
                 </ResourceDictionary>
 
             </ResourceDictionary.ThemeDictionaries>
 
-            <!-- Brushes (shared across themes, resolved dynamically) -->
+            <!-- Brushes -->
             <SolidColorBrush x:Key="AppBackgroundBrush"
                              Color="{DynamicResource AppBackgroundColor}" />
 
+            <SolidColorBrush x:Key="MainSidebarBrush"
+                             Color="{DynamicResource MainSidebarColor}" />
+
             <SolidColorBrush x:Key="SidebarBackgroundBrush"
-                             Color="{DynamicResource SidebarBackgroundColor}" />
+                             Color="{DynamicResource MainSidebarColor}" />
+
+            <SolidColorBrush x:Key="PanelBrush"
+                             Color="{DynamicResource PanelColor}" />
+
+            <SolidColorBrush x:Key="PanelAltBrush"
+                             Color="{DynamicResource PanelAltColor}" />
+
+            <SolidColorBrush x:Key="PanelStrongBrush"
+                             Color="{DynamicResource PanelStrongColor}" />
+
+            <SolidColorBrush x:Key="PanelBorderBrush"
+                             Color="{DynamicResource PanelBorderColor}" />
+
+            <SolidColorBrush x:Key="InputBackgroundBrush"
+                             Color="{DynamicResource InputBackgroundColor}" />
 
             <SolidColorBrush x:Key="AccentBrush"
                              Color="{DynamicResource AccentColor}" />
+
+            <SolidColorBrush x:Key="AccentHoverBrush"
+                             Color="{DynamicResource AccentHoverColor}" />
+
+            <SolidColorBrush x:Key="AccentSoftBrush"
+                             Color="{DynamicResource AccentSoftColor}" />
 
             <SolidColorBrush x:Key="TextPrimaryBrush"
                              Color="{DynamicResource TextPrimaryColor}" />
@@ -57,23 +96,79 @@
             <SolidColorBrush x:Key="TextSecondaryBrush"
                              Color="{DynamicResource TextSecondaryColor}" />
 
+            <SolidColorBrush x:Key="TextMutedBrush"
+                             Color="{DynamicResource TextMutedColor}" />
+
+            <SolidColorBrush x:Key="HoverBrush"
+                             Color="{DynamicResource HoverColor}" />
+
+            <SolidColorBrush x:Key="PressedBrush"
+                             Color="{DynamicResource PressedColor}" />
+
+            <SolidColorBrush x:Key="SelectedBrush"
+                             Color="{DynamicResource SelectedColor}" />
+
+            <SolidColorBrush x:Key="DangerBrush"
+                             Color="{DynamicResource DangerColor}" />
+
+            <!-- Compatibility keys -->
+            <SolidColorBrush x:Key="SurfaceBrush"
+                             Color="{DynamicResource PanelColor}" />
+
+            <SolidColorBrush x:Key="SurfaceAltBrush"
+                             Color="{DynamicResource PanelAltColor}" />
+
+            <SolidColorBrush x:Key="SurfaceGlassBrush"
+                             Color="{DynamicResource PanelStrongColor}" />
+
+            <SolidColorBrush x:Key="SidebarPanelBrush"
+                             Color="{DynamicResource PanelAltColor}" />
+
             <SolidColorBrush x:Key="SidebarButtonHoverBrush"
-                             Color="{DynamicResource SidebarButtonHoverColor}" />
+                             Color="{DynamicResource HoverColor}" />
 
             <SolidColorBrush x:Key="SidebarButtonPressedBrush"
-                             Color="{DynamicResource SidebarButtonPressedColor}" />
-            
+                             Color="{DynamicResource PressedColor}" />
+
             <SolidColorBrush x:Key="SidebarButtonSelectedBrush"
-                             Color="{DynamicResource AccentColor}" />
+                             Color="{DynamicResource SelectedColor}" />
 
         </ResourceDictionary>
-
     </Styles.Resources>
 
-    <!-- Global window background -->
     <Style Selector="Window">
         <Setter Property="Background"
                 Value="{DynamicResource AppBackgroundBrush}" />
+    </Style>
+
+    <Style Selector="UserControl">
+        <Setter Property="Background"
+                Value="Transparent" />
+    </Style>
+
+    <Style Selector="TextBlock">
+        <Setter Property="Foreground"
+                Value="{DynamicResource TextPrimaryBrush}" />
+    </Style>
+
+    <Style Selector="TextBox">
+        <Setter Property="Background"
+                Value="{DynamicResource InputBackgroundBrush}" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush"
+                Value="{DynamicResource PanelBorderBrush}" />
+        <Setter Property="BorderThickness"
+                Value="1" />
+        <Setter Property="CornerRadius"
+                Value="6" />
+        <Setter Property="Padding"
+                Value="10,7" />
+    </Style>
+
+    <Style Selector="CheckBox">
+        <Setter Property="Foreground"
+                Value="{DynamicResource TextPrimaryBrush}" />
     </Style>
 
 </Styles>

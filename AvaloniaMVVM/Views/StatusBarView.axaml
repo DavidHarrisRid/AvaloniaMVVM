@@ -2,13 +2,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="using:AvaloniaMVVM.ViewModels"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="28"
              x:DataType="vm:StatusBarVm"
              x:Class="AvaloniaMVVM.Views.StatusBarView">
 
-    <Border MinHeight="30">
-        <TextBlock Text="{Binding Message}" FontSize="16" VerticalAlignment="Center"/>
+    <Border MinHeight="28"
+            Background="{DynamicResource PanelColor}"
+            BorderBrush="{DynamicResource PanelBorderBrush}"
+            BorderThickness="0,1,0,0"
+            Padding="10,0">
+
+        <TextBlock Text="{Binding Message}"
+                   FontSize="16"
+                   Foreground="{DynamicResource TextMutedBrush}"
+                   VerticalAlignment="Center"/>
     </Border>
-    
 </UserControl>

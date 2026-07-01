@@ -1,23 +1,113 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Design.PreviewWith>
-        <Border Padding="20">
-            <!-- Add Controls for Previewer Here -->
-        </Border>
-    </Design.PreviewWith>
 
-    <!-- Add Styles Here -->
-    
-    <!-- Sidebar button style -->
-    <Style Selector="Button.sidebar">
+    <Style Selector="Button">
         <Setter Property="Background"
-                Value="{StaticResource SidebarBackgroundBrush}" />
-
+                Value="{DynamicResource PanelStrongBrush}" />
         <Setter Property="Foreground"
-                Value="{StaticResource TextPrimaryBrush}" />
-
-        <Setter Property="Padding" Value="12" />
-        <Setter Property="Margin" Value="4" />
-        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush"
+                Value="{DynamicResource PanelBorderBrush}" />
+        <Setter Property="BorderThickness"
+                Value="1" />
+        <Setter Property="CornerRadius"
+                Value="6" />
+        <Setter Property="Padding"
+                Value="12,7" />
+        <Setter Property="FontSize"
+                Value="13" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
     </Style>
+
+    <Style Selector="Button:pointerover /template/ ContentPresenter">
+        <Setter Property="Background"
+                Value="{DynamicResource HoverBrush}" />
+    </Style>
+
+    <Style Selector="Button:pressed /template/ ContentPresenter">
+        <Setter Property="Background"
+                Value="{DynamicResource PressedBrush}" />
+    </Style>
+
+    <Style Selector="Button.icon">
+        <Setter Property="Width"
+                Value="30" />
+        <Setter Property="Height"
+                Value="30" />
+        <Setter Property="Padding"
+                Value="0" />
+        <Setter Property="CornerRadius"
+                Value="6" />
+        <Setter Property="FontSize"
+                Value="15" />
+        <Setter Property="Background"
+                Value="{DynamicResource PanelStrongBrush}" />
+        <Setter Property="BorderBrush"
+                Value="{DynamicResource PanelBorderBrush}" />
+    </Style>
+
+    <Style Selector="Button.accent">
+        <Setter Property="Background"
+                Value="{DynamicResource AccentBrush}" />
+        <Setter Property="BorderBrush"
+                Value="{DynamicResource AccentHoverBrush}" />
+        <Setter Property="Foreground"
+                Value="White" />
+    </Style>
+
+    <Style Selector="Button.accent:pointerover /template/ ContentPresenter">
+        <Setter Property="Background"
+                Value="{DynamicResource AccentHoverBrush}" />
+    </Style>
+
+    <Style Selector="Button.tab">
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="BorderBrush"
+                Value="Transparent" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="CornerRadius"
+                Value="6" />
+        <Setter Property="Padding"
+                Value="12,7" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource TextSecondaryBrush}" />
+    </Style>
+
+    <Style Selector="Button.tab:pointerover /template/ ContentPresenter">
+        <Setter Property="Background"
+                Value="{DynamicResource HoverBrush}" />
+    </Style>
+
+    <Style Selector="Button.listRow">
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="CornerRadius"
+                Value="6" />
+        <Setter Property="Padding"
+                Value="10,8" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Stretch" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource TextPrimaryBrush}" />
+    </Style>
+
+    <Style Selector="Button.listRow:pointerover /template/ ContentPresenter">
+        <Setter Property="Background"
+                Value="{DynamicResource HoverBrush}" />
+    </Style>
+
+    <Style Selector="Button.listRow:pressed /template/ ContentPresenter">
+        <Setter Property="Background"
+                Value="{DynamicResource PressedBrush}" />
+    </Style>
+
 </Styles>

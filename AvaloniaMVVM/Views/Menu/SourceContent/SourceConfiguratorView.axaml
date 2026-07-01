@@ -5,53 +5,111 @@
              xmlns:vm="clr-namespace:AvaloniaMVVM.ViewModels.Menu.SourceContent"
              mc:Ignorable="d"
              x:DataType="vm:SourceConfiguratorVm"
-             d:DesignWidth="800"
-             d:DesignHeight="450"
+             d:DesignWidth="900"
+             d:DesignHeight="600"
              x:Class="AvaloniaMVVM.Views.Menu.SourceContent.SourceConfiguratorView">
 
-    <ScrollViewer>
-        <StackPanel Spacing="12"
-                    MaxWidth="700">
+    <Border Background="{DynamicResource PanelBrush}"
+            BorderBrush="{DynamicResource PanelBorderBrush}"
+            BorderThickness="1"
+            CornerRadius="8"
+            Padding="18">
 
-            <TextBlock Text="Source Configurator"
-                       FontSize="24"
-                       FontWeight="Bold"/>
+        <StackPanel Spacing="16"
+                    MaxWidth="760">
 
-            <TextBlock Text="Changes are only written to the source after clicking Save."/>
+            <StackPanel Spacing="4">
+                <TextBlock Text="{DynamicResource SourceConfiguratorTitle}"
+                           FontSize="22"
+                           FontWeight="SemiBold"/>
 
-            <TextBlock Text="Name"/>
-            <TextBox Text="{Binding Name, Mode=TwoWay}"/>
+                <TextBlock Text="{DynamicResource SourceConfiguratorSubtitle}"
+                           FontSize="12"
+                           Foreground="{DynamicResource TextMutedBrush}"/>
+            </StackPanel>
 
-            <TextBlock Text="Default Base URL"/>
-            <TextBox Text="{Binding DefaultBaseUrl, Mode=TwoWay}"/>
+            <Grid ColumnDefinitions="*,*"
+                  RowDefinitions="Auto,Auto,Auto,Auto"
+                  ColumnSpacing="16"
+                  RowSpacing="12">
 
-            <TextBlock Text="Description"/>
-            <TextBox Text="{Binding Description, Mode=TwoWay}"
-                     AcceptsReturn="True"
-                     MinHeight="80"/>
+                <StackPanel Grid.Row="0"
+                            Grid.Column="0"
+                            Spacing="6">
+                    <TextBlock Text="{DynamicResource SourceNameLabel}"
+                               FontSize="12"
+                               Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    <TextBox Text="{Binding Name, Mode=TwoWay}"/>
+                </StackPanel>
 
-            <TextBlock Text="Authentication Type"/>
-            <TextBox Text="{Binding AuthenticationType, Mode=TwoWay}"/>
+                <StackPanel Grid.Row="0"
+                            Grid.Column="1"
+                            Spacing="6">
+                    <TextBlock Text="{DynamicResource SourceBaseUrlLabel}"
+                               FontSize="12"
+                               Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    <TextBox Text="{Binding DefaultBaseUrl, Mode=TwoWay}"/>
+                </StackPanel>
 
-            <TextBlock Text="API Key"/>
-            <TextBox Text="{Binding ApiKey, Mode=TwoWay}"/>
+                <StackPanel Grid.Row="1"
+                            Grid.Column="0"
+                            Spacing="6">
+                    <TextBlock Text="{DynamicResource SourceAuthenticationTypeLabel}"
+                               FontSize="12"
+                               Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    <TextBox Text="{Binding AuthenticationType, Mode=TwoWay}"/>
+                </StackPanel>
 
-            <TextBlock Text="Default Header"/>
-            <TextBox Text="{Binding DefaultHeader, Mode=TwoWay}"
-                     AcceptsReturn="True"
-                     MinHeight="80"/>
+                <StackPanel Grid.Row="1"
+                            Grid.Column="1"
+                            Spacing="6">
+                    <TextBlock Text="{DynamicResource SourceApiKeyLabel}"
+                               FontSize="12"
+                               Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    <TextBox Text="{Binding ApiKey, Mode=TwoWay}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Spacing="6">
+                    <TextBlock Text="{DynamicResource SourceDescriptionLabel}"
+                               FontSize="12"
+                               Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    <TextBox Text="{Binding Description, Mode=TwoWay}"
+                             AcceptsReturn="True"
+                             MinHeight="86"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="3"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Spacing="6">
+                    <TextBlock Text="{DynamicResource SourceDefaultHeaderLabel}"
+                               FontSize="12"
+                               Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    <TextBox Text="{Binding DefaultHeader, Mode=TwoWay}"
+                             AcceptsReturn="True"
+                             MinHeight="100"/>
+                </StackPanel>
+
+            </Grid>
+
+            <Border Height="1"
+                    Background="{DynamicResource PanelBorderBrush}"/>
 
             <StackPanel Orientation="Horizontal"
-                        Spacing="8">
+                        Spacing="10">
 
-                <Button Content="Save Source"
+                <Button Classes="accent"
+                        Content="{DynamicResource SaveSourceAction}"
                         Command="{Binding SaveCommand}"/>
 
                 <TextBlock Text="{Binding SaveMessage}"
-                           VerticalAlignment="Center"/>
-
+                           VerticalAlignment="Center"
+                           Foreground="{DynamicResource TextMutedBrush}"/>
             </StackPanel>
 
         </StackPanel>
-    </ScrollViewer>
+    </Border>
 </UserControl>

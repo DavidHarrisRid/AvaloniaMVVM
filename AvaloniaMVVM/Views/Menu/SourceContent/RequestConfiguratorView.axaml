@@ -5,61 +5,126 @@
              xmlns:vm="clr-namespace:AvaloniaMVVM.ViewModels.Menu.SourceContent"
              mc:Ignorable="d"
              x:DataType="vm:RequestConfiguratorVm"
-             d:DesignWidth="800"
-             d:DesignHeight="450"
+             d:DesignWidth="900"
+             d:DesignHeight="600"
              x:Class="AvaloniaMVVM.Views.Menu.SourceContent.RequestConfiguratorView">
 
-    <ScrollViewer>
-        <StackPanel Spacing="12"
-                    MaxWidth="700">
+    <Border Background="{DynamicResource PanelBrush}"
+            BorderBrush="{DynamicResource PanelBorderBrush}"
+            BorderThickness="1"
+            CornerRadius="8"
+            Padding="18">
 
-            <TextBlock Text="Request Configurator"
-                       FontSize="24"
-                       FontWeight="Bold"/>
+        <StackPanel Spacing="16"
+                    MaxWidth="760">
 
-            <TextBlock Text="Changes are only written to the request after clicking Save."/>
+            <StackPanel Spacing="4">
+                <TextBlock Text="{DynamicResource RequestConfiguratorTitle}"
+                           FontSize="22"
+                           FontWeight="SemiBold"/>
 
-            <TextBlock Text="Name"/>
-            <TextBox Text="{Binding Name, Mode=TwoWay}"/>
+                <TextBlock Text="{DynamicResource RequestConfiguratorSubtitle}"
+                           FontSize="12"
+                           Foreground="{DynamicResource TextMutedBrush}"/>
+            </StackPanel>
 
-            <TextBlock Text="Endpoint Path"/>
-            <TextBox Text="{Binding EndPointPath, Mode=TwoWay}"/>
+            <Grid ColumnDefinitions="*,*"
+                  RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+                  ColumnSpacing="16"
+                  RowSpacing="12">
 
-            <TextBlock Text="HTTP Method"/>
-            <TextBox Text="{Binding HttpMethod, Mode=TwoWay}"/>
+                <StackPanel Grid.Row="0"
+                            Grid.Column="0"
+                            Spacing="6">
+                    <TextBlock Text="{DynamicResource RequestNameLabel}"
+                               FontSize="12"
+                               Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    <TextBox Text="{Binding Name, Mode=TwoWay}"/>
+                </StackPanel>
 
-            <TextBlock Text="Query String Parameters"/>
-            <TextBox Text="{Binding QueryStringParameters, Mode=TwoWay}"
-                     AcceptsReturn="True"
-                     MinHeight="80"/>
+                <StackPanel Grid.Row="0"
+                            Grid.Column="1"
+                            Spacing="6">
+                    <TextBlock Text="{DynamicResource RequestEndpointPathLabel}"
+                               FontSize="12"
+                               Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    <TextBox Text="{Binding EndPointPath, Mode=TwoWay}"/>
+                </StackPanel>
 
-            <TextBlock Text="Request Header"/>
-            <TextBox Text="{Binding RequestHeader, Mode=TwoWay}"
-                     AcceptsReturn="True"
-                     MinHeight="80"/>
+                <StackPanel Grid.Row="1"
+                            Grid.Column="0"
+                            Spacing="6">
+                    <TextBlock Text="{DynamicResource RequestHttpMethodLabel}"
+                               FontSize="12"
+                               Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    <TextBox Text="{Binding HttpMethod, Mode=TwoWay}"/>
+                </StackPanel>
 
-            <TextBlock Text="Request Body"/>
-            <TextBox Text="{Binding RequestBody, Mode=TwoWay}"
-                     AcceptsReturn="True"
-                     MinHeight="120"/>
+                <StackPanel Grid.Row="1"
+                            Grid.Column="1"
+                            Spacing="6">
+                    <TextBlock Text="{DynamicResource RequestPollingIntervalLabel}"
+                               FontSize="12"
+                               Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    <TextBox Text="{Binding PollingInterval, Mode=TwoWay}"/>
+                </StackPanel>
 
-            <TextBlock Text="Polling Interval"/>
-            <TextBox Text="{Binding PollingInterval, Mode=TwoWay}"/>
+                <StackPanel Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Spacing="6">
+                    <TextBlock Text="{DynamicResource RequestQueryParametersLabel}"
+                               FontSize="12"
+                               Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    <TextBox Text="{Binding QueryStringParameters, Mode=TwoWay}"
+                             AcceptsReturn="True"
+                             MinHeight="76"/>
+                </StackPanel>
 
-            <CheckBox Content="Is Active"
+                <StackPanel Grid.Row="3"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Spacing="6">
+                    <TextBlock Text="{DynamicResource RequestHeaderLabel}"
+                               FontSize="12"
+                               Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    <TextBox Text="{Binding RequestHeader, Mode=TwoWay}"
+                             AcceptsReturn="True"
+                             MinHeight="86"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="4"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Spacing="6">
+                    <TextBlock Text="{DynamicResource RequestBodyLabel}"
+                               FontSize="12"
+                               Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    <TextBox Text="{Binding RequestBody, Mode=TwoWay}"
+                             AcceptsReturn="True"
+                             MinHeight="120"/>
+                </StackPanel>
+
+            </Grid>
+
+            <CheckBox Content="{DynamicResource RequestIsActiveLabel}"
                       IsChecked="{Binding IsActive, Mode=TwoWay}"/>
 
-            <StackPanel Orientation="Horizontal"
-                        Spacing="8">
+            <Border Height="1"
+                    Background="{DynamicResource PanelBorderBrush}"/>
 
-                <Button Content="Save Request"
+            <StackPanel Orientation="Horizontal"
+                        Spacing="10">
+
+                <Button Classes="accent"
+                        Content="{DynamicResource SaveRequestAction}"
                         Command="{Binding SaveCommand}"/>
 
                 <TextBlock Text="{Binding SaveMessage}"
-                           VerticalAlignment="Center"/>
-
+                           VerticalAlignment="Center"
+                           Foreground="{DynamicResource TextMutedBrush}"/>
             </StackPanel>
 
         </StackPanel>
-    </ScrollViewer>
+    </Border>
 </UserControl>

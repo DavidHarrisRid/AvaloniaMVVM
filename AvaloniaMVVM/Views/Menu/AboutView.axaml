@@ -2,33 +2,59 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d"
+             d:DesignWidth="900"
+             d:DesignHeight="600"
              x:Class="AvaloniaMVVM.Views.Menu.AboutView">
-    
-    <StackPanel Spacing="12" Margin="20">
-        <TextBlock
-            Text="{DynamicResource AboutTitle}"
-            FontSize="24"
-            FontWeight="Bold" />
 
-        <Border Padding="5"></Border>
-        
-        <TextBlock
-            Text="{DynamicResource AboutSubTitle}" />
-                
-        <Border Padding="5"></Border>
-        
-        <TextBlock
-            Text="{DynamicResource AboutVersionInfo}"/>
-        
-        <Border Padding="5"></Border>
-        
-        <Border BorderBrush="{DynamicResource AccentBrush}" BorderThickness="1">
-            <TextBlock
-                Text="{DynamicResource AboutLegalInfo}" TextAlignment="Center" Margin="12" TextWrapping="Wrap"/>
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled">
+
+        <Border Padding="20">
+
+            <StackPanel Spacing="16"
+                        MaxWidth="860">
+
+                <Border Background="{DynamicResource PanelBrush}"
+                        BorderBrush="{DynamicResource PanelBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="18">
+
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="{DynamicResource AboutTitle}"
+                                   FontSize="22"
+                                   FontWeight="SemiBold"/>
+
+                        <TextBlock Text="{DynamicResource AboutSubTitle}"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource TextMutedBrush}"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Background="{DynamicResource PanelBrush}"
+                        BorderBrush="{DynamicResource PanelBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="18">
+
+                    <TextBlock Text="{DynamicResource AboutVersionInfo}"
+                               Foreground="{DynamicResource TextSecondaryBrush}"
+                               TextWrapping="Wrap"/>
+                </Border>
+
+                <Border Background="{DynamicResource PanelBrush}"
+                        BorderBrush="{DynamicResource PanelBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="18">
+
+                    <TextBlock Text="{DynamicResource AboutLegalInfo}"
+                               Foreground="{DynamicResource TextSecondaryBrush}"
+                               TextWrapping="Wrap"/>
+                </Border>
+
+            </StackPanel>
         </Border>
-        
-    </StackPanel>
-    
+    </ScrollViewer>
 </UserControl>
-
