@@ -7,6 +7,8 @@ namespace AvaloniaMVVM.ViewModels.Menu.SourceContent;
 
 public partial class SourceConfiguratorVm : BaseVm
 {
+    private StatusBarVm _statusBar;
+    
     private ApiSourceModel? _source;
 
     [ObservableProperty]
@@ -30,6 +32,10 @@ public partial class SourceConfiguratorVm : BaseVm
     [ObservableProperty]
     private string? _saveMessage;
 
+    public SourceConfiguratorVm(StatusBarVm statusBar)
+    {
+        _statusBar = statusBar;
+    }
     public void Load(ApiSourceModel? source)
     {
         _source = source;
@@ -49,7 +55,7 @@ public partial class SourceConfiguratorVm : BaseVm
     {
         if (_source is null)
         {
-            SaveMessage = "No source selected.";
+            _statusBar.Message = "No source selected.";
             return;
         }
 
@@ -60,6 +66,6 @@ public partial class SourceConfiguratorVm : BaseVm
         _source.ApiKey = ApiKey;
         _source.DefaultHeader = DefaultHeader;
 
-        SaveMessage = "Source saved.";
+        _statusBar.Message = "Source saved.";
     }
 }

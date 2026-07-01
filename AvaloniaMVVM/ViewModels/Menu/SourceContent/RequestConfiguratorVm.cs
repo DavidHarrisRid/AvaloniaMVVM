@@ -7,6 +7,8 @@ namespace AvaloniaMVVM.ViewModels.Menu.SourceContent;
 
 public partial class RequestConfiguratorVm : BaseVm
 {
+    private StatusBarVm _statusBar;
+    
     private ApiRequestModel? _request;
 
     [ObservableProperty]
@@ -36,6 +38,10 @@ public partial class RequestConfiguratorVm : BaseVm
     [ObservableProperty]
     private string? _saveMessage;
 
+    public RequestConfiguratorVm(StatusBarVm statusBar)
+    {
+        _statusBar = statusBar;
+    }
     public void Load(ApiRequestModel? request)
     {
         _request = request;
@@ -57,7 +63,7 @@ public partial class RequestConfiguratorVm : BaseVm
     {
         if (_request is null)
         {
-            SaveMessage = "No request selected.";
+            _statusBar.Message = "No request selected.";
             return;
         }
 
@@ -78,6 +84,6 @@ public partial class RequestConfiguratorVm : BaseVm
             _request.PollingInterval = null;
         }
 
-        SaveMessage = "Request saved.";
+        _statusBar.Message = "Request saved.";
     }
 }
