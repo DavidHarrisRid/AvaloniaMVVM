@@ -81,7 +81,14 @@ public partial class DashboardVm : BaseVm
     {
         return SelectedSource is not null;
     }
-
+    
+    [RelayCommand]
+    private void SelectSource(ApiSourceModel source)
+    {
+        SelectedSource = source;
+        SelectedRequest = null;
+    }
+    
     [RelayCommand]
     private void EditSource(ApiSourceModel source)
     {

@@ -38,8 +38,6 @@
     <x:String x:Key="NoRequestMethod">No method configured</x:String>
 
     <!-- Request workspace -->
-    <x:String x:Key="RequestWorkspaceTitle">Request Workspace</x:String>
-    <x:String x:Key="RequestWorkspaceSubtitle">Inspect request data and dashboard presentation.</x:String>
     <x:String x:Key="DataDashboardTab">Data Dashboard</x:String>
     <x:String x:Key="DashboardDesignerTab">Dashboard Designer</x:String>
 
