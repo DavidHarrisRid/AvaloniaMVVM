@@ -1,16 +1,30 @@
 ﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AvaloniaMVVM.Models;
 
-public class ApiSourceModel
+public partial class ApiSourceModel : ObservableObject
 {
-    public int? ApiSourceId { get; set; }
-    public string? Name { get; set; }
-    public string? DefaultBaseUrl { get; set; }
-    public string? Description { get; set; }
-    public string? AuthenticationType { get; set; }
-    public string? ApiKey { get; set; }
-    public string? DefaultHeader { get; set; }
+    [ObservableProperty]
+    private int? _apiSourceId;
+
+    [ObservableProperty]
+    private string? _name;
+
+    [ObservableProperty]
+    private string? _defaultBaseUrl;
+
+    [ObservableProperty]
+    private string? _description;
+
+    [ObservableProperty]
+    private string? _authenticationType;
+
+    [ObservableProperty]
+    private string? _apiKey;
+
+    [ObservableProperty]
+    private string? _defaultHeader;
 
     public ObservableCollection<ApiRequestModel> ApiRequests { get; } = new();
 }

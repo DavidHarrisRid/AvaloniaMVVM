@@ -2,15 +2,64 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:AvaloniaMVVM.ViewModels.Menu.SourceContent"
+             mc:Ignorable="d"
+             x:DataType="vm:RequestConfiguratorVm"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
              x:Class="AvaloniaMVVM.Views.Menu.SourceContent.RequestConfiguratorView">
-    
-    <StackPanel Spacing="12">
-        <TextBlock Text="Request Configurator"
-                   FontSize="24"
-                   FontWeight="Bold"/>
 
-        <TextBlock Text="Here we will edit the selected request."/>
-    </StackPanel>
-    
+    <ScrollViewer>
+        <StackPanel Spacing="12"
+                    MaxWidth="700">
+
+            <TextBlock Text="Request Configurator"
+                       FontSize="24"
+                       FontWeight="Bold"/>
+
+            <TextBlock Text="Changes are only written to the request after clicking Save."/>
+
+            <TextBlock Text="Name"/>
+            <TextBox Text="{Binding Name, Mode=TwoWay}"/>
+
+            <TextBlock Text="Endpoint Path"/>
+            <TextBox Text="{Binding EndPointPath, Mode=TwoWay}"/>
+
+            <TextBlock Text="HTTP Method"/>
+            <TextBox Text="{Binding HttpMethod, Mode=TwoWay}"/>
+
+            <TextBlock Text="Query String Parameters"/>
+            <TextBox Text="{Binding QueryStringParameters, Mode=TwoWay}"
+                     AcceptsReturn="True"
+                     MinHeight="80"/>
+
+            <TextBlock Text="Request Header"/>
+            <TextBox Text="{Binding RequestHeader, Mode=TwoWay}"
+                     AcceptsReturn="True"
+                     MinHeight="80"/>
+
+            <TextBlock Text="Request Body"/>
+            <TextBox Text="{Binding RequestBody, Mode=TwoWay}"
+                     AcceptsReturn="True"
+                     MinHeight="120"/>
+
+            <TextBlock Text="Polling Interval"/>
+            <TextBox Text="{Binding PollingInterval, Mode=TwoWay}"/>
+
+            <CheckBox Content="Is Active"
+                      IsChecked="{Binding IsActive, Mode=TwoWay}"/>
+
+            <StackPanel Orientation="Horizontal"
+                        Spacing="8">
+
+                <Button Content="Save Request"
+                        Command="{Binding SaveCommand}"/>
+
+                <TextBlock Text="{Binding SaveMessage}"
+                           VerticalAlignment="Center"/>
+
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

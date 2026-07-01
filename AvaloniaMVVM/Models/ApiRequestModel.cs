@@ -1,19 +1,39 @@
 ﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AvaloniaMVVM.Models;
 
-public class ApiRequestModel
+public partial class ApiRequestModel : ObservableObject
 {
-    public int? ApiRequestId { get; set; }
-    public int? ApiSourceId { get; set; }
-    public string? Name { get; set; }
-    public string? EndPointPath { get; set; }
-    public string? HttpMethod { get; set; }
-    public string? QueryStringParameters { get; set; }
-    public string? RequestBody { get; set; }
-    public string? RequestHeader { get; set; }
-    public int? PollingInterval { get; set; }
-    public bool? IsActive { get; set; }
+    [ObservableProperty]
+    private int? _apiRequestId;
+
+    [ObservableProperty]
+    private int? _apiSourceId;
+
+    [ObservableProperty]
+    private string? _name;
+
+    [ObservableProperty]
+    private string? _endPointPath;
+
+    [ObservableProperty]
+    private string? _httpMethod;
+
+    [ObservableProperty]
+    private string? _queryStringParameters;
+
+    [ObservableProperty]
+    private string? _requestBody;
+
+    [ObservableProperty]
+    private string? _requestHeader;
+
+    [ObservableProperty]
+    private int? _pollingInterval;
+
+    [ObservableProperty]
+    private bool? _isActive;
 
     public ObservableCollection<JsonEntryModel> JsonEntries { get; } = new();
 }

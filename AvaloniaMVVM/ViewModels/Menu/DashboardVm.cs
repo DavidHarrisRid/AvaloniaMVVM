@@ -161,12 +161,16 @@ public partial class DashboardVm : BaseVm
 
     private void OpenSourceEditor()
     {
+        SourceConfiguratorVm.Load(SelectedSource);
+
         IsSourceEditorOpen = true;
         IsRequestEditorOpen = false;
     }
 
     private void OpenRequestEditor()
     {
+        RequestConfiguratorVm.Load(SelectedRequest);
+
         IsSourceEditorOpen = false;
         IsRequestEditorOpen = true;
     }
