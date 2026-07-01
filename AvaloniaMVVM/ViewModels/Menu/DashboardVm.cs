@@ -17,11 +17,21 @@ public partial class DashboardVm : BaseVm
 
     public SourceConfiguratorVm SourceConfiguratorVm { get; }
 
-    public bool IsRequestWorkspaceVisible => !IsSourceEditorOpen;
+    public RequestConfiguratorVm RequestConfiguratorVm { get; }
+
+    public bool IsEditorVisible => IsSourceEditorOpen || IsRequestEditorOpen;
+
+    public bool IsRequestWorkspaceVisible => !IsEditorVisible;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsEditorVisible))]
     [NotifyPropertyChangedFor(nameof(IsRequestWorkspaceVisible))]
     private bool _isSourceEditorOpen;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsEditorVisible))]
+    [NotifyPropertyChangedFor(nameof(IsRequestWorkspaceVisible))]
+    private bool _isRequestEditorOpen;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(Requests))]
@@ -36,11 +46,13 @@ public partial class DashboardVm : BaseVm
     public DashboardVm(
         SourceManagementService sourceManagementService,
         SourceNavigationService sourceNavigationService,
-        SourceConfiguratorVm sourceConfiguratorVm)
+        SourceConfiguratorVm sourceConfiguratorVm,
+        RequestConfiguratorVm requestConfiguratorVm)
     {
         _sourceManagementService = sourceManagementService;
         SourceNavigationService = sourceNavigationService;
         SourceConfiguratorVm = sourceConfiguratorVm;
+        RequestConfiguratorVm = requestConfiguratorVm;
     }
 
     [RelayCommand]
@@ -62,7 +74,7 @@ public partial class DashboardVm : BaseVm
 
         SelectedRequest = _sourceManagementService.CreateRequest(SelectedSource);
 
-        OpenRequestWorkspace(SourceNavigationPosition.RequestConfigurator);
+        OpenRequestEditor();
     }
 
     private bool CanCreateRequest()
@@ -97,12 +109,17 @@ public partial class DashboardVm : BaseVm
         if (Sources.Count > 0)
         {
             SelectedSource = Sources[0];
-            OpenSourceEditor();
         }
-        else
-        {
-            OpenSourceEditor();
-        }
+
+        OpenSourceEditor();
+    }
+
+    [RelayCommand]
+    private void OpenRequest(ApiRequestModel request)
+    {
+        SelectedRequest = request;
+
+        OpenRequestWorkspace(SourceNavigationPosition.DataDashboard);
     }
 
     [RelayCommand]
@@ -110,7 +127,7 @@ public partial class DashboardVm : BaseVm
     {
         SelectedRequest = request;
 
-        OpenRequestWorkspace(SourceNavigationPosition.RequestConfigurator);
+        OpenRequestEditor();
     }
 
     [RelayCommand]
@@ -129,6 +146,11 @@ public partial class DashboardVm : BaseVm
         {
             SelectedRequest = null;
         }
+
+        if (SelectedSource.ApiRequests.Count == 0)
+        {
+            OpenSourceEditor();
+        }
     }
 
     [RelayCommand]
@@ -137,24 +159,23 @@ public partial class DashboardVm : BaseVm
         OpenRequestWorkspace(position);
     }
 
-    partial void OnSelectedRequestChanged(ApiRequestModel? value)
-    {
-        if (value is null)
-        {
-            return;
-        }
-
-        OpenRequestWorkspace(SourceNavigationPosition.RequestConfigurator);
-    }
-
     private void OpenSourceEditor()
     {
         IsSourceEditorOpen = true;
+        IsRequestEditorOpen = false;
+    }
+
+    private void OpenRequestEditor()
+    {
+        IsSourceEditorOpen = false;
+        IsRequestEditorOpen = true;
     }
 
     private void OpenRequestWorkspace(SourceNavigationPosition position)
     {
         IsSourceEditorOpen = false;
+        IsRequestEditorOpen = false;
+
         SourceNavigationService.Navigate(position);
     }
 }

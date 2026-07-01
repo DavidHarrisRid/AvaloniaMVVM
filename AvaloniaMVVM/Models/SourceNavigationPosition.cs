@@ -2,7 +2,6 @@
 
 public enum SourceNavigationPosition
 {
-    RequestConfigurator,
     DataDashboard,
     DashboardDesigner
 }

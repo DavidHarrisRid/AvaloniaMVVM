@@ -10,61 +10,62 @@
              x:Class="AvaloniaMVVM.App"
              xmlns:local="using:AvaloniaMVVM"
              RequestedThemeVariant="Default">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.DataTemplates>
         <!-- ViewModels -->
         <DataTemplate DataType="viewModels:StatusBarVm">
-            <views:StatusBarView></views:StatusBarView>
+            <views:StatusBarView />
         </DataTemplate>
-        
-        <!-- MenuVMs -->
+
+        <!-- Menu VMs -->
         <DataTemplate DataType="viewModelsMenu:AboutVm">
-            <viewsMenu:AboutView></viewsMenu:AboutView>
+            <viewsMenu:AboutView />
         </DataTemplate>
-        
+
         <DataTemplate DataType="viewModelsMenu:AppSettingsVm">
-            <viewsMenu:AppSettingsView></viewsMenu:AppSettingsView>
+            <viewsMenu:AppSettingsView />
         </DataTemplate>
-        
+
         <DataTemplate DataType="viewModelsMenu:DashboardVm">
-            <viewsMenu:DashboardView></viewsMenu:DashboardView>
+            <viewsMenu:DashboardView />
         </DataTemplate>
-        
-        <!-- SourceContentVMs -->
-        <DataTemplate DataType="viewModelsSourceContent:DashboardDesignerVm">
-            <viewsSourceContent:DashboardDesignerView></viewsSourceContent:DashboardDesignerView>
-        </DataTemplate>
-        
-        <DataTemplate DataType="viewModelsSourceContent:DataDashboardVm">
-            <viewsSourceContent:DataDashboardView></viewsSourceContent:DataDashboardView>
-        </DataTemplate>
-        
+
+        <!-- Source content VMs -->
         <DataTemplate DataType="viewModelsSourceContent:SourceConfiguratorVm">
-            <viewsSourceContent:SourceConfiguratorView></viewsSourceContent:SourceConfiguratorView>
+            <viewsSourceContent:SourceConfiguratorView />
         </DataTemplate>
-        
+
+        <DataTemplate DataType="viewModelsSourceContent:RequestConfiguratorVm">
+            <viewsSourceContent:RequestConfiguratorView />
+        </DataTemplate>
+
+        <DataTemplate DataType="viewModelsSourceContent:DataDashboardVm">
+            <viewsSourceContent:DataDashboardView />
+        </DataTemplate>
+
+        <DataTemplate DataType="viewModelsSourceContent:DashboardDesignerVm">
+            <viewsSourceContent:DashboardDesignerView />
+        </DataTemplate>
     </Application.DataTemplates>
-             
-             <Application.Resources>
-                 <ResourceDictionary>
 
-                     <ResourceDictionary.MergedDictionaries>
-                         <ResourceInclude
-                             Source="avares://AvaloniaMVVM/Resources/Strings.en.axaml" />
-                     </ResourceDictionary.MergedDictionaries>
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://AvaloniaMVVM/Resources/Strings.en.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
 
-                 </ResourceDictionary>
-             </Application.Resources>
-  
     <Application.Styles>
         <FluentTheme />
-        
-            <materialIcons:MaterialIconStyles />
-        
-            <!-- Neutral styles -->
-            <StyleInclude Source="Resources/Colors.axaml"/>
-            <StyleInclude Source="Resources/SidebarButtonStyles.axaml"/>
-            <StyleInclude Source="Resources/ButtonStyles.axaml"/>
+
+        <materialIcons:MaterialIconStyles />
+
+        <!-- Neutral styles -->
+        <StyleInclude Source="Resources/Colors.axaml" />
+        <StyleInclude Source="Resources/SidebarButtonStyles.axaml" />
+        <StyleInclude Source="Resources/ButtonStyles.axaml" />
     </Application.Styles>
 </Application>
