@@ -193,4 +193,26 @@
                         Value="{DynamicResource HoverBrush}" />
         </Style>
         
+        <!-- Dangerous action button -->
+        <Style Selector="Button.danger">
+                <Setter Property="Background"
+                        Value="{DynamicResource DangerBrush}" />
+                <Setter Property="BorderBrush"
+                        Value="{DynamicResource DangerBrush}" />
+                <Setter Property="Foreground"
+                        Value="White" />
+                <Setter Property="FontWeight"
+                        Value="Medium" />
+        </Style>
+
+        <Style Selector="Button.danger:pointerover /template/ ContentPresenter">
+                <Setter Property="Background"
+                        Value="#FF766E" />
+        </Style>
+
+        <Style Selector="Button.danger:pressed /template/ ContentPresenter">
+                <Setter Property="Background"
+                        Value="#D9443D" />
+        </Style>
+        
 </Styles>

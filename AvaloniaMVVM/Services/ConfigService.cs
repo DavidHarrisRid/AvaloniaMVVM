@@ -1,8 +1,11 @@
-﻿namespace AvaloniaMVVM.Services;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-public class ConfigService
+namespace AvaloniaMVVM.Services;
+
+public partial class ConfigService : ObservableObject
 {
-    public string ApiUrl { get; private  set; }
+    [ObservableProperty]
+    private string _apiUrl = string.Empty;
 
     public void UpdateSettings(string apiUrl)
     {

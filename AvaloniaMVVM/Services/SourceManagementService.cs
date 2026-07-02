@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using AvaloniaMVVM.Models;
 
 namespace AvaloniaMVVM.Services;
@@ -16,7 +17,8 @@ public class SourceManagementService
         {
             ApiSourceId = _nextSourceId,
             Name = $"Source {_nextSourceId}",
-            Description = "New source"
+            Description = "New source",
+            IsExpanded = true
         };
 
         _nextSourceId++;
@@ -50,5 +52,10 @@ public class SourceManagementService
     public void DeleteRequest(ApiSourceModel source, ApiRequestModel request)
     {
         source.ApiRequests.Remove(request);
+    }
+
+    public ApiSourceModel? FindSourceForRequest(ApiRequestModel request)
+    {
+        return ApiSources.FirstOrDefault(source => source.ApiRequests.Contains(request));
     }
 }

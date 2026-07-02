@@ -1,18 +1,29 @@
-﻿using AvaloniaMVVM.Services;
+﻿using System.ComponentModel;
+using AvaloniaMVVM.Services;
 
 namespace AvaloniaMVVM.ViewModels.Menu;
 
-public class AppSettingsVm(ConfigService configService) : BaseVm
+public class AppSettingsVm : BaseVm
 {
-    private readonly ConfigService _configService = configService;
+    private readonly ConfigService _configService;
 
-    public string ApiUrl 
-    { 
+    public string ApiUrl
+    {
         get => _configService.ApiUrl;
-        set
+        set => _configService.UpdateSettings(value);
+    }
+
+    public AppSettingsVm(ConfigService configService)
+    {
+        _configService = configService;
+        _configService.PropertyChanged += OnConfigServicePropertyChanged;
+    }
+
+    private void OnConfigServicePropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(ConfigService.ApiUrl))
         {
-            _configService.UpdateSettings(value);
-            OnPropertyChanged();
+            OnPropertyChanged(nameof(ApiUrl));
         }
     }
 }

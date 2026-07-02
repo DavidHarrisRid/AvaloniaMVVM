@@ -1,4 +1,5 @@
 ﻿using AvaloniaMVVM.Models;
+using AvaloniaMVVM.Services;
 using AvaloniaMVVM.ViewModels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -7,8 +8,8 @@ namespace AvaloniaMVVM.ViewModels.Menu.SourceContent;
 
 public partial class SourceConfiguratorVm : BaseVm
 {
-    private StatusBarVm _statusBar;
-    
+    private readonly SourceConfigurationService _sourceConfigurationService;
+
     private ApiSourceModel? _source;
 
     [ObservableProperty]
@@ -29,43 +30,42 @@ public partial class SourceConfiguratorVm : BaseVm
     [ObservableProperty]
     private string? _defaultHeader;
 
-    [ObservableProperty]
-    private string? _saveMessage;
-
-    public SourceConfiguratorVm(StatusBarVm statusBar)
+    public SourceConfiguratorVm(SourceConfigurationService sourceConfigurationService)
     {
-        _statusBar = statusBar;
+        _sourceConfigurationService = sourceConfigurationService;
     }
+
     public void Load(ApiSourceModel? source)
     {
         _source = source;
 
-        Name = source?.Name;
-        DefaultBaseUrl = source?.DefaultBaseUrl;
-        Description = source?.Description;
-        AuthenticationType = source?.AuthenticationType;
-        ApiKey = source?.ApiKey;
-        DefaultHeader = source?.DefaultHeader;
+        _sourceConfigurationService.Load(
+            source,
+            out var name,
+            out var defaultBaseUrl,
+            out var description,
+            out var authenticationType,
+            out var apiKey,
+            out var defaultHeader);
 
-        SaveMessage = null;
+        Name = name;
+        DefaultBaseUrl = defaultBaseUrl;
+        Description = description;
+        AuthenticationType = authenticationType;
+        ApiKey = apiKey;
+        DefaultHeader = defaultHeader;
     }
 
     [RelayCommand]
     private void Save()
     {
-        if (_source is null)
-        {
-            _statusBar.Message = "No source selected.";
-            return;
-        }
-
-        _source.Name = Name;
-        _source.DefaultBaseUrl = DefaultBaseUrl;
-        _source.Description = Description;
-        _source.AuthenticationType = AuthenticationType;
-        _source.ApiKey = ApiKey;
-        _source.DefaultHeader = DefaultHeader;
-
-        _statusBar.Message = "Source saved.";
+        _sourceConfigurationService.Save(
+            _source,
+            Name,
+            DefaultBaseUrl,
+            Description,
+            AuthenticationType,
+            ApiKey,
+            DefaultHeader);
     }
 }

@@ -67,7 +67,17 @@
     <x:String x:Key="RequestPollingIntervalLabel">Polling Interval</x:String>
     <x:String x:Key="RequestIsActiveLabel">Is Active</x:String>
     <x:String x:Key="SaveRequestAction">Save Request</x:String>
+    
+    <!-- Delete confirmation -->
+    <x:String x:Key="DeleteSourceDialogTitle">Delete source?</x:String>
+    <x:String x:Key="DeleteSourceDialogMessage">This will delete the source, all requests inside it, and all data connected to those requests. This action cannot be undone.</x:String>
 
+    <x:String x:Key="DeleteRequestDialogTitle">Delete request?</x:String>
+    <x:String x:Key="DeleteRequestDialogMessage">This will delete the request and all data connected to it. This action cannot be undone.</x:String>
+
+    <x:String x:Key="CancelAction">Cancel</x:String>
+    <x:String x:Key="ConfirmDeleteAction">Delete</x:String>
+    
     <!-- Data dashboard -->
     <x:String x:Key="DataDashboardTitle">Data Dashboard</x:String>
     <x:String x:Key="DataDashboardSubtitle">Request output preview will appear here.</x:String>

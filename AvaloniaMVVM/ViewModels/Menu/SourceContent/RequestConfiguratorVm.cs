@@ -1,4 +1,5 @@
 ﻿using AvaloniaMVVM.Models;
+using AvaloniaMVVM.Services;
 using AvaloniaMVVM.ViewModels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -7,8 +8,8 @@ namespace AvaloniaMVVM.ViewModels.Menu.SourceContent;
 
 public partial class RequestConfiguratorVm : BaseVm
 {
-    private StatusBarVm _statusBar;
-    
+    private readonly RequestConfigurationService _requestConfigurationService;
+
     private ApiRequestModel? _request;
 
     [ObservableProperty]
@@ -35,55 +36,48 @@ public partial class RequestConfiguratorVm : BaseVm
     [ObservableProperty]
     private bool? _isActive;
 
-    [ObservableProperty]
-    private string? _saveMessage;
-
-    public RequestConfiguratorVm(StatusBarVm statusBar)
+    public RequestConfiguratorVm(RequestConfigurationService requestConfigurationService)
     {
-        _statusBar = statusBar;
+        _requestConfigurationService = requestConfigurationService;
     }
+
     public void Load(ApiRequestModel? request)
     {
         _request = request;
 
-        Name = request?.Name;
-        EndPointPath = request?.EndPointPath;
-        HttpMethod = request?.HttpMethod;
-        QueryStringParameters = request?.QueryStringParameters;
-        RequestBody = request?.RequestBody;
-        RequestHeader = request?.RequestHeader;
-        PollingInterval = request?.PollingInterval?.ToString();
-        IsActive = request?.IsActive;
+        _requestConfigurationService.Load(
+            request,
+            out var name,
+            out var endPointPath,
+            out var httpMethod,
+            out var queryStringParameters,
+            out var requestBody,
+            out var requestHeader,
+            out var pollingInterval,
+            out var isActive);
 
-        SaveMessage = null;
+        Name = name;
+        EndPointPath = endPointPath;
+        HttpMethod = httpMethod;
+        QueryStringParameters = queryStringParameters;
+        RequestBody = requestBody;
+        RequestHeader = requestHeader;
+        PollingInterval = pollingInterval;
+        IsActive = isActive;
     }
 
     [RelayCommand]
     private void Save()
     {
-        if (_request is null)
-        {
-            _statusBar.Message = "No request selected.";
-            return;
-        }
-
-        _request.Name = Name;
-        _request.EndPointPath = EndPointPath;
-        _request.HttpMethod = HttpMethod;
-        _request.QueryStringParameters = QueryStringParameters;
-        _request.RequestBody = RequestBody;
-        _request.RequestHeader = RequestHeader;
-        _request.IsActive = IsActive;
-
-        if (int.TryParse(PollingInterval, out var pollingInterval))
-        {
-            _request.PollingInterval = pollingInterval;
-        }
-        else
-        {
-            _request.PollingInterval = null;
-        }
-
-        _statusBar.Message = "Request saved.";
+        _requestConfigurationService.Save(
+            _request,
+            Name,
+            EndPointPath,
+            HttpMethod,
+            QueryStringParameters,
+            RequestBody,
+            RequestHeader,
+            PollingInterval,
+            IsActive);
     }
 }
