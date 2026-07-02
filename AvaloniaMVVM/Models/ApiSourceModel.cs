@@ -26,5 +26,8 @@ public partial class ApiSourceModel : ObservableObject
     [ObservableProperty]
     private string? _defaultHeader;
 
+    [ObservableProperty]
+    private bool _isExpanded;
+
     public ObservableCollection<ApiRequestModel> ApiRequests { get; } = new();
 }

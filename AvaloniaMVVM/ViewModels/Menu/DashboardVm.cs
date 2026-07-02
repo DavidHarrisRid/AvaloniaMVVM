@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using AvaloniaMVVM.Models;
 using AvaloniaMVVM.Services;
 using AvaloniaMVVM.ViewModels.Menu.SourceContent;
@@ -34,14 +35,10 @@ public partial class DashboardVm : BaseVm
     private bool _isRequestEditorOpen;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(Requests))]
-    [NotifyCanExecuteChangedFor(nameof(CreateRequestCommand))]
     private ApiSourceModel? _selectedSource;
 
     [ObservableProperty]
     private ApiRequestModel? _selectedRequest;
-
-    public ObservableCollection<ApiRequestModel>? Requests => SelectedSource?.ApiRequests;
 
     public DashboardVm(
         SourceManagementService sourceManagementService,
@@ -61,34 +58,20 @@ public partial class DashboardVm : BaseVm
         SelectedSource = _sourceManagementService.CreateSource();
         SelectedRequest = null;
 
+        SelectedSource.IsExpanded = true;
+
         OpenSourceEditor();
     }
 
-    [RelayCommand(CanExecute = nameof(CanCreateRequest))]
-    private void CreateRequest()
-    {
-        if (SelectedSource is null)
-        {
-            return;
-        }
-
-        SelectedRequest = _sourceManagementService.CreateRequest(SelectedSource);
-
-        OpenRequestEditor();
-    }
-
-    private bool CanCreateRequest()
-    {
-        return SelectedSource is not null;
-    }
-    
     [RelayCommand]
-    private void SelectSource(ApiSourceModel source)
+    private void ToggleSource(ApiSourceModel source)
     {
         SelectedSource = source;
         SelectedRequest = null;
+
+        source.IsExpanded = !source.IsExpanded;
     }
-    
+
     [RelayCommand]
     private void EditSource(ApiSourceModel source)
     {
@@ -122,9 +105,26 @@ public partial class DashboardVm : BaseVm
     }
 
     [RelayCommand]
+    private void CreateRequestForSource(ApiSourceModel source)
+    {
+        SelectedSource = source;
+        SelectedRequest = _sourceManagementService.CreateRequest(source);
+
+        source.IsExpanded = true;
+
+        OpenRequestEditor();
+    }
+
+    [RelayCommand]
     private void OpenRequest(ApiRequestModel request)
     {
         SelectedRequest = request;
+        SelectedSource = FindSourceForRequest(request);
+
+        if (SelectedSource is not null)
+        {
+            SelectedSource.IsExpanded = true;
+        }
 
         OpenRequestWorkspace(SourceNavigationPosition.DataDashboard);
     }
@@ -133,6 +133,12 @@ public partial class DashboardVm : BaseVm
     private void EditRequest(ApiRequestModel request)
     {
         SelectedRequest = request;
+        SelectedSource = FindSourceForRequest(request);
+
+        if (SelectedSource is not null)
+        {
+            SelectedSource.IsExpanded = true;
+        }
 
         OpenRequestEditor();
     }
@@ -140,22 +146,26 @@ public partial class DashboardVm : BaseVm
     [RelayCommand]
     private void DeleteRequest(ApiRequestModel request)
     {
-        if (SelectedSource is null)
+        var source = FindSourceForRequest(request);
+
+        if (source is null)
         {
             return;
         }
 
         var wasSelectedRequest = SelectedRequest == request;
 
-        _sourceManagementService.DeleteRequest(SelectedSource, request);
+        _sourceManagementService.DeleteRequest(source, request);
 
         if (wasSelectedRequest)
         {
             SelectedRequest = null;
         }
 
-        if (SelectedSource.ApiRequests.Count == 0)
+        if (source.ApiRequests.Count == 0)
         {
+            source.IsExpanded = false;
+            SelectedSource = source;
             OpenSourceEditor();
         }
     }
@@ -164,6 +174,11 @@ public partial class DashboardVm : BaseVm
     private void NavigateSourceContent(SourceNavigationPosition position)
     {
         OpenRequestWorkspace(position);
+    }
+
+    private ApiSourceModel? FindSourceForRequest(ApiRequestModel request)
+    {
+        return Sources.FirstOrDefault(source => source.ApiRequests.Contains(request));
     }
 
     private void OpenSourceEditor()

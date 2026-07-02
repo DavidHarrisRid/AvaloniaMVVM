@@ -22,7 +22,7 @@
 
                     <Color x:Key="TextPrimaryColor">#1F2430</Color>
                     <Color x:Key="TextSecondaryColor">#596275</Color>
-                    <Color x:Key="TextMutedColor">#7D8797</Color>
+                    <Color x:Key="TextMutedColor">#A3A7AF</Color>
 
                     <Color x:Key="HoverColor">#E4E9F4</Color>
                     <Color x:Key="PressedColor">#D7DEEA</Color>
@@ -45,7 +45,7 @@
                     <Color x:Key="AccentSoftColor">#403574F0</Color>
 
                     <Color x:Key="TextPrimaryColor">#DFE1E5</Color>
-                    <Color x:Key="TextSecondaryColor">#B6BAC3</Color>
+                    <Color x:Key="TextSecondaryColor">#C4C7CE</Color>
                     <Color x:Key="TextMutedColor">#868A91</Color>
 
                     <Color x:Key="HoverColor">#3A3D43</Color>

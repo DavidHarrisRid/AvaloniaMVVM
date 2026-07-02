@@ -13,220 +13,242 @@
 
     <Grid Background="{DynamicResource AppBackgroundBrush}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="560"
-                              MinWidth="480"/>
+            <!-- Resizable tree column -->
+            <ColumnDefinition Width="380"
+                              MinWidth="300"/>
+
+            <!-- Mouse draggable splitter -->
+            <ColumnDefinition Width="4"/>
+
+            <!-- Main workspace -->
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Left source/request area -->
-        <Grid Grid.Column="0"
-              ColumnDefinitions="*,*"
-              ColumnSpacing="1"
-              Background="{DynamicResource PanelBorderBrush}">
+        <!-- SOURCE / REQUEST TREE -->
+        <Border Grid.Column="0"
+                Background="{DynamicResource PanelAltBrush}">
 
-            <!-- Sources panel -->
-            <Border Grid.Column="0"
-                    Background="{DynamicResource PanelAltBrush}">
+            <Grid RowDefinitions="Auto,*">
 
-                <Grid RowDefinitions="Auto,*">
+                <!-- Tree header -->
+                <Border Grid.Row="0"
+                        Background="{DynamicResource PanelColor}"
+                        BorderBrush="{DynamicResource PanelBorderBrush}"
+                        BorderThickness="0,0,0,1"
+                        Padding="12,10">
 
-                    <Border Grid.Row="0"
-                            Background="{DynamicResource PanelColor}"
-                            BorderBrush="{DynamicResource PanelBorderBrush}"
-                            BorderThickness="0,0,0,1"
-                            Padding="12,10">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="{DynamicResource SourcesTitle}"
+                                       FontSize="14"
+                                       FontWeight="SemiBold"/>
 
-                        <Grid ColumnDefinitions="*,Auto">
-                            <StackPanel Spacing="2">
-                                <TextBlock Text="{DynamicResource SourcesTitle}"
-                                           FontSize="14"
-                                           FontWeight="SemiBold"/>
+                            <TextBlock Text="{DynamicResource SourcesSubtitle}"
+                                       FontSize="11"
+                                       Foreground="{DynamicResource TextMutedBrush}"/>
+                        </StackPanel>
 
-                                <TextBlock Text="{DynamicResource SourcesSubtitle}"
-                                           FontSize="11"
-                                           Foreground="{DynamicResource TextMutedBrush}"/>
-                            </StackPanel>
+                        <Button Grid.Column="1"
+                                Classes="icon accent"
+                                Content="+"
+                                ToolTip.Tip="{DynamicResource CreateSourceAction}"
+                                Command="{Binding CreateSourceCommand}"/>
+                    </Grid>
+                </Border>
 
-                            <Button Grid.Column="1"
-                                    Classes="icon accent"
-                                    Content="+"
-                                    ToolTip.Tip="{DynamicResource CreateSourceAction}"
-                                    Command="{Binding CreateSourceCommand}"/>
-                        </Grid>
-                    </Border>
+                <!-- Independent tree scroll area -->
+                <ScrollViewer Grid.Row="1"
+                              VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
 
-                    <!-- Independently scrollable source list -->
-                    <ListBox Grid.Row="1"
-                             Classes="navList"
-                             ItemsSource="{Binding Sources}"
-                             SelectedItem="{Binding SelectedSource}"
-                             ScrollViewer.VerticalScrollBarVisibility="Auto"
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ItemsControl ItemsSource="{Binding Sources}">
 
-                        <ListBox.ItemTemplate>
+                        <ItemsControl.ItemTemplate>
                             <DataTemplate x:DataType="models:ApiSourceModel">
 
-                                <Grid ColumnDefinitions="*,Auto"
-                                      Margin="6,3"
-                                      ColumnSpacing="6">
+                                <StackPanel>
 
-                                    <!-- Full-width source row button up to the menu button -->
-                                    <Button Grid.Column="0"
-                                            Classes="listRow"
-                                            HorizontalAlignment="Stretch"
-                                            HorizontalContentAlignment="Stretch"
-                                            Padding="10,8"
-                                            Command="{ReflectionBinding DataContext.SelectSourceCommand, ElementName=Root}"
-                                            CommandParameter="{Binding}">
+                                    <!-- SOURCE NODE -->
+                                    <Grid ColumnDefinitions="*,Auto,Auto"
+                                          Margin="5,2"
+                                          ColumnSpacing="5">
 
-                                        <StackPanel Spacing="3"
-                                                    HorizontalAlignment="Stretch">
+                                        <!-- Full-width source row button until the action buttons -->
+                                        <Button Grid.Column="0"
+                                                Classes="listRow"
+                                                HorizontalAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                Padding="7,6"
+                                                Command="{ReflectionBinding DataContext.ToggleSourceCommand, ElementName=Root}"
+                                                CommandParameter="{Binding}">
 
-                                            <TextBlock Text="{Binding Name}"
-                                                       FontSize="13"
-                                                       FontWeight="SemiBold"
-                                                       TextTrimming="CharacterEllipsis"/>
+                                            <Grid ColumnDefinitions="Auto,*"
+                                                  ColumnSpacing="8"
+                                                  HorizontalAlignment="Stretch">
 
-                                            <TextBlock Text="{Binding DefaultBaseUrl}"
-                                                       FontSize="11"
-                                                       Foreground="{DynamicResource TextMutedBrush}"
-                                                       TextTrimming="CharacterEllipsis"/>
-                                        </StackPanel>
-                                    </Button>
+                                                <!-- Closed indicator -->
+                                                <TextBlock Grid.Column="0"
+                                                           Width="18"
+                                                           Text="▸"
+                                                           FontSize="18"
+                                                           FontWeight="SemiBold"
+                                                           Foreground="{DynamicResource TextSecondaryBrush}"
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           IsVisible="{Binding !IsExpanded}"/>
 
-                                    <!-- Separate flyout button with its own click zone -->
-                                    <Button Grid.Column="1"
-                                            Classes="icon"
-                                            Content="{DynamicResource MoreActions}"
-                                            HorizontalAlignment="Right"
-                                            VerticalAlignment="Center">
+                                                <!-- Open indicator -->
+                                                <TextBlock Grid.Column="0"
+                                                           Width="18"
+                                                           Text="▾"
+                                                           FontSize="18"
+                                                           FontWeight="SemiBold"
+                                                           Foreground="{DynamicResource AccentBrush}"
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           IsVisible="{Binding IsExpanded}"/>
 
-                                        <Button.Flyout>
-                                            <MenuFlyout>
-                                                <MenuItem Header="{DynamicResource EditAction}"
-                                                          Command="{ReflectionBinding DataContext.EditSourceCommand, ElementName=Root}"
-                                                          CommandParameter="{Binding}"/>
+                                                <StackPanel Grid.Column="1"
+                                                            Spacing="2">
 
-                                                <MenuItem Header="{DynamicResource DeleteAction}"
-                                                          Command="{ReflectionBinding DataContext.DeleteSourceCommand, ElementName=Root}"
-                                                          CommandParameter="{Binding}"/>
-                                            </MenuFlyout>
-                                        </Button.Flyout>
+                                                    <TextBlock Text="{Binding Name}"
+                                                               FontSize="13"
+                                                               FontWeight="SemiBold"
+                                                               TextTrimming="CharacterEllipsis"/>
 
-                                    </Button>
-                                </Grid>
+                                                    <TextBlock Text="{Binding DefaultBaseUrl}"
+                                                               FontSize="11"
+                                                               Foreground="{DynamicResource TextMutedBrush}"
+                                                               TextTrimming="CharacterEllipsis"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Button>
+
+                                        <!-- Physical request button -->
+                                        <Button Grid.Column="1"
+                                                Classes="icon"
+                                                Content="+"
+                                                ToolTip.Tip="{DynamicResource CreateRequestAction}"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"
+                                                Command="{ReflectionBinding DataContext.CreateRequestForSourceCommand, ElementName=Root}"
+                                                CommandParameter="{Binding}"/>
+
+                                        <!-- Source menu -->
+                                        <Button Grid.Column="2"
+                                                Classes="icon"
+                                                Content="{DynamicResource MoreActions}"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center">
+
+                                            <Button.Flyout>
+                                                <MenuFlyout>
+                                                    <MenuItem Header="{DynamicResource EditAction}"
+                                                              Command="{ReflectionBinding DataContext.EditSourceCommand, ElementName=Root}"
+                                                              CommandParameter="{Binding}"/>
+
+                                                    <MenuItem Header="{DynamicResource DeleteAction}"
+                                                              Command="{ReflectionBinding DataContext.DeleteSourceCommand, ElementName=Root}"
+                                                              CommandParameter="{Binding}"/>
+                                                </MenuFlyout>
+                                            </Button.Flyout>
+
+                                        </Button>
+                                    </Grid>
+
+                                    <!-- REQUEST CHILDREN -->
+                                    <ItemsControl ItemsSource="{Binding ApiRequests}"
+                                                  IsVisible="{Binding IsExpanded}">
+
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate x:DataType="models:ApiRequestModel">
+
+                                                <Grid ColumnDefinitions="*,Auto"
+                                                      Margin="30,1,5,1"
+                                                      ColumnSpacing="5">
+
+                                                    <!-- Full-width request row button until the menu button -->
+                                                    <Button Grid.Column="0"
+                                                            Classes="listRow"
+                                                            HorizontalAlignment="Stretch"
+                                                            HorizontalContentAlignment="Stretch"
+                                                            Padding="7,5"
+                                                            Command="{ReflectionBinding DataContext.OpenRequestCommand, ElementName=Root}"
+                                                            CommandParameter="{Binding}">
+
+                                                        <Grid ColumnDefinitions="Auto,*"
+                                                              ColumnSpacing="8"
+                                                              HorizontalAlignment="Stretch">
+
+                                                            <TextBlock Grid.Column="0"
+                                                                       Text="•"
+                                                                       FontSize="16"
+                                                                       FontWeight="SemiBold"
+                                                                       Foreground="{DynamicResource AccentBrush}"
+                                                                       VerticalAlignment="Center"
+                                                                       HorizontalAlignment="Center"/>
+
+                                                            <StackPanel Grid.Column="1"
+                                                                        Spacing="2">
+
+                                                                <TextBlock Text="{Binding Name}"
+                                                                           FontSize="13"
+                                                                           FontWeight="SemiBold"
+                                                                           TextTrimming="CharacterEllipsis"/>
+
+                                                                <TextBlock Text="{Binding HttpMethod}"
+                                                                           FontSize="11"
+                                                                           Foreground="{DynamicResource TextMutedBrush}"
+                                                                           TextTrimming="CharacterEllipsis"/>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </Button>
+
+                                                    <!-- Request menu -->
+                                                    <Button Grid.Column="1"
+                                                            Classes="icon"
+                                                            Content="{DynamicResource MoreActions}"
+                                                            HorizontalAlignment="Right"
+                                                            VerticalAlignment="Center">
+
+                                                        <Button.Flyout>
+                                                            <MenuFlyout>
+                                                                <MenuItem Header="{DynamicResource EditAction}"
+                                                                          Command="{ReflectionBinding DataContext.EditRequestCommand, ElementName=Root}"
+                                                                          CommandParameter="{Binding}"/>
+
+                                                                <MenuItem Header="{DynamicResource DeleteAction}"
+                                                                          Command="{ReflectionBinding DataContext.DeleteRequestCommand, ElementName=Root}"
+                                                                          CommandParameter="{Binding}"/>
+                                                            </MenuFlyout>
+                                                        </Button.Flyout>
+
+                                                    </Button>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                </StackPanel>
                             </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </Grid>
-            </Border>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Border>
 
-            <!-- Requests panel -->
-            <Border Grid.Column="1"
-                    Background="{DynamicResource PanelAltBrush}">
-
-                <Grid RowDefinitions="Auto,*">
-
-                    <Border Grid.Row="0"
-                            Background="{DynamicResource PanelColor}"
-                            BorderBrush="{DynamicResource PanelBorderBrush}"
-                            BorderThickness="0,0,0,1"
-                            Padding="12,10">
-
-                        <Grid ColumnDefinitions="*,Auto">
-                            <StackPanel Spacing="2">
-                                <TextBlock Text="{DynamicResource RequestsTitle}"
-                                           FontSize="14"
-                                           FontWeight="SemiBold"/>
-
-                                <TextBlock Text="{DynamicResource RequestsSubtitle}"
-                                           FontSize="11"
-                                           Foreground="{DynamicResource TextMutedBrush}"/>
-                            </StackPanel>
-
-                            <Button Grid.Column="1"
-                                    Classes="icon accent"
-                                    Content="+"
-                                    ToolTip.Tip="{DynamicResource CreateRequestAction}"
-                                    Command="{Binding CreateRequestCommand}"/>
-                        </Grid>
-                    </Border>
-
-                    <!-- Independently scrollable request list -->
-                    <ListBox Grid.Row="1"
-                             Classes="navList"
-                             ItemsSource="{Binding Requests}"
-                             SelectedItem="{Binding SelectedRequest}"
-                             ScrollViewer.VerticalScrollBarVisibility="Auto"
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-
-                        <ListBox.ItemTemplate>
-                            <DataTemplate x:DataType="models:ApiRequestModel">
-
-                                <Grid ColumnDefinitions="*,Auto"
-                                      Margin="6,3"
-                                      ColumnSpacing="6">
-
-                                    <!-- Full-width request row button up to the menu button -->
-                                    <Button Grid.Column="0"
-                                            Classes="listRow"
-                                            HorizontalAlignment="Stretch"
-                                            HorizontalContentAlignment="Stretch"
-                                            Padding="10,8"
-                                            Command="{ReflectionBinding DataContext.OpenRequestCommand, ElementName=Root}"
-                                            CommandParameter="{Binding}">
-
-                                        <Grid RowDefinitions="Auto,Auto"
-                                              RowSpacing="3"
-                                              HorizontalAlignment="Stretch">
-
-                                            <TextBlock Grid.Row="0"
-                                                       Text="{Binding Name}"
-                                                       FontSize="13"
-                                                       FontWeight="SemiBold"
-                                                       TextTrimming="CharacterEllipsis"/>
-
-                                            <TextBlock Grid.Row="1"
-                                                       Text="{Binding HttpMethod}"
-                                                       FontSize="11"
-                                                       Foreground="{DynamicResource TextMutedBrush}"
-                                                       TextTrimming="CharacterEllipsis"/>
-                                        </Grid>
-                                    </Button>
-
-                                    <!-- Separate flyout button with its own click zone -->
-                                    <Button Grid.Column="1"
-                                            Classes="icon"
-                                            Content="{DynamicResource MoreActions}"
-                                            HorizontalAlignment="Right"
-                                            VerticalAlignment="Center">
-
-                                        <Button.Flyout>
-                                            <MenuFlyout>
-                                                <MenuItem Header="{DynamicResource EditAction}"
-                                                          Command="{ReflectionBinding DataContext.EditRequestCommand, ElementName=Root}"
-                                                          CommandParameter="{Binding}"/>
-
-                                                <MenuItem Header="{DynamicResource DeleteAction}"
-                                                          Command="{ReflectionBinding DataContext.DeleteRequestCommand, ElementName=Root}"
-                                                          CommandParameter="{Binding}"/>
-                                            </MenuFlyout>
-                                        </Button.Flyout>
-
-                                    </Button>
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </Grid>
-            </Border>
-        </Grid>
+        <!-- Resizable splitter between tree and main workspace -->
+        <GridSplitter Grid.Column="1"
+                      Width="4"
+                      Background="{DynamicResource PanelBorderBrush}"
+                      ResizeDirection="Columns"
+                      ResizeBehavior="PreviousAndNext"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"/>
 
         <!-- Main content area -->
-        <Border Grid.Column="1"
-                Background="{DynamicResource AppBackgroundBrush}"
-                BorderBrush="{DynamicResource PanelBorderBrush}"
-                BorderThickness="1,0,0,0">
+        <Border Grid.Column="2"
+                Background="{DynamicResource AppBackgroundBrush}">
 
             <Grid RowDefinitions="Auto,*">
 
@@ -237,6 +259,17 @@
                         BorderThickness="0,0,0,1"
                         Padding="16,10">
 
+                    <Grid ColumnDefinitions="*,Auto">
+
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="{DynamicResource RequestWorkspaceTitle}"
+                                       FontSize="14"
+                                       FontWeight="SemiBold"/>
+
+                            <TextBlock Text="{DynamicResource RequestWorkspaceSubtitle}"
+                                       FontSize="11"
+                                       Foreground="{DynamicResource TextMutedBrush}"/>
+                        </StackPanel>
 
                         <StackPanel Grid.Column="1"
                                     Orientation="Horizontal"
@@ -253,7 +286,7 @@
                                     Command="{Binding NavigateSourceContentCommand}"
                                     CommandParameter="{x:Static models:SourceNavigationPosition.DashboardDesigner}"/>
                         </StackPanel>
-                    
+                    </Grid>
                 </Border>
 
                 <!-- Independent main scroll region -->
