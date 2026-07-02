@@ -11,6 +11,7 @@ public partial class DashboardWorkspaceService : ObservableObject
 {
     private readonly SourceManagementService _sourceManagementService;
     private readonly SourceNavigationService _sourceNavigationService;
+    private readonly TabReorderService _tabReorderService;
 
     public ObservableCollection<RequestWorkspaceTabVm> OpenRequestTabs { get; } = new();
 
@@ -71,10 +72,12 @@ public partial class DashboardWorkspaceService : ObservableObject
 
     public DashboardWorkspaceService(
         SourceManagementService sourceManagementService,
-        SourceNavigationService sourceNavigationService)
+        SourceNavigationService sourceNavigationService,
+        TabReorderService tabReorderService)
     {
         _sourceManagementService = sourceManagementService;
         _sourceNavigationService = sourceNavigationService;
+        _tabReorderService = tabReorderService;
     }
 
     public ApiSourceModel CreateSource()
@@ -266,6 +269,11 @@ public partial class DashboardWorkspaceService : ObservableObject
 
         SelectedRequest = null;
         OpenSourceEditor();
+    }
+    
+    public void ReorderRequestTab(TabReorderRequest request)
+    {
+        _tabReorderService.Reorder(OpenRequestTabs, request);
     }
 
     public void ToggleRequestTabs()
