@@ -98,6 +98,7 @@
             <Border Height="1"
                     Background="{DynamicResource PanelBorderBrush}"/>
 
+
             <StackPanel Orientation="Horizontal"
                         Spacing="10">
 
@@ -105,9 +106,6 @@
                         Content="{DynamicResource SaveSourceAction}"
                         Command="{Binding SaveCommand}"/>
 
-                <TextBlock Text="{Binding SaveMessage}"
-                           VerticalAlignment="Center"
-                           Foreground="{DynamicResource TextMutedBrush}"/>
             </StackPanel>
 
         </StackPanel>

@@ -12,6 +12,7 @@ public partial class DashboardVm : BaseVm
 {
     private readonly SourceManagementService _sourceManagementService;
     private readonly DashboardWorkspaceService _workspace;
+    private readonly DeleteConfirmationService _deleteConfirmationService;
 
     public ObservableCollection<ApiSourceModel> Sources => _sourceManagementService.ApiSources;
 
@@ -22,6 +23,8 @@ public partial class DashboardVm : BaseVm
     public SourceConfiguratorVm SourceConfiguratorVm { get; }
 
     public RequestConfiguratorVm RequestConfiguratorVm { get; }
+
+    public DeleteConfirmationService DeleteConfirmationService => _deleteConfirmationService;
 
     public bool IsEditorVisible => _workspace.IsEditorVisible;
     public bool IsRequestWorkspaceVisible => _workspace.IsRequestWorkspaceVisible;
@@ -64,17 +67,21 @@ public partial class DashboardVm : BaseVm
     public DashboardVm(
         SourceManagementService sourceManagementService,
         DashboardWorkspaceService workspace,
+        DeleteConfirmationService deleteConfirmationService,
         SourceNavigationService sourceNavigationService,
         SourceConfiguratorVm sourceConfiguratorVm,
         RequestConfiguratorVm requestConfiguratorVm)
     {
         _sourceManagementService = sourceManagementService;
         _workspace = workspace;
+        _deleteConfirmationService = deleteConfirmationService;
+
         SourceNavigationService = sourceNavigationService;
         SourceConfiguratorVm = sourceConfiguratorVm;
         RequestConfiguratorVm = requestConfiguratorVm;
 
         _workspace.PropertyChanged += OnWorkspacePropertyChanged;
+        _deleteConfirmationService.PropertyChanged += OnDeleteConfirmationPropertyChanged;
     }
 
     [RelayCommand]
@@ -103,9 +110,7 @@ public partial class DashboardVm : BaseVm
     [RelayCommand]
     private void DeleteSource(ApiSourceModel source)
     {
-        _workspace.DeleteSource(source);
-        SourceConfiguratorVm.Load(_workspace.SelectedSource);
-        RefreshAll();
+        _deleteConfirmationService.OpenForSource(source);
     }
 
     [RelayCommand]
@@ -134,8 +139,24 @@ public partial class DashboardVm : BaseVm
     [RelayCommand]
     private void DeleteRequest(ApiRequestModel request)
     {
-        _workspace.DeleteRequest(request);
+        _deleteConfirmationService.OpenForRequest(request);
+    }
+
+    [RelayCommand]
+    private void ConfirmDelete()
+    {
+        _deleteConfirmationService.Confirm();
+
+        SourceConfiguratorVm.Load(_workspace.SelectedSource);
+        RequestConfiguratorVm.Load(_workspace.SelectedRequest);
+
         RefreshAll();
+    }
+
+    [RelayCommand]
+    private void CancelDelete()
+    {
+        _deleteConfirmationService.Cancel();
     }
 
     [RelayCommand]
@@ -150,6 +171,13 @@ public partial class DashboardVm : BaseVm
     {
         _workspace.CloseRequestTab(tab);
         SourceConfiguratorVm.Load(_workspace.SelectedSource);
+        RefreshAll();
+    }
+    
+    [RelayCommand]
+    private void ReorderRequestTab(TabReorderRequest request)
+    {
+        _workspace.ReorderRequestTab(request);
         RefreshAll();
     }
 
@@ -183,6 +211,11 @@ public partial class DashboardVm : BaseVm
         RefreshComputedProperties();
     }
 
+    private void OnDeleteConfirmationPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        OnPropertyChanged(nameof(DeleteConfirmationService));
+    }
+
     private void RefreshAll()
     {
         OnPropertyChanged(nameof(Sources));
@@ -191,6 +224,7 @@ public partial class DashboardVm : BaseVm
         OnPropertyChanged(nameof(SelectedRequest));
         OnPropertyChanged(nameof(SelectedRequestTab));
         OnPropertyChanged(nameof(UseRequestTabs));
+        OnPropertyChanged(nameof(DeleteConfirmationService));
 
         RefreshComputedProperties();
     }

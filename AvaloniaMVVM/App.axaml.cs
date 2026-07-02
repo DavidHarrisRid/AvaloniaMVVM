@@ -31,7 +31,9 @@ public partial class App : Application
         // Source/request services
         services.AddSingleton<SourceManagementService>();
         services.AddSingleton<SourceNavigationService>();
+        services.AddSingleton<TabReorderService>();
         services.AddSingleton<DashboardWorkspaceService>();
+        services.AddSingleton<DeleteConfirmationService>();
         services.AddSingleton<SourceConfigurationService>();
         services.AddSingleton<RequestConfigurationService>();
 
