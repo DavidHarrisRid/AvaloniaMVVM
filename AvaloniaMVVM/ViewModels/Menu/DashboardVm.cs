@@ -14,6 +14,8 @@ public partial class DashboardVm : BaseVm
 
     public ObservableCollection<ApiSourceModel> Sources => _sourceManagementService.ApiSources;
 
+    public ObservableCollection<RequestWorkspaceTabVm> OpenRequestTabs { get; } = new();
+
     public SourceNavigationService SourceNavigationService { get; }
 
     public SourceConfiguratorVm SourceConfiguratorVm { get; }
@@ -24,14 +26,22 @@ public partial class DashboardVm : BaseVm
 
     public bool IsRequestWorkspaceVisible => !IsEditorVisible;
 
+    public bool IsRequestTabStripVisible => IsRequestWorkspaceVisible && UseRequestTabs;
+
+    public bool IsRequestSingleModeVisible => IsRequestWorkspaceVisible && !UseRequestTabs;
+
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsEditorVisible))]
     [NotifyPropertyChangedFor(nameof(IsRequestWorkspaceVisible))]
+    [NotifyPropertyChangedFor(nameof(IsRequestTabStripVisible))]
+    [NotifyPropertyChangedFor(nameof(IsRequestSingleModeVisible))]
     private bool _isSourceEditorOpen;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsEditorVisible))]
     [NotifyPropertyChangedFor(nameof(IsRequestWorkspaceVisible))]
+    [NotifyPropertyChangedFor(nameof(IsRequestTabStripVisible))]
+    [NotifyPropertyChangedFor(nameof(IsRequestSingleModeVisible))]
     private bool _isRequestEditorOpen;
 
     [ObservableProperty]
@@ -39,6 +49,14 @@ public partial class DashboardVm : BaseVm
 
     [ObservableProperty]
     private ApiRequestModel? _selectedRequest;
+
+    [ObservableProperty]
+    private RequestWorkspaceTabVm? _selectedRequestTab;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsRequestTabStripVisible))]
+    [NotifyPropertyChangedFor(nameof(IsRequestSingleModeVisible))]
+    private bool _useRequestTabs = true;
 
     public DashboardVm(
         SourceManagementService sourceManagementService,
@@ -84,6 +102,15 @@ public partial class DashboardVm : BaseVm
     [RelayCommand]
     private void DeleteSource(ApiSourceModel source)
     {
+        var tabsToClose = OpenRequestTabs
+            .Where(tab => source.ApiRequests.Contains(tab.Request))
+            .ToList();
+
+        foreach (var tab in tabsToClose)
+        {
+            OpenRequestTabs.Remove(tab);
+        }
+
         var wasSelectedSource = SelectedSource == source;
 
         _sourceManagementService.DeleteSource(source);
@@ -95,6 +122,7 @@ public partial class DashboardVm : BaseVm
 
         SelectedSource = null;
         SelectedRequest = null;
+        SelectedRequestTab = null;
 
         if (Sources.Count > 0)
         {
@@ -126,6 +154,13 @@ public partial class DashboardVm : BaseVm
             SelectedSource.IsExpanded = true;
         }
 
+        if (UseRequestTabs)
+        {
+            var tab = GetOrCreateTab(request);
+            SelectRequestTab(tab);
+            return;
+        }
+
         OpenRequestWorkspace(SourceNavigationPosition.DataDashboard);
     }
 
@@ -153,6 +188,18 @@ public partial class DashboardVm : BaseVm
             return;
         }
 
+        var tab = OpenRequestTabs.FirstOrDefault(openTab => openTab.Request == request);
+
+        if (tab is not null)
+        {
+            OpenRequestTabs.Remove(tab);
+
+            if (SelectedRequestTab == tab)
+            {
+                SelectedRequestTab = OpenRequestTabs.LastOrDefault();
+            }
+        }
+
         var wasSelectedRequest = SelectedRequest == request;
 
         _sourceManagementService.DeleteRequest(source, request);
@@ -160,6 +207,12 @@ public partial class DashboardVm : BaseVm
         if (wasSelectedRequest)
         {
             SelectedRequest = null;
+        }
+
+        if (SelectedRequestTab is not null)
+        {
+            SelectRequestTab(SelectedRequestTab);
+            return;
         }
 
         if (source.ApiRequests.Count == 0)
@@ -171,9 +224,86 @@ public partial class DashboardVm : BaseVm
     }
 
     [RelayCommand]
+    private void SelectRequestTab(RequestWorkspaceTabVm tab)
+    {
+        SelectedRequestTab = tab;
+        SelectedRequest = tab.Request;
+        SelectedSource = FindSourceForRequest(tab.Request);
+
+        if (SelectedSource is not null)
+        {
+            SelectedSource.IsExpanded = true;
+        }
+
+        OpenRequestWorkspace(tab.NavigationPosition);
+    }
+
+    [RelayCommand]
+    private void CloseRequestTab(RequestWorkspaceTabVm tab)
+    {
+        var wasSelectedTab = SelectedRequestTab == tab;
+
+        OpenRequestTabs.Remove(tab);
+
+        if (!wasSelectedTab)
+        {
+            return;
+        }
+
+        SelectedRequestTab = OpenRequestTabs.LastOrDefault();
+
+        if (SelectedRequestTab is not null)
+        {
+            SelectRequestTab(SelectedRequestTab);
+            return;
+        }
+
+        SelectedRequest = null;
+        OpenSourceEditor();
+    }
+
+    [RelayCommand]
+    private void ToggleRequestTabs()
+    {
+        UseRequestTabs = !UseRequestTabs;
+
+        if (UseRequestTabs && SelectedRequest is not null)
+        {
+            var tab = GetOrCreateTab(SelectedRequest);
+            SelectRequestTab(tab);
+            return;
+        }
+
+        if (!UseRequestTabs && SelectedRequest is not null)
+        {
+            OpenRequestWorkspace(SourceNavigationPosition.DataDashboard);
+        }
+    }
+
+    [RelayCommand]
     private void NavigateSourceContent(SourceNavigationPosition position)
     {
+        if (UseRequestTabs && SelectedRequestTab is not null)
+        {
+            SelectedRequestTab.NavigationPosition = position;
+        }
+
         OpenRequestWorkspace(position);
+    }
+
+    private RequestWorkspaceTabVm GetOrCreateTab(ApiRequestModel request)
+    {
+        var existingTab = OpenRequestTabs.FirstOrDefault(tab => tab.Request == request);
+
+        if (existingTab is not null)
+        {
+            return existingTab;
+        }
+
+        var newTab = new RequestWorkspaceTabVm(request);
+        OpenRequestTabs.Add(newTab);
+
+        return newTab;
     }
 
     private ApiSourceModel? FindSourceForRequest(ApiRequestModel request)

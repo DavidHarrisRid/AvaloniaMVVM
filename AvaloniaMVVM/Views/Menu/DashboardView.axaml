@@ -13,14 +13,13 @@
 
     <Grid Background="{DynamicResource AppBackgroundBrush}">
         <Grid.ColumnDefinitions>
-            <!-- Resizable tree column -->
-            <ColumnDefinition Width="380"
-                              MinWidth="300"/>
+            <!-- Smaller min, fixed max, still resizable -->
+            <ColumnDefinition Width="360"
+                              MinWidth="260"
+                              MaxWidth="520"/>
 
-            <!-- Mouse draggable splitter -->
             <ColumnDefinition Width="4"/>
 
-            <!-- Main workspace -->
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -73,7 +72,6 @@
                                           Margin="5,2"
                                           ColumnSpacing="5">
 
-                                        <!-- Full-width source row button until the action buttons -->
                                         <Button Grid.Column="0"
                                                 Classes="listRow"
                                                 HorizontalAlignment="Stretch"
@@ -118,13 +116,14 @@
 
                                                     <TextBlock Text="{Binding DefaultBaseUrl}"
                                                                FontSize="11"
+                                                               FontWeight="Medium"
                                                                Foreground="{DynamicResource TextMutedBrush}"
                                                                TextTrimming="CharacterEllipsis"/>
                                                 </StackPanel>
                                             </Grid>
                                         </Button>
 
-                                        <!-- Physical request button -->
+                                        <!-- New request button: gray like the three dots button -->
                                         <Button Grid.Column="1"
                                                 Classes="icon"
                                                 Content="+"
@@ -167,7 +166,6 @@
                                                       Margin="30,1,5,1"
                                                       ColumnSpacing="5">
 
-                                                    <!-- Full-width request row button until the menu button -->
                                                     <Button Grid.Column="0"
                                                             Classes="listRow"
                                                             HorizontalAlignment="Stretch"
@@ -198,6 +196,7 @@
 
                                                                 <TextBlock Text="{Binding HttpMethod}"
                                                                            FontSize="11"
+                                                                           FontWeight="Medium"
                                                                            Foreground="{DynamicResource TextMutedBrush}"
                                                                            TextTrimming="CharacterEllipsis"/>
                                                             </StackPanel>
@@ -237,7 +236,7 @@
             </Grid>
         </Border>
 
-        <!-- Resizable splitter between tree and main workspace -->
+        <!-- Resizable splitter -->
         <GridSplitter Grid.Column="1"
                       Width="4"
                       Background="{DynamicResource PanelBorderBrush}"
@@ -257,23 +256,77 @@
                         Background="{DynamicResource PanelColor}"
                         BorderBrush="{DynamicResource PanelBorderBrush}"
                         BorderThickness="0,0,0,1"
-                        Padding="16,10">
+                        Padding="10,0,10,0">
 
-                    <Grid ColumnDefinitions="*,Auto">
+                    <Grid RowDefinitions="Auto,Auto">
 
-                        <StackPanel Spacing="2">
-                            <TextBlock Text="{DynamicResource RequestWorkspaceTitle}"
-                                       FontSize="14"
-                                       FontWeight="SemiBold"/>
+                        <!-- Request tab strip -->
+                        <Grid Grid.Row="0"
+                              ColumnDefinitions="*,Auto"
+                              MinHeight="36">
 
-                            <TextBlock Text="{DynamicResource RequestWorkspaceSubtitle}"
-                                       FontSize="11"
-                                       Foreground="{DynamicResource TextMutedBrush}"/>
-                        </StackPanel>
+                            <ScrollViewer Grid.Column="0"
+                                          IsVisible="{Binding IsRequestTabStripVisible}"
+                                          HorizontalScrollBarVisibility="Auto"
+                                          VerticalScrollBarVisibility="Disabled">
 
-                        <StackPanel Grid.Column="1"
+                                <ItemsControl ItemsSource="{Binding OpenRequestTabs}">
+
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="vm:RequestWorkspaceTabVm">
+
+                                            <Border Background="{DynamicResource PanelAltBrush}"
+                                                    BorderBrush="{DynamicResource PanelBorderBrush}"
+                                                    BorderThickness="1,0,1,0"
+                                                    Padding="0"
+                                                    Margin="0,0,2,0">
+
+                                                <Grid ColumnDefinitions="*,Auto">
+
+                                                    <Button Grid.Column="0"
+                                                            Classes="tab"
+                                                            MinWidth="130"
+                                                            HorizontalContentAlignment="Left"
+                                                            Content="{Binding Request.Name}"
+                                                            Command="{ReflectionBinding DataContext.SelectRequestTabCommand, ElementName=Root}"
+                                                            CommandParameter="{Binding}"/>
+
+                                                    <Button Grid.Column="1"
+                                                            Classes="icon"
+                                                            Content="x"
+                                                            Width="26"
+                                                            Height="26"
+                                                            ToolTip.Tip="{DynamicResource CloseTabAction}"
+                                                            Command="{ReflectionBinding DataContext.CloseRequestTabCommand, ElementName=Root}"
+                                                            CommandParameter="{Binding}"/>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+
+                            <!-- Top right tab toggle -->
+                            <Button Grid.Column="1"
+                                    Classes="icon"
+                                    Content="{DynamicResource RequestTabsToggleAction}"
+                                    MinWidth="54"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Command="{Binding ToggleRequestTabsCommand}"/>
+                        </Grid>
+
+                        <!-- Data Dashboard / Dashboard Designer buttons -->
+                        <StackPanel Grid.Row="1"
                                     Orientation="Horizontal"
                                     Spacing="6"
+                                    Margin="0,0,0,8"
                                     IsVisible="{Binding IsRequestWorkspaceVisible}">
 
                             <Button Classes="tab"

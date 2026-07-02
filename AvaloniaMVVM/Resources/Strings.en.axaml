@@ -40,6 +40,9 @@
     <!-- Request workspace -->
     <x:String x:Key="DataDashboardTab">Data Dashboard</x:String>
     <x:String x:Key="DashboardDesignerTab">Dashboard Designer</x:String>
+    
+    <x:String x:Key="RequestTabsToggleAction">Tabs</x:String>
+    <x:String x:Key="CloseTabAction">Close</x:String>
 
     <!-- Source configurator -->
     <x:String x:Key="SourceConfiguratorTitle">Source Configuration</x:String>
