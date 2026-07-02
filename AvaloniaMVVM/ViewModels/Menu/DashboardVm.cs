@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using Avalonia.Controls;
 using AvaloniaMVVM.Models;
 using AvaloniaMVVM.Services;
 using AvaloniaMVVM.ViewModels.Menu.SourceContent;
@@ -13,6 +14,10 @@ public partial class DashboardVm : BaseVm
     private readonly SourceManagementService _sourceManagementService;
 
     public ObservableCollection<ApiSourceModel> Sources => _sourceManagementService.ApiSources;
+    
+    public GridLength SidebarColumnWidth => IsSidebarVisible
+        ? new GridLength(340)
+        : new GridLength(0);
 
     public ObservableCollection<RequestWorkspaceTabVm> OpenRequestTabs { get; } = new();
 
@@ -30,11 +35,24 @@ public partial class DashboardVm : BaseVm
 
     public bool IsRequestSingleModeVisible => IsRequestWorkspaceVisible && !UseRequestTabs;
 
+    public bool IsTabsToggleVisible => IsRequestWorkspaceVisible && SelectedRequest is not null;
+
+    public int MainContentColumn => IsSidebarVisible ? 2 : 0;
+
+    public int MainContentColumnSpan => IsSidebarVisible ? 1 : 3;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(SidebarColumnWidth))]
+    [NotifyPropertyChangedFor(nameof(MainContentColumn))]
+    [NotifyPropertyChangedFor(nameof(MainContentColumnSpan))]
+    private bool _isSidebarVisible = true;
+    
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsEditorVisible))]
     [NotifyPropertyChangedFor(nameof(IsRequestWorkspaceVisible))]
     [NotifyPropertyChangedFor(nameof(IsRequestTabStripVisible))]
     [NotifyPropertyChangedFor(nameof(IsRequestSingleModeVisible))]
+    [NotifyPropertyChangedFor(nameof(IsTabsToggleVisible))]
     private bool _isSourceEditorOpen;
 
     [ObservableProperty]
@@ -42,12 +60,14 @@ public partial class DashboardVm : BaseVm
     [NotifyPropertyChangedFor(nameof(IsRequestWorkspaceVisible))]
     [NotifyPropertyChangedFor(nameof(IsRequestTabStripVisible))]
     [NotifyPropertyChangedFor(nameof(IsRequestSingleModeVisible))]
+    [NotifyPropertyChangedFor(nameof(IsTabsToggleVisible))]
     private bool _isRequestEditorOpen;
 
     [ObservableProperty]
     private ApiSourceModel? _selectedSource;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsTabsToggleVisible))]
     private ApiRequestModel? _selectedRequest;
 
     [ObservableProperty]
@@ -267,16 +287,23 @@ public partial class DashboardVm : BaseVm
     {
         UseRequestTabs = !UseRequestTabs;
 
-        if (UseRequestTabs && SelectedRequest is not null)
+        if (!UseRequestTabs)
         {
-            var tab = GetOrCreateTab(SelectedRequest);
-            SelectRequestTab(tab);
+            OpenRequestTabs.Clear();
+            SelectedRequestTab = null;
+
+            if (SelectedRequest is not null)
+            {
+                OpenRequestWorkspace(SourceNavigationPosition.DataDashboard);
+            }
+
             return;
         }
 
-        if (!UseRequestTabs && SelectedRequest is not null)
+        if (SelectedRequest is not null)
         {
-            OpenRequestWorkspace(SourceNavigationPosition.DataDashboard);
+            var tab = GetOrCreateTab(SelectedRequest);
+            SelectRequestTab(tab);
         }
     }
 
@@ -333,5 +360,10 @@ public partial class DashboardVm : BaseVm
         IsRequestEditorOpen = false;
 
         SourceNavigationService.Navigate(position);
+    }
+    
+    public void ToggleSidebar()
+    {
+        IsSidebarVisible = !IsSidebarVisible;
     }
 }

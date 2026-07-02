@@ -14,9 +14,9 @@
     <Grid Background="{DynamicResource AppBackgroundBrush}">
         <Grid.ColumnDefinitions>
             <!-- Smaller min, fixed max, still resizable -->
-            <ColumnDefinition Width="360"
+            <ColumnDefinition Width="{Binding SidebarColumnWidth}"
                               MinWidth="260"
-                              MaxWidth="520"/>
+                              MaxWidth="400"/>
 
             <ColumnDefinition Width="4"/>
 
@@ -25,7 +25,8 @@
 
         <!-- SOURCE / REQUEST TREE -->
         <Border Grid.Column="0"
-                Background="{DynamicResource PanelAltBrush}">
+                Background="{DynamicResource PanelAltBrush}"
+                IsVisible="{Binding IsSidebarVisible}">
 
             <Grid RowDefinitions="Auto,*">
 
@@ -110,8 +111,8 @@
                                                             Spacing="2">
 
                                                     <TextBlock Text="{Binding Name}"
-                                                               FontSize="13"
-                                                               FontWeight="SemiBold"
+                                                               FontSize="15"
+                                                               FontWeight="Medium"
                                                                TextTrimming="CharacterEllipsis"/>
 
                                                     <TextBlock Text="{Binding DefaultBaseUrl}"
@@ -190,8 +191,8 @@
                                                                         Spacing="2">
 
                                                                 <TextBlock Text="{Binding Name}"
-                                                                           FontSize="13"
-                                                                           FontWeight="SemiBold"
+                                                                           FontSize="14"
+                                                                           FontWeight="Medium"
                                                                            TextTrimming="CharacterEllipsis"/>
 
                                                                 <TextBlock Text="{Binding HttpMethod}"
@@ -243,10 +244,12 @@
                       ResizeDirection="Columns"
                       ResizeBehavior="PreviousAndNext"
                       HorizontalAlignment="Stretch"
-                      VerticalAlignment="Stretch"/>
+                      VerticalAlignment="Stretch"
+                      IsVisible="{Binding IsSidebarVisible}"/>
 
         <!-- Main content area -->
-        <Border Grid.Column="2"
+        <Border Grid.Column="{Binding MainContentColumn}"
+                Grid.ColumnSpan="{Binding MainContentColumnSpan}"
                 Background="{DynamicResource AppBackgroundBrush}">
 
             <Grid RowDefinitions="Auto,*">
@@ -254,91 +257,101 @@
                 <!-- Main content header -->
                 <Border Grid.Row="0"
                         Background="{DynamicResource PanelColor}"
-                        BorderBrush="{DynamicResource PanelBorderBrush}"
-                        BorderThickness="0,0,0,1"
-                        Padding="10,0,10,0">
-
-                    <Grid RowDefinitions="Auto,Auto">
-
-                        <!-- Request tab strip -->
+                        Padding="14,8,14,8">
+                
+                    <Grid RowDefinitions="Auto,Auto"
+                          RowSpacing="8">
+                
+                        <!-- Top row: request tabs left, tabs toggle right -->
                         <Grid Grid.Row="0"
                               ColumnDefinitions="*,Auto"
-                              MinHeight="36">
-
-                            <ScrollViewer Grid.Column="0"
-                                          IsVisible="{Binding IsRequestTabStripVisible}"
-                                          HorizontalScrollBarVisibility="Auto"
-                                          VerticalScrollBarVisibility="Disabled">
-
-                                <ItemsControl ItemsSource="{Binding OpenRequestTabs}">
-
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <StackPanel Orientation="Horizontal"/>
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate x:DataType="vm:RequestWorkspaceTabVm">
-
-                                            <Border Background="{DynamicResource PanelAltBrush}"
-                                                    BorderBrush="{DynamicResource PanelBorderBrush}"
-                                                    BorderThickness="1,0,1,0"
-                                                    Padding="0"
-                                                    Margin="0,0,2,0">
-
-                                                <Grid ColumnDefinitions="*,Auto">
-
+                              ColumnSpacing="12"
+                              MinHeight="38">
+                
+                            <!-- Request tabs: no hard border, soft Rider-style surface -->
+                            <Border Grid.Column="0"
+                                    Background="{DynamicResource PanelAltBrush}"
+                                    CornerRadius="10"
+                                    Padding="6"
+                                    IsVisible="{Binding IsRequestTabStripVisible}">
+                
+                                <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                              VerticalScrollBarVisibility="Disabled">
+                
+                                    <ItemsControl ItemsSource="{Binding OpenRequestTabs}">
+                
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal"
+                                                            Spacing="6"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate x:DataType="vm:RequestWorkspaceTabVm">
+                
+                                                <Grid ColumnDefinitions="*,Auto"
+                                                      Background="Transparent"
+                                                      MinHeight="32"
+                                                      Margin="0">
+                
                                                     <Button Grid.Column="0"
-                                                            Classes="tab"
-                                                            MinWidth="130"
-                                                            HorizontalContentAlignment="Left"
+                                                            Classes="requestTab"
+                                                            MinWidth="140"
                                                             Content="{Binding Request.Name}"
                                                             Command="{ReflectionBinding DataContext.SelectRequestTabCommand, ElementName=Root}"
                                                             CommandParameter="{Binding}"/>
-
+                
                                                     <Button Grid.Column="1"
-                                                            Classes="icon"
+                                                            Classes="tabClose"
                                                             Content="x"
                                                             Width="26"
                                                             Height="26"
+                                                            Margin="-29,3,3,3"
                                                             ToolTip.Tip="{DynamicResource CloseTabAction}"
                                                             Command="{ReflectionBinding DataContext.CloseRequestTabCommand, ElementName=Root}"
                                                             CommandParameter="{Binding}"/>
                                                 </Grid>
-                                            </Border>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </ScrollViewer>
-
-                            <!-- Top right tab toggle -->
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Border>
+                
+                            <!-- Keep this button exactly using the accent/create-source look -->
                             <Button Grid.Column="1"
-                                    Classes="icon"
+                                    Classes="accent"
                                     Content="{DynamicResource RequestTabsToggleAction}"
-                                    MinWidth="54"
+                                    MinWidth="72"
+                                    Height="32"
                                     HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    IsVisible="{Binding IsTabsToggleVisible}"
                                     Command="{Binding ToggleRequestTabsCommand}"/>
                         </Grid>
-
-                        <!-- Data Dashboard / Dashboard Designer buttons -->
-                        <StackPanel Grid.Row="1"
-                                    Orientation="Horizontal"
-                                    Spacing="6"
-                                    Margin="0,0,0,8"
-                                    IsVisible="{Binding IsRequestWorkspaceVisible}">
-
-                            <Button Classes="tab"
-                                    Content="{DynamicResource DataDashboardTab}"
-                                    Command="{Binding NavigateSourceContentCommand}"
-                                    CommandParameter="{x:Static models:SourceNavigationPosition.DataDashboard}"/>
-
-                            <Button Classes="tab"
-                                    Content="{DynamicResource DashboardDesignerTab}"
-                                    Command="{Binding NavigateSourceContentCommand}"
-                                    CommandParameter="{x:Static models:SourceNavigationPosition.DashboardDesigner}"/>
-                        </StackPanel>
+                
+                        <!-- Bottom row: modern page-mode pills, aligned right -->
+                        <Grid Grid.Row="1"
+                              ColumnDefinitions="*,Auto"
+                              IsVisible="{Binding IsRequestWorkspaceVisible}">
+                
+                            <StackPanel Grid.Column="1"
+                                        Orientation="Horizontal"
+                                        Spacing="8"
+                                        HorizontalAlignment="Right">
+                
+                                <Button Classes="workspaceMode"
+                                        Content="{DynamicResource DataDashboardTab}"
+                                        Command="{Binding NavigateSourceContentCommand}"
+                                        CommandParameter="{x:Static models:SourceNavigationPosition.DataDashboard}"/>
+                
+                                <Button Classes="workspaceMode"
+                                        Content="{DynamicResource DashboardDesignerTab}"
+                                        Command="{Binding NavigateSourceContentCommand}"
+                                        CommandParameter="{x:Static models:SourceNavigationPosition.DashboardDesigner}"/>
+                
+                            </StackPanel>
+                        </Grid>
                     </Grid>
                 </Border>
 

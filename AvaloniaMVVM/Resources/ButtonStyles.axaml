@@ -110,4 +110,87 @@
                 Value="{DynamicResource PressedBrush}" />
     </Style>
 
+        <!-- Modern request tab pill -->
+        <Style Selector="Button.requestTab">
+                <Setter Property="Background"
+                        Value="{DynamicResource PanelStrongBrush}" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource TextPrimaryBrush}" />
+                <Setter Property="BorderBrush"
+                        Value="{DynamicResource PanelBorderBrush}" />
+                <Setter Property="BorderThickness"
+                        Value="1" />
+                <Setter Property="CornerRadius"
+                        Value="8" />
+                <Setter Property="Padding"
+                        Value="16,9" />
+                <Setter Property="FontSize"
+                        Value="14" />
+                <Setter Property="FontWeight"
+                        Value="Medium" />
+                <Setter Property="HorizontalContentAlignment"
+                        Value="Left" />
+        </Style>
+
+        <Style Selector="Button.requestTab:pointerover /template/ ContentPresenter">
+                <Setter Property="Background"
+                        Value="{DynamicResource HoverBrush}" />
+        </Style>
+
+        <Style Selector="Button.requestTab:pressed /template/ ContentPresenter">
+                <Setter Property="Background"
+                        Value="{DynamicResource PressedBrush}" />
+        </Style>
+
+        <!-- Modern workspace mode pill: Data Dashboard / Designer -->
+        <Style Selector="Button.workspaceMode">
+                <Setter Property="Background"
+                        Value="{DynamicResource PanelStrongBrush}" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource TextPrimaryBrush}" />
+                <Setter Property="BorderBrush"
+                        Value="{DynamicResource PanelBorderBrush}" />
+                <Setter Property="BorderThickness"
+                        Value="1" />
+                <Setter Property="CornerRadius"
+                        Value="999" />
+                <Setter Property="Padding"
+                        Value="18,10" />
+                <Setter Property="FontSize"
+                        Value="14" />
+                <Setter Property="FontWeight"
+                        Value="Medium" />
+        </Style>
+
+        <Style Selector="Button.workspaceMode:pointerover /template/ ContentPresenter">
+                <Setter Property="Background"
+                        Value="{DynamicResource HoverBrush}" />
+        </Style>
+
+        <Style Selector="Button.workspaceMode:pressed /template/ ContentPresenter">
+                <Setter Property="Background"
+                        Value="{DynamicResource PressedBrush}" />
+        </Style>
+
+        <!-- Small close button inside tabs -->
+        <Style Selector="Button.tabClose">
+                <Setter Property="Background"
+                        Value="Transparent" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource TextMutedBrush}" />
+                <Setter Property="BorderThickness"
+                        Value="0" />
+                <Setter Property="CornerRadius"
+                        Value="6" />
+                <Setter Property="Padding"
+                        Value="0" />
+                <Setter Property="FontSize"
+                        Value="12" />
+        </Style>
+
+        <Style Selector="Button.tabClose:pointerover /template/ ContentPresenter">
+                <Setter Property="Background"
+                        Value="{DynamicResource HoverBrush}" />
+        </Style>
+        
 </Styles>
