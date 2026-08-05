@@ -431,7 +431,7 @@
                                 HorizontalAlignment="Right"
                                 Spacing="10">
 
-                        <Button Classes="accent"
+                        <Button 
                                 MinWidth="96"
                                 Focusable="True"
                                 Content="{DynamicResource CancelAction}"

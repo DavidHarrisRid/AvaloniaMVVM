@@ -12,7 +12,7 @@ public partial class MainNavigationService : ObservableObject
     
     private readonly AboutVm _aboutVm;
     private readonly AppSettingsVm _appSettingsVm;
-    private readonly DashboardVm _dashboardVm;
+    private readonly DashboardVm _dashboardVm; 
     
     public MainNavigationService(AboutVm  aboutVm, AppSettingsVm appSettingsVm, DashboardVm dashboardVm)
     {
