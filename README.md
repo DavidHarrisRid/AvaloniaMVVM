@@ -1,4 +1,4 @@
-\# PoC 4 – Avalonia MVVM
+# PoC 4 – Avalonia MVVM
 
 
 
@@ -6,7 +6,7 @@ Dieser PoC testet eine modulare Avalonia-Anwendung mit MVVM, Dependency Injectio
 
 
 
-\## Test
+## Test
 
 
 
