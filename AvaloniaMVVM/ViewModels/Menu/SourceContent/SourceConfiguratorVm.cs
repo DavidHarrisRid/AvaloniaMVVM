@@ -37,6 +37,7 @@ public partial class SourceConfiguratorVm : BaseVm
 
     public void Load(ApiSourceModel? source)
     {
+        // Das Formular arbeitet bis zum Speichern mit einer getrennten Kopie der Feldwerte.
         _source = source;
 
         _sourceConfigurationService.Load(

@@ -5,6 +5,7 @@ namespace AvaloniaMVVM.Models;
 
 public partial class ApiSourceModel : ObservableObject
 {
+    // ObservableProperty erzeugt bindbare Properties und Benachrichtigungen für die Oberfläche.
     [ObservableProperty]
     private int? _apiSourceId;
 
@@ -29,5 +30,6 @@ public partial class ApiSourceModel : ObservableObject
     [ObservableProperty]
     private bool _isExpanded;
 
+    // Eine Quelle ist der übergeordnete Knoten für ihre API-Anfragen.
     public ObservableCollection<ApiRequestModel> ApiRequests { get; } = new();
 }

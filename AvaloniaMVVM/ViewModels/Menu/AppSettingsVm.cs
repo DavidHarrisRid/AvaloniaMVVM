@@ -5,6 +5,7 @@ namespace AvaloniaMVVM.ViewModels.Menu;
 
 public class AppSettingsVm : BaseVm
 {
+    // Änderungen aus der View werden unmittelbar an den zentralen ConfigService weitergereicht.
     private readonly ConfigService _configService;
 
     public string ApiUrl

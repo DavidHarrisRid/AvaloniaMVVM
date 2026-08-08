@@ -6,6 +6,7 @@ namespace AvaloniaMVVM.Services;
 
 public partial class DeleteConfirmationService : ObservableObject
 {
+    // Das vorgemerkte Modell wird erst nach der expliziten Bestätigung gelöscht.
     private readonly DashboardWorkspaceService _workspaceService;
 
     private ApiSourceModel? _pendingSource;
@@ -30,6 +31,7 @@ public partial class DeleteConfirmationService : ObservableObject
 
     public void OpenForSource(ApiSourceModel source)
     {
+        // Es ist immer genau eine Quelle oder eine Anfrage zur Löschung vorgemerkt.
         _pendingSource = source;
         _pendingRequest = null;
 
@@ -55,6 +57,7 @@ public partial class DeleteConfirmationService : ObservableObject
 
     public void Confirm()
     {
+        // Erst die Bestätigung delegiert die tatsächliche Löschung an den Workspace-Dienst.
         if (_pendingSource is not null)
         {
             _workspaceService.DeleteSource(_pendingSource);
@@ -69,6 +72,7 @@ public partial class DeleteConfirmationService : ObservableObject
 
     private void Clear()
     {
+        // Nach Abbruch oder Bestätigung wird der Dialogzustand vollständig zurückgesetzt.
         _pendingSource = null;
         _pendingRequest = null;
 

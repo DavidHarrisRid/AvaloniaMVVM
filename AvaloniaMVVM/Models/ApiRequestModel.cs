@@ -5,6 +5,7 @@ namespace AvaloniaMVVM.Models;
 
 public partial class ApiRequestModel : ObservableObject
 {
+    // Die Modellwerte werden direkt von Konfigurator und Navigation beobachtet.
     [ObservableProperty]
     private int? _apiRequestId;
 
@@ -35,5 +36,6 @@ public partial class ApiRequestModel : ObservableObject
     [ObservableProperty]
     private bool? _isActive;
 
+    // Später enthält diese Sammlung die abgerufenen Antworten der Anfrage.
     public ObservableCollection<JsonEntryModel> JsonEntries { get; } = new();
 }

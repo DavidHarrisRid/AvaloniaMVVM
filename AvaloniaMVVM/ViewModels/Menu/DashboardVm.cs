@@ -10,6 +10,7 @@ namespace AvaloniaMVVM.ViewModels.Menu;
 
 public partial class DashboardVm : BaseVm
 {
+    // Das ViewModel reicht UI-Aktionen weiter; die eigentliche Logik bleibt in den Diensten.
     private readonly SourceManagementService _sourceManagementService;
     private readonly DashboardWorkspaceService _workspace;
     private readonly DeleteConfirmationService _deleteConfirmationService;
@@ -231,6 +232,7 @@ public partial class DashboardVm : BaseVm
 
     private void RefreshComputedProperties()
     {
+        // Abgeleitete Bindings werden nach einer Zustandsänderung gemeinsam aktualisiert.
         OnPropertyChanged(nameof(IsEditorVisible));
         OnPropertyChanged(nameof(IsRequestWorkspaceVisible));
         OnPropertyChanged(nameof(IsRequestTabStripVisible));

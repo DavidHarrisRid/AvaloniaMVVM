@@ -7,7 +7,7 @@ using AvaloniaMVVM.ViewModels;
 namespace AvaloniaMVVM;
 
 /// <summary>
-/// Given a view model, returns the corresponding view if possible.
+/// Ermittelt per Namenskonvention die passende View zu einem ViewModel.
 /// </summary>
 [RequiresUnreferencedCode(
     "Default implementation of ViewLocator involves reflection which may be trimmed away.",
@@ -19,6 +19,7 @@ public class ViewLocator : IDataTemplate
         if (param is null)
             return null;
 
+        // Die Konvention ersetzt die VM-Endung, damit keine manuelle View-Erzeugung nötig ist.
         var name = param.GetType().FullName!.Replace("ViewModel", "View", StringComparison.Ordinal)
             .Replace("Vm", "View", StringComparison.Ordinal);
         var type = Type.GetType(name);

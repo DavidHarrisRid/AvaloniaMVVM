@@ -6,6 +6,7 @@ namespace AvaloniaMVVM.Services;
 
 public partial class MainNavigationService : ObservableObject
 {
+    // CurrentViewModel ist der bindbare Inhalt des zentralen Seitenbereichs.
     [ObservableProperty] private object _currentViewModel;
     
     [ObservableProperty] private MainNavigationPosition _mainNavigationPosition;
@@ -25,6 +26,7 @@ public partial class MainNavigationService : ObservableObject
 
     public void Navigate(MainNavigationPosition position)
     {
+        // Die Enum-Position wird auf genau ein registriertes Seiten-ViewModel abgebildet.
         switch (position)
         {
             case MainNavigationPosition.About:

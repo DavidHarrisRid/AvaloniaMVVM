@@ -6,6 +6,7 @@ namespace AvaloniaMVVM.Services;
 
 public partial class SourceNavigationService : ObservableObject
 {
+    // Diese Navigation ist vom Hauptmenü getrennt und gilt nur für den Request-Arbeitsbereich.
     [ObservableProperty]
     private object _currentViewModel;
 
@@ -27,6 +28,7 @@ public partial class SourceNavigationService : ObservableObject
 
     public void Navigate(SourceNavigationPosition position)
     {
+        // Die Request-Unterseite wird unabhängig von der globalen Navigation gewechselt.
         switch (position)
         {
             case SourceNavigationPosition.DataDashboard:

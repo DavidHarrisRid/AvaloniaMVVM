@@ -5,6 +5,7 @@ namespace AvaloniaMVVM.ViewModels.Menu;
 
 public partial class RequestWorkspaceTabVm : BaseVm
 {
+    // Jeder offene Tab merkt sich Anfrage und zuletzt gewählte Inhaltsseite.
     public ApiRequestModel Request { get; }
 
     public bool IsDataDashboardSelected => NavigationPosition == SourceNavigationPosition.DataDashboard;

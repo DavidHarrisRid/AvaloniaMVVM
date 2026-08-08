@@ -5,6 +5,7 @@ namespace AvaloniaMVVM.ViewModels;
 
 public class StatusBarVm : BaseVm
 {
+    // Das ViewModel spiegelt ausschließlich den Zustand des StatusBarService in die View.
     private readonly StatusBarService _statusBarService;
 
     public string Message

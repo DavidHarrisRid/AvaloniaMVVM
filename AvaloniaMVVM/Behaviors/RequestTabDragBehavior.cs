@@ -11,6 +11,7 @@ namespace AvaloniaMVVM.Behaviors;
 
 public static class RequestTabDragDropBehavior
 {
+    // Das Attached Behavior übersetzt Pointer-Ereignisse in ein MVVM-Kommando.
     private const string DragFormat = "application/x-avalonia-mvvm-request-tab";
 
     private static Point? _dragStartPoint;
@@ -83,6 +84,7 @@ public static class RequestTabDragDropBehavior
 
         DragDrop.SetAllowDrop(control, true);
 
+        // Auch von inneren Buttons behandelte Pointer-Ereignisse müssen den Drag starten können.
         control.AddHandler(
             InputElement.PointerPressedEvent,
             OnPointerPressed,

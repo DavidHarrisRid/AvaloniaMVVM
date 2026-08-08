@@ -4,6 +4,7 @@ namespace AvaloniaMVVM.Services;
 
 public class RequestConfigurationService
 {
+    // Erst Save übertraegt die Formularwerte in das ausgewählte Request-Modell.
     private readonly StatusBarService _statusBarService;
 
     public RequestConfigurationService(StatusBarService statusBarService)

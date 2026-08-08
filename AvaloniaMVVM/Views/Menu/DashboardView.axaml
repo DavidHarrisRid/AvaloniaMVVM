@@ -12,11 +12,10 @@
              d:DesignHeight="760"
              x:Class="AvaloniaMVVM.Views.Menu.DashboardView">
 
-    <!-- Root overlay host. No columns here. -->
+    <!-- Root-Container für Inhalt und modales Overlay. -->
     <Grid Background="{DynamicResource AppBackgroundBrush}">
 
-        <!-- Normal dashboard content.
-             This is disabled while the delete confirmation overlay is open. -->
+        <!-- Der normale Dashboard-Inhalt wird bei geöffnetem Dialog vollständig deaktiviert. -->
         <Grid IsEnabled="{Binding !DeleteConfirmationService.IsOpen}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="{Binding SidebarColumnWidth}"
@@ -28,14 +27,14 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- SOURCE / REQUEST TREE -->
+            <!-- Gemeinsamer Baum für Quellen und ihre Anfragen. -->
             <Border Grid.Column="0"
                     Background="{DynamicResource PanelAltBrush}"
                     IsVisible="{Binding IsSidebarVisible}">
 
                 <Grid RowDefinitions="Auto,*">
 
-                    <!-- Tree header -->
+                    <!-- Kopfbereich des Quellenbaums. -->
                     <Border Grid.Row="0"
                             Background="{DynamicResource PanelColor}"
                             BorderBrush="{DynamicResource PanelBorderBrush}"
@@ -61,7 +60,7 @@
                         </Grid>
                     </Border>
 
-                    <!-- Independent tree scroll area -->
+                    <!-- Der Quellenbaum scrollt unabhängig vom Hauptinhalt. -->
                     <ScrollViewer Grid.Row="1"
                                   VerticalScrollBarVisibility="Auto"
                                   HorizontalScrollBarVisibility="Disabled">
@@ -73,7 +72,7 @@
 
                                     <StackPanel>
 
-                                        <!-- SOURCE NODE -->
+                                        <!-- Quellenknoten. -->
                                         <Grid ColumnDefinitions="*,Auto,Auto"
                                               Margin="5,2"
                                               ColumnSpacing="5">
@@ -90,7 +89,7 @@
                                                       ColumnSpacing="8"
                                                       HorizontalAlignment="Stretch">
 
-                                                    <!-- Closed indicator -->
+                                                    <!-- Markierung für einen geschlossenen Knoten. -->
                                                     <TextBlock Grid.Column="0"
                                                                Width="18"
                                                                Text="▸"
@@ -101,7 +100,7 @@
                                                                HorizontalAlignment="Center"
                                                                IsVisible="{Binding !IsExpanded}"/>
 
-                                                    <!-- Open indicator -->
+                                                    <!-- Markierung für einen geöffneten Knoten. -->
                                                     <TextBlock Grid.Column="0"
                                                                Width="18"
                                                                Text="▾"
@@ -129,7 +128,7 @@
                                                 </Grid>
                                             </Button>
 
-                                            <!-- New request button -->
+                                            <!-- Legt eine neue Anfrage direkt unter dieser Quelle an. -->
                                             <Button Grid.Column="1"
                                                     Classes="icon"
                                                     Content="+"
@@ -139,7 +138,7 @@
                                                     Command="{ReflectionBinding DataContext.CreateRequestForSourceCommand, ElementName=Root}"
                                                     CommandParameter="{Binding}"/>
 
-                                            <!-- Source menu -->
+                                            <!-- Kontextaktionen der Quelle. -->
                                             <Button Grid.Column="2"
                                                     Classes="icon"
                                                     Content="{DynamicResource MoreActions}"
@@ -161,7 +160,7 @@
                                             </Button>
                                         </Grid>
 
-                                        <!-- REQUEST CHILDREN -->
+                                        <!-- Untergeordnete Anfragen der geöffneten Quelle. -->
                                         <ItemsControl ItemsSource="{Binding ApiRequests}"
                                                       IsVisible="{Binding IsExpanded}">
 
@@ -209,7 +208,7 @@
                                                             </Grid>
                                                         </Button>
 
-                                                        <!-- Request menu -->
+                                                        <!-- Kontextaktionen der Anfrage. -->
                                                         <Button Grid.Column="1"
                                                                 Classes="icon"
                                                                 Content="{DynamicResource MoreActions}"
@@ -242,7 +241,7 @@
                 </Grid>
             </Border>
 
-            <!-- Resizable splitter -->
+            <!-- Mit dem Splitter lässt sich die Breite der Seitenleiste anpassen. -->
             <GridSplitter Grid.Column="1"
                           Width="4"
                           Background="{DynamicResource PanelBorderBrush}"
@@ -252,14 +251,14 @@
                           VerticalAlignment="Stretch"
                           IsVisible="{Binding IsSidebarVisible}"/>
 
-            <!-- Main content area -->
+            <!-- Hauptbereich für Editoren und Request-Arbeitsfläche. -->
             <Border Grid.Column="{Binding MainContentColumn}"
                     Grid.ColumnSpan="{Binding MainContentColumnSpan}"
                     Background="{DynamicResource AppBackgroundBrush}">
 
                 <Grid RowDefinitions="Auto,*">
 
-                    <!-- Main content header -->
+                    <!-- Kopfbereich des Request-Arbeitsbereichs. -->
                     <Border Grid.Row="0"
                             Background="{DynamicResource PanelColor}"
                             Padding="14,8,14,8">
@@ -267,13 +266,13 @@
                         <Grid RowDefinitions="Auto,Auto"
                               RowSpacing="8">
 
-                            <!-- Top row: request tabs left, tabs toggle right -->
+                            <!-- Oben stehen Request-Tabs und der Umschalter für den Tab-Modus. -->
                             <Grid Grid.Row="0"
                                   ColumnDefinitions="*,Auto"
                                   ColumnSpacing="12"
                                   MinHeight="38">
 
-                                <!-- Request tabs -->
+                                <!-- Geöffnete Anfragen lassen sich als Tabs wechseln und sortieren. -->
                                 <Border Grid.Column="0"
                                         Background="{DynamicResource PanelAltBrush}"
                                         CornerRadius="10"
@@ -326,7 +325,7 @@
                                     </ScrollViewer>
                                 </Border>
 
-                                <!-- Tabs button -->
+                                <!-- Schaltet zwischen Tab- und Einzelansicht um. -->
                                 <Button Grid.Column="1"
                                         Classes="accent"
                                         Content="{DynamicResource RequestTabsToggleAction}"
@@ -338,7 +337,7 @@
                                         Command="{Binding ToggleRequestTabsCommand}"/>
                             </Grid>
 
-                            <!-- Bottom row: Data Dashboard / Designer -->
+                            <!-- Inhaltsnavigation für Datenausgabe und Dashboard-Designer. -->
                             <Grid Grid.Row="1"
                                   ColumnDefinitions="*,Auto"
                                   IsVisible="{Binding IsRequestWorkspaceVisible}">
@@ -363,7 +362,7 @@
                         </Grid>
                     </Border>
 
-                    <!-- Independent main scroll region -->
+                    <!-- Der sichtbare Hauptinhalt besitzt einen eigenen Scrollbereich. -->
                     <Grid Grid.Row="1"
                           Background="{DynamicResource AppBackgroundBrush}">
 
@@ -399,7 +398,7 @@
             </Border>
         </Grid>
 
-        <!-- DELETE CONFIRMATION OVERLAY -->
+        <!-- Modale Löschbestaetigung blockiert den darunterliegenden Inhalt. -->
         <Grid IsVisible="{Binding DeleteConfirmationService.IsOpen}"
               Background="#99000000"
               Panel.ZIndex="100"

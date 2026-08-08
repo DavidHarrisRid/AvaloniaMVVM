@@ -6,6 +6,7 @@ namespace AvaloniaMVVM.Services;
 
 public class SourceManagementService
 {
+    // Der Prototyp haelt seine Daten bewusst nur für die aktuelle Laufzeit im Speicher.
     private int _nextSourceId = 1;
     private int _nextRequestId = 1;
 

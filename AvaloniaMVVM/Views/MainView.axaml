@@ -25,7 +25,7 @@
             <RowDefinition Height="28"/>
         </Grid.RowDefinitions>
 
-        <!-- Main navigation rail -->
+        <!-- Schmale Hauptnavigation für die oberste Anwendungsebene. -->
         <Border Grid.Row="0"
                 Grid.Column="0"
                 Background="{DynamicResource MainSidebarBrush}"
@@ -74,7 +74,7 @@
             </StackPanel>
         </Border>
 
-        <!-- Page host: no outer ScrollViewer. Each page owns its own scrolling. -->
+        <!-- Jede Seite verwaltet ihr Scrollverhalten selbst. -->
         <Border Grid.Row="0"
                 Grid.Column="1"
                 Background="{DynamicResource AppBackgroundBrush}">
@@ -83,7 +83,7 @@
 
         </Border>
 
-        <!-- Status Bar -->
+        <!-- Die Statusleiste bleibt unabhängig von der aktuellen Seite sichtbar. -->
         <ContentControl Grid.Row="1"
                         Grid.Column="1"
                         Content="{Binding StatusBarVm}"/>
