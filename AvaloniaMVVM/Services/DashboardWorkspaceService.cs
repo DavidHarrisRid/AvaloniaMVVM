@@ -111,6 +111,7 @@ public partial class DashboardWorkspaceService : ObservableObject
 
     public void DeleteSource(ApiSourceModel source)
     {
+        // Vor dem Loeschen der Quelle werden alle zugehoerigen Tabs aus dem Arbeitsbereich entfernt.
         var tabsToClose = OpenRequestTabs
             .Where(tab => source.ApiRequests.Contains(tab.Request))
             .ToList();
@@ -263,6 +264,7 @@ public partial class DashboardWorkspaceService : ObservableObject
 
         SelectedRequestTab = OpenRequestTabs.LastOrDefault();
 
+        // Nach dem Schliessen bleibt der zuletzt geoeffnete Tab als naechster Arbeitskontext aktiv.
         if (SelectedRequestTab is not null)
         {
             SelectRequestTab(SelectedRequestTab);
@@ -305,6 +307,7 @@ public partial class DashboardWorkspaceService : ObservableObject
 
     public void NavigateSourceContent(SourceNavigationPosition position)
     {
+        // Jeder Tab behaelt seine Inhaltsseite, damit sie beim Wechsel wiederhergestellt werden kann.
         if (UseRequestTabs && SelectedRequestTab is not null)
         {
             SelectedRequestTab.NavigationPosition = position;

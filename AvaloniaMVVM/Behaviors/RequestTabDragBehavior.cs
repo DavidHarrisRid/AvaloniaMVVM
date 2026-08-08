@@ -162,6 +162,7 @@ public static class RequestTabDragDropBehavior
         var currentPoint = args.GetPosition(control);
         var distance = currentPoint - _dragStartPoint.Value;
 
+        // Der kleine Schwellwert verhindert, dass ein normaler Klick versehentlich einen Drag startet.
         if (Math.Abs(distance.X) < 6 && Math.Abs(distance.Y) < 6)
         {
             return;
