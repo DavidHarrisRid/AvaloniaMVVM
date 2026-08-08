@@ -24,11 +24,11 @@ public partial class App : Application
     {
         var services = new ServiceCollection();
 
-        // Core services
+        // Zentrale Anwendungsdienste werden als Singleton im DI-Container verwaltet.
         services.AddSingleton<ConfigService>();
         services.AddSingleton<StatusBarService>();
 
-        // Source/request services
+        // Diese Dienste bilden den Arbeitsbereich fuer Quellen und Anfragen ab.
         services.AddSingleton<SourceManagementService>();
         services.AddSingleton<SourceNavigationService>();
         services.AddSingleton<TabReorderService>();
@@ -37,19 +37,19 @@ public partial class App : Application
         services.AddSingleton<SourceConfigurationService>();
         services.AddSingleton<RequestConfigurationService>();
 
-        // Main navigation
+        // Die Hauptnavigation tauscht das aktuell angezeigte ViewModel aus.
         services.AddSingleton<MainNavigationService>();
 
-        // Root VMs
+        // Root-ViewModels leben waehrend der gesamten Anwendungslaufzeit.
         services.AddSingleton<MainVm>();
         services.AddSingleton<StatusBarVm>();
 
-        // Menu VMs
+        // ViewModels der Hauptseiten werden ueber Dependency Injection aufgeloest.
         services.AddSingleton<AboutVm>();
         services.AddSingleton<AppSettingsVm>();
         services.AddSingleton<DashboardVm>();
 
-        // Source content VMs
+        // Diese ViewModels stellen die wechselnden Inhalte des Dashboards bereit.
         services.AddSingleton<SourceConfiguratorVm>();
         services.AddSingleton<RequestConfiguratorVm>();
         services.AddSingleton<DataDashboardVm>();

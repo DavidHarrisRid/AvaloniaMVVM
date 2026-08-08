@@ -110,7 +110,7 @@
                 Value="{DynamicResource PressedBrush}" />
     </Style>
 
-        <!-- Modern request tab pill -->
+        <!-- Darstellung eines geoeffneten Request-Tabs. -->
         <Style Selector="Button.requestTab">
                 <Setter Property="Background"
                         Value="{DynamicResource PanelStrongBrush}" />
@@ -142,7 +142,7 @@
                         Value="{DynamicResource PressedBrush}" />
         </Style>
 
-        <!-- Modern workspace mode pill: Data Dashboard / Designer -->
+        <!-- Umschalter fuer Datenausgabe und Dashboard-Designer. -->
         <Style Selector="Button.workspaceMode">
                 <Setter Property="Background"
                         Value="{DynamicResource PanelStrongBrush}" />
@@ -172,7 +172,7 @@
                         Value="{DynamicResource PressedBrush}" />
         </Style>
 
-        <!-- Small close button inside tabs -->
+        <!-- Kleine Schliessen-Schaltflaeche innerhalb eines Tabs. -->
         <Style Selector="Button.tabClose">
                 <Setter Property="Background"
                         Value="Transparent" />
@@ -193,7 +193,7 @@
                         Value="{DynamicResource HoverBrush}" />
         </Style>
         
-        <!-- Dangerous action button -->
+        <!-- Warnfarbe fuer destruktive Aktionen. -->
         <Style Selector="Button.danger">
                 <Setter Property="Background"
                         Value="{DynamicResource DangerBrush}" />

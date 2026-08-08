@@ -4,6 +4,7 @@ namespace AvaloniaMVVM.Services;
 
 public class SourceConfigurationService
 {
+    // Load und Save trennen die editierbaren Formularwerte vom gespeicherten Modellzustand.
     private readonly StatusBarService _statusBarService;
 
     public SourceConfigurationService(StatusBarService statusBarService)

@@ -6,6 +6,7 @@ namespace AvaloniaMVVM.Services;
 
 public partial class MainNavigationService : ObservableObject
 {
+    // CurrentViewModel ist der bindbare Inhalt des zentralen Seitenbereichs.
     [ObservableProperty] private object _currentViewModel;
     
     [ObservableProperty] private MainNavigationPosition _mainNavigationPosition;

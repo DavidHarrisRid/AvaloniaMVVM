@@ -5,6 +5,7 @@ namespace AvaloniaMVVM.Services;
 
 public class TabReorderRequest
 {
+    // Das Kommando transportiert Ausgangs- und Ziel-Tab ohne UI-Abhaengigkeit zur Logik.
     public RequestWorkspaceTabVm DraggedTab { get; }
 
     public RequestWorkspaceTabVm TargetTab { get; }
@@ -20,6 +21,7 @@ public class TabReorderRequest
 
 public class TabReorderService
 {
+    // Die ObservableCollection informiert die Tab-Leiste automatisch ueber die neue Reihenfolge.
     public void Reorder(
         ObservableCollection<RequestWorkspaceTabVm> tabs,
         TabReorderRequest request)
