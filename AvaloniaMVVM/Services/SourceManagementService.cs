@@ -14,6 +14,7 @@ public class SourceManagementService
 
     public ApiSourceModel CreateSource()
     {
+        // Die fortlaufende ID bleibt auch nach dem Loeschen eines Eintrags eindeutig.
         var source = new ApiSourceModel
         {
             ApiSourceId = _nextSourceId,
@@ -57,6 +58,7 @@ public class SourceManagementService
 
     public ApiSourceModel? FindSourceForRequest(ApiRequestModel request)
     {
+        // Die Elternquelle wird ueber die tatsaechliche Objektzugehoerigkeit im Baum ermittelt.
         return ApiSources.FirstOrDefault(source => source.ApiRequests.Contains(request));
     }
 }

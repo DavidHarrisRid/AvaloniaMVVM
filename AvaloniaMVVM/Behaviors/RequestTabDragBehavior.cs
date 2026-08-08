@@ -50,6 +50,7 @@ public static class RequestTabDragDropBehavior
 
     static RequestTabDragDropBehavior()
     {
+        // Erst das Setzen der Tab-Property aktiviert die Ereignisbehandlung am Steuerelement.
         TabProperty.Changed.AddClassHandler<Control>(OnTabChanged);
     }
 
@@ -162,6 +163,7 @@ public static class RequestTabDragDropBehavior
         var currentPoint = args.GetPosition(control);
         var distance = currentPoint - _dragStartPoint.Value;
 
+        // Der kleine Schwellwert verhindert, dass ein normaler Klick versehentlich einen Drag startet.
         if (Math.Abs(distance.X) < 6 && Math.Abs(distance.Y) < 6)
         {
             return;
@@ -169,6 +171,7 @@ public static class RequestTabDragDropBehavior
 
         _isDragging = true;
 
+        // Das eigene Datenformat kennzeichnet ausschliesslich Tabs dieser Anwendung als gueltige Drag-Daten.
         var data = new DataObject();
         data.Set(DragFormat, _draggedTab);
 
@@ -235,6 +238,7 @@ public static class RequestTabDragDropBehavior
         }
 
         var command = GetReorderCommand(control);
+        // Ausgangs- und Ziel-Tab werden gemeinsam als typsicherer Command-Parameter uebergeben.
         var request = new TabReorderRequest(_draggedTab, targetTab);
 
         if (command?.CanExecute(request) == true)

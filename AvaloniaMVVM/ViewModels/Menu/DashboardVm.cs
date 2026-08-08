@@ -27,6 +27,7 @@ public partial class DashboardVm : BaseVm
 
     public DeleteConfirmationService DeleteConfirmationService => _deleteConfirmationService;
 
+    // Diese Eigenschaften spiegeln den Dienstzustand fuer direkte XAML-Bindings wider.
     public bool IsEditorVisible => _workspace.IsEditorVisible;
     public bool IsRequestWorkspaceVisible => _workspace.IsRequestWorkspaceVisible;
     public bool IsRequestTabStripVisible => _workspace.IsRequestTabStripVisible;
@@ -88,6 +89,7 @@ public partial class DashboardVm : BaseVm
     [RelayCommand]
     private void CreateSource()
     {
+        // Nach dem Anlegen laedt der Konfigurator die neue Quelle in seine editierbare Formularkopie.
         _workspace.CreateSource();
         SourceConfiguratorVm.Load(_workspace.SelectedSource);
         RefreshAll();
@@ -148,6 +150,7 @@ public partial class DashboardVm : BaseVm
     {
         _deleteConfirmationService.Confirm();
 
+        // Nach dem Loeschen werden beide Formulare mit der eventuell geaenderten Auswahl synchronisiert.
         SourceConfiguratorVm.Load(_workspace.SelectedSource);
         RequestConfiguratorVm.Load(_workspace.SelectedRequest);
 
@@ -204,6 +207,7 @@ public partial class DashboardVm : BaseVm
 
     private void OnWorkspacePropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
+        // Der Property-Name des Dienstes wird unveraendert an die View weitergereicht.
         if (!string.IsNullOrWhiteSpace(e.PropertyName))
         {
             OnPropertyChanged(e.PropertyName);

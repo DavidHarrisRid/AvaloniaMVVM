@@ -58,6 +58,7 @@ public class RequestConfigurationService
         request.RequestHeader = requestHeader;
         request.IsActive = isActive;
 
+        // Nichtnumerische oder leere Eingaben deaktivieren das optionale Polling-Intervall.
         if (int.TryParse(pollingInterval, out var parsedPollingInterval))
         {
             request.PollingInterval = parsedPollingInterval;
