@@ -6,6 +6,7 @@ namespace AvaloniaMVVM.Services;
 
 public partial class DeleteConfirmationService : ObservableObject
 {
+    // Das vorgemerkte Modell wird erst nach der expliziten Bestaetigung geloescht.
     private readonly DashboardWorkspaceService _workspaceService;
 
     private ApiSourceModel? _pendingSource;
@@ -69,6 +70,7 @@ public partial class DeleteConfirmationService : ObservableObject
 
     private void Clear()
     {
+        // Nach Abbruch oder Bestaetigung wird der Dialogzustand vollstaendig zurueckgesetzt.
         _pendingSource = null;
         _pendingRequest = null;
 

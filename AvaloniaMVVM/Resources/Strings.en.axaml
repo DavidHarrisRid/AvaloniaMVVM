@@ -1,10 +1,10 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!-- App -->
+    <!-- Anwendung. -->
     <x:String x:Key="AppTitle">Avalonia MVVM Studio</x:String>
 
-    <!-- Main navigation -->
+    <!-- Hauptnavigation. -->
     <x:String x:Key="DashboardTitle">Dashboard</x:String>
     <x:String x:Key="DashboardSubTitle">Sources, requests, dashboards and designer workspace.</x:String>
 
@@ -18,14 +18,14 @@
 
     <x:String x:Key="LogoutButton">Logout</x:String>
 
-    <!-- Shared actions -->
+    <!-- Gemeinsam verwendete Aktionen. -->
     <x:String x:Key="CreateAction">Create</x:String>
     <x:String x:Key="EditAction">Edit</x:String>
     <x:String x:Key="DeleteAction">Delete</x:String>
     <x:String x:Key="SaveAction">Save</x:String>
     <x:String x:Key="MoreActions">⋯</x:String>
 
-    <!-- Dashboard source/request navigation -->
+    <!-- Quellen- und Request-Navigation des Dashboards. -->
     <x:String x:Key="SourcesTitle">Sources</x:String>
     <x:String x:Key="SourcesSubtitle">Top-level source definitions</x:String>
     <x:String x:Key="CreateSourceAction">New Source</x:String>
@@ -37,14 +37,14 @@
     <x:String x:Key="NoSourceBaseUrl">No base URL configured</x:String>
     <x:String x:Key="NoRequestMethod">No method configured</x:String>
 
-    <!-- Request workspace -->
+    <!-- Request-Arbeitsbereich. -->
     <x:String x:Key="DataDashboardTab">Data Dashboard</x:String>
     <x:String x:Key="DashboardDesignerTab">Dashboard Designer</x:String>
     
     <x:String x:Key="RequestTabsToggleAction">Tabs</x:String>
     <x:String x:Key="CloseTabAction">Close</x:String>
 
-    <!-- Source configurator -->
+    <!-- Quellenkonfiguration. -->
     <x:String x:Key="SourceConfiguratorTitle">Source Configuration</x:String>
     <x:String x:Key="SourceConfiguratorSubtitle">Edit source details and save when ready.</x:String>
     <x:String x:Key="SourceNameLabel">Name</x:String>
@@ -55,7 +55,7 @@
     <x:String x:Key="SourceDefaultHeaderLabel">Default Header</x:String>
     <x:String x:Key="SaveSourceAction">Save Source</x:String>
 
-    <!-- Request configurator -->
+    <!-- Request-Konfiguration. -->
     <x:String x:Key="RequestConfiguratorTitle">Request Configuration</x:String>
     <x:String x:Key="RequestConfiguratorSubtitle">Edit request details and save when ready.</x:String>
     <x:String x:Key="RequestNameLabel">Name</x:String>
@@ -68,7 +68,7 @@
     <x:String x:Key="RequestIsActiveLabel">Is Active</x:String>
     <x:String x:Key="SaveRequestAction">Save Request</x:String>
     
-    <!-- Delete confirmation -->
+    <!-- Loeschbestaetigung. -->
     <x:String x:Key="DeleteSourceDialogTitle">Delete source?</x:String>
     <x:String x:Key="DeleteSourceDialogMessage">This will delete the source, all requests inside it, and all data connected to those requests. This action cannot be undone.</x:String>
 
@@ -78,19 +78,19 @@
     <x:String x:Key="CancelAction">Cancel</x:String>
     <x:String x:Key="ConfirmDeleteAction">Delete</x:String>
     
-    <!-- Data dashboard -->
+    <!-- Datenausgabe. -->
     <x:String x:Key="DataDashboardTitle">Data Dashboard</x:String>
     <x:String x:Key="DataDashboardSubtitle">Request output preview will appear here.</x:String>
     <x:String x:Key="DataDashboardPlaceholderTitle">No data preview yet</x:String>
     <x:String x:Key="DataDashboardPlaceholderText">JSON entry rendering will be implemented in the next step.</x:String>
 
-    <!-- Dashboard designer -->
+    <!-- Dashboard-Designer. -->
     <x:String x:Key="DashboardDesignerTitle">Dashboard Designer</x:String>
     <x:String x:Key="DashboardDesignerSubtitle">Design request dashboard widgets and layout.</x:String>
     <x:String x:Key="DashboardDesignerPlaceholderTitle">Designer canvas placeholder</x:String>
     <x:String x:Key="DashboardDesignerPlaceholderText">Dashboard layout tools will be added later.</x:String>
 
-    <!-- About -->
+    <!-- Programminformationen. -->
     <x:String x:Key="AboutLegalInfo">
 This application was designed and developed by David Harris Rid.
 

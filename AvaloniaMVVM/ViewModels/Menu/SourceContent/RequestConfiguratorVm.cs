@@ -43,6 +43,7 @@ public partial class RequestConfiguratorVm : BaseVm
 
     public void Load(ApiRequestModel? request)
     {
+        // Das Laden fuellt nur das Formular und veraendert das Modell noch nicht.
         _request = request;
 
         _requestConfigurationService.Load(

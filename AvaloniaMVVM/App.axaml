@@ -11,15 +11,15 @@
              xmlns:local="using:AvaloniaMVVM"
              RequestedThemeVariant="Default">
 
-    <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+    <!-- Das Standard-Theme folgt der Systemeinstellung; Dark und Light sind Alternativen. -->
 
     <Application.DataTemplates>
-        <!-- ViewModels -->
+        <!-- Zuordnung der allgemeinen ViewModels zu ihren Views. -->
         <DataTemplate DataType="viewModels:StatusBarVm">
             <views:StatusBarView />
         </DataTemplate>
 
-        <!-- Menu VMs -->
+        <!-- Zuordnung der Hauptseiten. -->
         <DataTemplate DataType="viewModelsMenu:AboutVm">
             <viewsMenu:AboutView />
         </DataTemplate>
@@ -32,7 +32,7 @@
             <viewsMenu:DashboardView />
         </DataTemplate>
 
-        <!-- Source content VMs -->
+        <!-- Zuordnung der dynamischen Dashboard-Inhalte. -->
         <DataTemplate DataType="viewModelsSourceContent:SourceConfiguratorVm">
             <viewsSourceContent:SourceConfiguratorView />
         </DataTemplate>
@@ -63,7 +63,7 @@
 
         <materialIcons:MaterialIconStyles />
 
-        <!-- Neutral styles -->
+        <!-- Globale Farben und wiederverwendbare Steuerelement-Styles. -->
         <StyleInclude Source="Resources/Colors.axaml" />
         <StyleInclude Source="Resources/SidebarButtonStyles.axaml" />
         <StyleInclude Source="Resources/ButtonStyles.axaml" />

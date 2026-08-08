@@ -9,6 +9,7 @@ namespace AvaloniaMVVM.Services;
 
 public partial class DashboardWorkspaceService : ObservableObject
 {
+    // Dieser Dienst buendelt Auswahl, Editorzustand und geoeffnete Request-Tabs.
     private readonly SourceManagementService _sourceManagementService;
     private readonly SourceNavigationService _sourceNavigationService;
     private readonly TabReorderService _tabReorderService;
@@ -167,6 +168,7 @@ public partial class DashboardWorkspaceService : ObservableObject
             SelectedSource.IsExpanded = true;
         }
 
+        // Im Tab-Modus wird ein bestehender Tab aktiviert oder einmalig angelegt.
         if (UseRequestTabs)
         {
             var tab = GetOrCreateTab(request);
@@ -280,6 +282,7 @@ public partial class DashboardWorkspaceService : ObservableObject
     {
         UseRequestTabs = !UseRequestTabs;
 
+        // Beim Abschalten werden alle offenen Tabs wie vom Benutzer erwartet verworfen.
         if (!UseRequestTabs)
         {
             OpenRequestTabs.Clear();

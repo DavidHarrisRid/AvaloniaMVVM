@@ -6,6 +6,7 @@ namespace AvaloniaMVVM.Services;
 
 public partial class SourceNavigationService : ObservableObject
 {
+    // Diese Navigation ist vom Hauptmenue getrennt und gilt nur fuer den Request-Arbeitsbereich.
     [ObservableProperty]
     private object _currentViewModel;
 

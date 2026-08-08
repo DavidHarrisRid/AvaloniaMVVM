@@ -8,6 +8,7 @@ namespace AvaloniaMVVM.Services;
 
 public partial class StatusBarService : ObservableObject
 {
+    // Jede neue Meldung startet den zehnsekundigen Ruecksetz-Timer erneut.
     private const string IdleMessage = "...";
     private static readonly TimeSpan ResetDelay = TimeSpan.FromSeconds(10);
 
@@ -66,11 +67,11 @@ public partial class StatusBarService : ObservableObject
         }
         catch (TaskCanceledException)
         {
-            // A newer status message was set before the timer finished.
+            // Eine neuere Statusmeldung hat den vorherigen Timer ersetzt.
         }
         catch (OperationCanceledException)
         {
-            // A newer status message was set before the timer finished.
+            // Eine neuere Statusmeldung hat den vorherigen Timer ersetzt.
         }
     }
 }

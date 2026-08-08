@@ -5,6 +5,7 @@ namespace AvaloniaMVVM.ViewModels;
 
 public partial class MainVm : BaseVm
 {
+    // Das Root-ViewModel verbindet Hauptnavigation, Dashboard und Statusleiste.
     private readonly StatusBarVm _statusBarVm;
     private readonly MainNavigationService _navigation;
     private readonly DashboardWorkspaceService _dashboardWorkspaceService;
@@ -38,6 +39,7 @@ public partial class MainVm : BaseVm
 
     public void Navigate(MainNavigationPosition position)
     {
+        // Ein erneuter Klick auf Home blendet die Dashboard-Seitenleiste um.
         if (position == MainNavigationPosition.Dashboard &&
             _navigation.MainNavigationPosition == MainNavigationPosition.Dashboard)
         {
