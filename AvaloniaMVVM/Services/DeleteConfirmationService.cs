@@ -81,6 +81,7 @@ public partial class DeleteConfirmationService : ObservableObject
 
     private static string GetString(string key)
     {
+        // Fehlt eine Ressource, bleibt ihr Schluessel als sichtbarer und diagnosefreundlicher Ersatz erhalten.
         if (Application.Current?.TryGetResource(key, null, out var value) == true &&
             value is string text)
         {

@@ -30,6 +30,7 @@ public partial class DashboardWorkspaceService : ObservableObject
         ? new GridLength(340)
         : new GridLength(0);
 
+    // Spalte und Span verschieben den Hauptinhalt passend zur ein- oder ausgeblendeten Seitenleiste.
     public int MainContentColumn => IsSidebarVisible ? 2 : 0;
 
     public int MainContentColumnSpan => IsSidebarVisible ? 1 : 3;
@@ -83,6 +84,7 @@ public partial class DashboardWorkspaceService : ObservableObject
 
     public ApiSourceModel CreateSource()
     {
+        // Eine neue Quelle wird sofort ausgewaehlt, aufgeklappt und im Editor geoeffnet.
         SelectedSource = _sourceManagementService.CreateSource();
         SelectedRequest = null;
 
@@ -111,6 +113,7 @@ public partial class DashboardWorkspaceService : ObservableObject
 
     public void DeleteSource(ApiSourceModel source)
     {
+        // Vor dem Loeschen der Quelle werden alle zugehoerigen Tabs aus dem Arbeitsbereich entfernt.
         var tabsToClose = OpenRequestTabs
             .Where(tab => source.ApiRequests.Contains(tab.Request))
             .ToList();
@@ -238,6 +241,7 @@ public partial class DashboardWorkspaceService : ObservableObject
 
     public void SelectRequestTab(RequestWorkspaceTabVm tab)
     {
+        // Die Tab-Auswahl stellt zugleich Anfrage, Quelle und zuletzt besuchte Inhaltsseite wieder her.
         SelectedRequestTab = tab;
         SelectedRequest = tab.Request;
         SelectedSource = _sourceManagementService.FindSourceForRequest(tab.Request);
@@ -263,6 +267,7 @@ public partial class DashboardWorkspaceService : ObservableObject
 
         SelectedRequestTab = OpenRequestTabs.LastOrDefault();
 
+        // Nach dem Schliessen bleibt der zuletzt geoeffnete Tab als naechster Arbeitskontext aktiv.
         if (SelectedRequestTab is not null)
         {
             SelectRequestTab(SelectedRequestTab);
@@ -305,6 +310,7 @@ public partial class DashboardWorkspaceService : ObservableObject
 
     public void NavigateSourceContent(SourceNavigationPosition position)
     {
+        // Jeder Tab behaelt seine Inhaltsseite, damit sie beim Wechsel wiederhergestellt werden kann.
         if (UseRequestTabs && SelectedRequestTab is not null)
         {
             SelectedRequestTab.NavigationPosition = position;
@@ -332,6 +338,7 @@ public partial class DashboardWorkspaceService : ObservableObject
 
     private void OpenRequestWorkspace(SourceNavigationPosition position)
     {
+        // Der Arbeitsbereich ist nur sichtbar, wenn keiner der beiden Konfiguratoren geoeffnet ist.
         IsSourceEditorOpen = false;
         IsRequestEditorOpen = false;
 
@@ -340,6 +347,7 @@ public partial class DashboardWorkspaceService : ObservableObject
 
     private RequestWorkspaceTabVm GetOrCreateTab(ApiRequestModel request)
     {
+        // Pro Anfrage darf hoechstens ein Tab existieren, damit kein doppelter Arbeitszustand entsteht.
         var existingTab = OpenRequestTabs.FirstOrDefault(tab => tab.Request == request);
 
         if (existingTab is not null)

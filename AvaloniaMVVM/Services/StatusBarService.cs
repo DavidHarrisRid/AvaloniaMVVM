@@ -32,6 +32,7 @@ public partial class StatusBarService : ObservableObject
 
     private void RestartResetTimer()
     {
+        // Nur der Timer der neuesten Meldung darf die Statusleiste spaeter zuruecksetzen.
         CancelResetTimer();
 
         _resetCancellationTokenSource = new CancellationTokenSource();
@@ -57,6 +58,7 @@ public partial class StatusBarService : ObservableObject
                 return;
             }
 
+            // Bindbare UI-Daten werden nach dem Hintergrund-Timer auf dem UI-Thread aktualisiert.
             await Dispatcher.UIThread.InvokeAsync(() =>
             {
                 if (!cancellationToken.IsCancellationRequested)

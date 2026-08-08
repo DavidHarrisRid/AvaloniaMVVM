@@ -57,6 +57,7 @@ public partial class App : Application
 
         var provider = services.BuildServiceProvider();
 
+        // Erst beim Desktop-Lebenszyklus wird das Hauptfenster samt Root-DataContext erzeugt.
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             DisableAvaloniaDataAnnotationValidation();
@@ -72,6 +73,7 @@ public partial class App : Application
 
     private void DisableAvaloniaDataAnnotationValidation()
     {
+        // Das Entfernen verhindert doppelte Validierung durch Avalonia und das MVVM-Toolkit.
         var dataValidationPluginsToRemove =
             BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();
 

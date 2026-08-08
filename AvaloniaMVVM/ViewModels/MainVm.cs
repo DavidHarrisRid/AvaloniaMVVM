@@ -26,6 +26,7 @@ public partial class MainVm : BaseVm
         _navigation = navigation;
         _dashboardWorkspaceService = dashboardWorkspaceService;
 
+        // Aenderungen des Navigationsdienstes werden an die Auswahl-Bindings der Hauptleiste weitergegeben.
         _navigation.PropertyChanged += (_, e) =>
         {
             if (e.PropertyName == nameof(MainNavigationService.MainNavigationPosition))
